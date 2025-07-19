@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import Swal from 'sweetalert2'
 @Component({
   selector: 'app-new',
@@ -105,6 +106,8 @@ export class NewComponent {
       { label: 'Confirmación', disabled: this.currentStep < 6 }
     ];
   }
+
+  constructor(private router:Router){}
 
   selectServiceType(immediate: boolean): void {
     this.isImmediate = immediate;
@@ -235,4 +238,9 @@ export class NewComponent {
       this.scheduledData = { date: '', time: '' };
     });
   }
+
+  startBulkProcess(){
+      this.router.navigateByUrl('/users-dashboard/services/bulk')
+  }
+
 }

@@ -15,10 +15,10 @@ const routes: Routes = [
         path:'dealers',
         loadChildren: () => import('./dealers/dealers.module').then( s => s.DealersModule)
       },
-      // {
-      //   path:'users',
-      //   loadChildren: () => import('./users/users.module').then( s => s.UsersModule)
-      // },
+       {
+         path:'users',
+         loadChildren: () => import('./users/users.module').then( s => s.UsersModule)
+       },
       {
         path:'**',
         redirectTo:'services',

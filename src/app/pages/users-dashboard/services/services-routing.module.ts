@@ -10,6 +10,10 @@ const routes: Routes = [
     path:'new',
     loadComponent: () => import('./new/new.component').then( l => l.NewComponent)
   },
+  // {
+  //   path:'bulk',
+  //   loadComponent: () => import('./bulk-upload/bulk-upload.component').then( l => l.BulkUploadComponent)
+  // },
   {
     path:'**',
     redirectTo:'list',
