@@ -1,11 +1,14 @@
-<div class="mt-5 flow-root bg-white rounded-[27px]     ">
+<div class="   ">
+    <header class="mb-5">
+        <h1 class="lg:text-2xl text-lg font-bold tracking-tight text-secondary">Listado de Servicios</h1>
+    </header>
   <div class="mb-4 relative">
     <input
       type="text"
       [(ngModel)]="searchTerm"
       (input)="filterTable()"
       placeholder="Buscar envíos..."
-      class="block w-full rounded-3xl bg-secondary px-3 py-1.5 text-base text-gray-900  placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-sky-600 sm:text-sm/6"
+      class="block w-full rounded-3xl bg-secondary px-3 py-1.5 text-base text-primary  placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-sky-600 sm:text-sm/6"
      />
      <div class="absolute right-2 top-2">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-primary">
