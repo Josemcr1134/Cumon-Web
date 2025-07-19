@@ -1,0 +1,153 @@
+ <header class="bg-primary pb-24">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+      <div class="relative flex items-center justify-center py-5 lg:justify-between">
+        <!-- Logo -->
+        <div class="absolute left-0 shrink-0 lg:static ">
+          <a href="#">
+            <span class="sr-only">Your Company</span>
+            <img src="assets/images/logo.png" alt="Your Company" class="h-8 w-auto bg-white rounded-md" />
+          </a>
+        </div>
+
+        <!-- Right section on desktop -->
+        <div class="hidden lg:ml-4 lg:flex lg:items-center lg:pr-0.5">
+          <button type="button" class="relative shrink-0 rounded-full p-1 text-indigo-200 hover:bg-white/10 hover:text-white focus:ring-2 focus:ring-white focus:outline-hidden">
+            <span class="absolute -inset-1.5"></span>
+            <span class="sr-only">View notifications</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6">
+              <path d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+
+          <!-- Profile dropdown -->
+          <div class="relative ml-4 shrink-0">
+            <div>
+              <button (click)="showUserMenu = !showUserMenu" id="user-menu-button" type="button" aria-expanded="false" aria-haspopup="true" class="relative flex rounded-full bg-white text-sm ring-2 ring-white/20 focus:outline-hidden focus-visible:ring-white">
+                <span class="absolute -inset-1.5"></span>
+                <span class="sr-only">Open user menu</span>
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" class="size-8 rounded-full" />
+              </button>
+            </div>
+
+            <!--
+              Dropdown menu, show/hide based on menu state.
+
+              Entering: ""
+                From: ""
+                To: ""
+              Leaving: "transition ease-in duration-75"
+                From: "transform opacity-100 scale-100"
+                To: "transform opacity-0 scale-95"
+            -->
+            <div *ngIf="showUserMenu" role="menu" tabindex="-1" aria-labelledby="user-menu-button" aria-orientation="vertical" class="absolute right-0 z-10 mt-2 -mr-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5 focus:outline-hidden">
+              <!-- Active: "bg-gray-100 outline-hidden", Not Active: "" -->
+              <a id="user-menu-item-0" role="menuitem" href="#" tabindex="-1" class="block px-4 py-2 text-sm text-gray-700">Mi Perfil</a>
+              <!-- Active: "bg-gray-100 outline-hidden", Not Active: "" -->
+              <a id="user-menu-item-2" role="menuitem" href="#" tabindex="-1" class="block px-4 py-2 text-sm text-gray-700">Cerrar sesión</a>
+            </div>
+          </div>
+        </div>
+
+
+
+        <!-- Menu button -->
+        <div class="absolute right-0 shrink-0 lg:hidden">
+          <!-- Mobile menu button -->
+          <button (click)="showMobileMenu = !showMobileMenu" class="relative inline-flex items-center justify-center rounded-md bg-transparent p-2 text-indigo-200 hover:bg-white/10 hover:text-white focus:outline-hidden focus-visible:ring-2 focus-visible:ring-white">
+            <span class="absolute -inset-0.5"></span>
+            <span class="sr-only">Open main menu</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6">
+              <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="hidden border-t border-white/20 py-5 lg:block">
+        <div class="grid grid-cols-3 items-center gap-8">
+          <div class="col-span-2">
+            <nav class="flex space-x-4">
+              <!-- Current: "text-white", Default: "text-indigo-100" -->
+              <a [routerLink]="['/users-dashboard/services/list']" routerLinkActive="active"  aria-current="page" class="rounded-md px-3 py-2 text-sm font-medium text-indigo-100 hover:bg-white/10">Mis Servicios</a>
+              <a [routerLink]="['/users-dashboard/services/new']" routerLinkActive="active"  class="rounded-md px-3 py-2 text-sm font-medium text-indigo-100 hover:bg-white/10">Nuevo Servicio</a>
+              <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-indigo-100 hover:bg-white/10">Preguntas Frecuentes</a>
+            </nav>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile menu, show/hide based on mobile menu state. -->
+    <div  *ngIf="showMobileMenu"  role="dialog" aria-modal="true" class="lg:hidden">
+      <!--
+        Mobile menu overlay, show/hide based on mobile menu state.
+
+        Entering: "duration-150 ease-out"
+          From: "opacity-0"
+          To: "opacity-100"
+        Leaving: "duration-150 ease-in"
+          From: "opacity-100"
+          To: "opacity-0"
+      -->
+      <div aria-hidden="true" class="fixed inset-0 z-20 bg-black/25"></div>
+
+      <!--
+        Mobile menu, show/hide based on mobile menu state.
+
+        Entering: "duration-150 ease-out"
+          From: "opacity-0 scale-95"
+          To: "opacity-100 scale-100"
+        Leaving: "duration-150 ease-in"
+          From: "opacity-100 scale-100"
+          To: "opacity-0 scale-95"
+      -->
+      <div class="absolute inset-x-0 top-0 z-30 mx-auto w-full max-w-3xl origin-top transform p-2 transition">
+        <div class="divide-y divide-gray-200 rounded-lg bg-white shadow-lg ring-1 ring-black/5">
+          <div class="pt-3 pb-2">
+            <div class="flex items-center justify-between px-4">
+              <div>
+                <img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company" class="h-8 w-auto" />
+              </div>
+              <div class="-mr-2">
+                <button class="relative inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-inset">
+                  <span class="absolute -inset-0.5"></span>
+                  <span class="sr-only">Close menu</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6">
+                    <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div class="mt-3 space-y-1 px-2">
+              <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-800">Mis Servicios</a>
+              <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-800">Nuevo Servicio</a>
+              <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-800">Preguntas Frecuentes</a>
+            </div>
+          </div>
+          <div class="pt-4 pb-2">
+            <div class="flex items-center px-5">
+              <div class="shrink-0">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" class="size-10 rounded-full" />
+              </div>
+              <div class="ml-3 min-w-0 flex-1">
+                <div class="truncate text-base font-medium text-gray-800">Tom Cook</div>
+                <div class="truncate text-sm font-medium text-gray-500">tomexample.com</div>
+              </div>
+              <button type="button" class="relative ml-auto shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-hidden">
+                <span class="absolute -inset-1.5"></span>
+                <span class="sr-only">View notifications</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6">
+                  <path d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+            </div>
+            <div class="mt-3 space-y-1 px-2">
+              <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-800">Your Profile</a>
+              <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-800">Settings</a>
+              <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-800">Sign out</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
