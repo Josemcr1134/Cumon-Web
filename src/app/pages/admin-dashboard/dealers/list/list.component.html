@@ -6,7 +6,7 @@
         <h1 class="lg:text-2xl text-lg font-bold tracking-tight text-secondary mb-2">Gestión de Repartidores</h1>
         <p class="text-gray-600">Administra los repartidores médicos de la plataforma</p>
       </div>
-      <button class="btn-primary mt-4 md:mt-0 rounded-lg px-6 py-2 flex items-center"
+      <button class="btn-primary mt-4 md:mt-0 rounded-3xl px-6 py-2 flex items-center"
               (click)="openRepartidorModal()">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -51,7 +51,7 @@
     </div>
 
     <!-- Lista de repartidores -->
-    <div class="bg-white rounded-lg  overflow-hidden">
+    <div class=" overflow-hidden">
       <!-- Table Header -->
       <div class="grid grid-cols-12 py-3.5 pl-4 pr-3 text-nowrap text-center text-sm font-semibold text-[#7E8195] sm:pl-0">
         <div class="col-span-3">Nombre</div>
@@ -130,28 +130,6 @@
         </button>
       </div>
 
-      <!-- Paginación -->
-      <div class="flex justify-between items-center px-4 py-3 bg-gray-50">
-        <div class="text-sm text-gray-600">
-          Mostrando {{ filteredRepartidores.length }} de {{ repartidores.length }} repartidores
-        </div>
-        <div class="flex space-x-2">
-          <button class="px-3 py-1 border rounded-lg disabled:opacity-50"
-                  [disabled]="currentPage === 1"
-                  (click)="prevPage()">
-            Anterior
-          </button>
-          <button class="px-3 py-1 border rounded-lg bg-primary text-white"
-                  disabled>
-            {{ currentPage }}
-          </button>
-          <button class="px-3 py-1 border rounded-lg disabled:opacity-50"
-                  [disabled]="currentPage * itemsPerPage >= repartidores.length"
-                  (click)="nextPage()">
-            Siguiente
-          </button>
-        </div>
-      </div>
     </div>
   </div>
 </div>
@@ -159,7 +137,7 @@
 <!-- Modal para nuevo/editar repartidor -->
 <div *ngIf="showRepartidorModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 animate__animated animate__fadeIn">
   <div class="bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-    <div class="border-b px-6 py-4 flex justify-between items-center">
+    <div class=" px-6 py-4 flex justify-between items-center">
       <h3 class="text-xl font-bold text-secondary">
         {{ editingRepartidor ? 'Editar Repartidor' : 'Nuevo Repartidor' }}
       </h3>

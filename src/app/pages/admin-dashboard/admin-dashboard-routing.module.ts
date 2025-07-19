@@ -11,14 +11,14 @@ const routes: Routes = [
         path:'services',
         loadChildren: () => import('./services/services.module').then( s => s.ServicesModule)
       },
-      {
-        path:'dealers',
-        loadChildren: () => import('./dealers/dealers.module').then( s => s.DealersModule)
-      },
-      {
-        path:'users',
-        loadChildren: () => import('./users/users.module').then( s => s.UsersModule)
-      },
+      // {
+      //   path:'dealers',
+      //   loadChildren: () => import('./dealers/dealers.module').then( s => s.DealersModule)
+      // },
+      // {
+      //   path:'users',
+      //   loadChildren: () => import('./users/users.module').then( s => s.UsersModule)
+      // },
       {
         path:'**',
         redirectTo:'services',
