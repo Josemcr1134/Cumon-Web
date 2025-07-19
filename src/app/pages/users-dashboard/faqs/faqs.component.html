@@ -1,1 +1,221 @@
-<p>faqs works!</p>
+<div class="bg-secondary py-12">
+  <div class="container mx-auto px-4">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="lg:text-2xl text-lg font-bold tracking-tight text-secondary mb-2 text-center">Preguntas Frecuentes</h2>
+      <p class="text-gray-600 mb-8 text-center">Encuentra respuestas a las dudas más comunes sobre nuestro servicio</p>
+
+      <div class="bg-white rounded-lg shadow-md overflow-hidden animate__animated animate__fadeIn">
+        <!-- Item 1 -->
+        <div class="border-b">
+          <button class="flex justify-between items-center w-full px-6 py-4 text-left hover:bg-gray-50 transition-all"
+                  (click)="toggleFAQ(1)">
+            <h3 class="font-medium text-lg text-primary">¿Qué tipos de servicios médicos a domicilio ofrecen?</h3>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary transform transition-transform duration-200"
+                 [class.rotate-180]="activeFAQ === 1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div  class="px-6 pb-0 pt-0 overflow-hidden transition-all duration-300"
+               [class.max-h-0]="activeFAQ !== 1"
+               [class.max-h-96]="activeFAQ === 1">
+            <div class="text-gray-600">
+              <p class="mb-3">En Cumon ofrecemos transporte especializado para:</p>
+              <ul class="list-disc pl-5 space-y-1">
+                <li>Consultas médicas a domicilio</li>
+                <li>Traslado de muestras médicas</li>
+                <li>Transporte de medicamentos y equipos médicos</li>
+                <li>Servicios de enfermería a domicilio</li>
+                <li>Traslado de pacientes con movilidad reducida</li>
+                <li>Entrega de equipos de rehabilitación</li>
+              </ul>
+              <p class="mt-3">Todos nuestros repartidores están capacitados en protocolos sanitarios y manejo de material médico.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="border-b">
+          <button class="flex justify-between items-center w-full px-6 py-4 text-left hover:bg-gray-50 transition-all"
+                  (click)="toggleFAQ(2)">
+            <h3 class="font-medium text-lg text-primary">¿Cómo garantizan la seguridad de los envíos médicos?</h3>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary transform transition-transform duration-200"
+                 [class.rotate-180]="activeFAQ === 2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div class="px-6 pb-0 pt-0 overflow-hidden transition-all duration-300"
+               [class.max-h-0]="activeFAQ !== 2"
+               [class.max-h-96]="activeFAQ === 2">
+            <div class="text-gray-600">
+              <p class="mb-3">Implementamos múltiples medidas de seguridad:</p>
+              <ul class="list-disc pl-5 space-y-1">
+                <li>Contenedores especializados para materiales médicos</li>
+                <li>Cadena de frío para medicamentos termolábiles</li>
+                <li>Sistema de geolocalización en tiempo real</li>
+                <li>Repartidores certificados en manejo de materiales biológicos</li>
+                <li>Protocolos de desinfección entre cada envío</li>
+                <li>Registro fotográfico de entrega</li>
+              </ul>
+              <p class="mt-3">Además, todos nuestros vehículos están equipados con kits de emergencia médica básica.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="border-b">
+          <button class="flex justify-between items-center w-full px-6 py-4 text-left hover:bg-gray-50 transition-all"
+                  (click)="toggleFAQ(3)">
+            <h3 class="font-medium text-lg text-primary">¿Cuál es el tiempo de respuesta para servicios urgentes?</h3>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary transform transition-transform duration-200"
+                 [class.rotate-180]="activeFAQ === 3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div class="px-6 pb-0 pt-0 overflow-hidden transition-all duration-300"
+               [class.max-h-0]="activeFAQ !== 3"
+               [class.max-h-96]="activeFAQ === 3">
+            <div class="text-gray-600">
+              <p>Para servicios marcados como <span class="font-semibold">URGENTES</span> en el sistema:</p>
+              <ul class="list-disc pl-5 space-y-1 mt-2">
+                <li><span class="font-medium">Zonas urbanas:</span> 30-45 minutos promedio</li>
+                <li><span class="font-medium">Zonas suburbanas:</span> 45-60 minutos promedio</li>
+                <li><span class="font-medium">Servicios prioritarios:</span> 20 minutos (con costo adicional)</li>
+              </ul>
+              <p class="mt-3">Estos tiempos pueden variar según condiciones de tráfico y disponibilidad. En caso de retraso, nuestro sistema notificará automáticamente al solicitante.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 4 -->
+        <div class="border-b">
+          <button class="flex justify-between items-center w-full px-6 py-4 text-left hover:bg-gray-50 transition-all"
+                  (click)="toggleFAQ(4)">
+            <h3 class="font-medium text-lg text-primary">¿Puedo programar servicios médicos recurrentes?</h3>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary transform transition-transform duration-200"
+                 [class.rotate-180]="activeFAQ === 4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div class="px-6 pb-0 pt-0 overflow-hidden transition-all duration-300"
+               [class.max-h-0]="activeFAQ !== 4"
+               [class.max-h-96]="activeFAQ === 4">
+            <div class="text-gray-600">
+              <p>Sí, ofrecemos planes de servicio recurrentes con beneficios especiales:</p>
+              <div class="grid md:grid-cols-2 gap-4 mt-3">
+                <div class="border border-primary rounded-lg p-3">
+                  <h4 class="font-semibold text-primary mb-1">Plan Básico</h4>
+                  <ul class="list-disc pl-5 text-sm space-y-1">
+                    <li>Hasta 3 servicios semanales</li>
+                    <li>5% de descuento</li>
+                    <li>Mismo repartidor asignado</li>
+                    <li>Recordatorios automáticos</li>
+                  </ul>
+                </div>
+                <div class="border border-primary rounded-lg p-3">
+                  <h4 class="font-semibold text-primary mb-1">Plan Premium</h4>
+                  <ul class="list-disc pl-5 text-sm space-y-1">
+                    <li>Servicios ilimitados</li>
+                    <li>15% de descuento</li>
+                    <li>Equipo médico asignado</li>
+                    <li>Prioridad en horarios</li>
+                    <li>Soporte 24/7</li>
+                  </ul>
+                </div>
+              </div>
+              <p class="mt-3">Puedes contratar estos planes desde tu perfil de usuario o contactando a nuestro equipo médico.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 5 -->
+        <div class="border-b">
+          <button class="flex justify-between items-center w-full px-6 py-4 text-left hover:bg-gray-50 transition-all"
+                  (click)="toggleFAQ(5)">
+            <h3 class="font-medium text-lg text-primary">¿Qué documentación necesito para solicitar un servicio médico?</h3>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary transform transition-transform duration-200"
+                 [class.rotate-180]="activeFAQ === 5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div class="px-6 pb-0 pt-0 overflow-hidden transition-all duration-300"
+               [class.max-h-0]="activeFAQ !== 5"
+               [class.max-h-96]="activeFAQ === 5">
+            <div class="text-gray-600">
+              <p>La documentación requerida varía según el tipo de servicio:</p>
+
+              <h4 class="font-semibold mt-3 text-primary">Para traslado de medicamentos/muestras:</h4>
+              <ul class="list-disc pl-5 space-y-1">
+                <li>Receta médica (si aplica)</li>
+                <li>Formulario de consentimiento</li>
+                <li>Hoja de datos del paciente</li>
+              </ul>
+
+              <h4 class="font-semibold mt-3 text-primary">Para transporte de pacientes:</h4>
+              <ul class="list-disc pl-5 space-y-1">
+                <li>Orden médica con diagnóstico</li>
+                <li>Historia clínica resumida</li>
+                <li>Documento de identificación</li>
+                <li>Autorización de traslado</li>
+              </ul>
+
+              <p class="mt-3">Todos los formatos están disponibles para descarga en nuestra plataforma y pueden digitalizarse durante el proceso de solicitud.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 6 -->
+        <div>
+          <button class="flex justify-between items-center w-full px-6 py-4 text-left hover:bg-gray-50 transition-all"
+                  (click)="toggleFAQ(6)">
+            <h3 class="font-medium text-lg text-primary">¿Cómo funciona el pago de los servicios?</h3>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary transform transition-transform duration-200"
+                 [class.rotate-180]="activeFAQ === 6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div class="px-6 pb-0 pt-0 overflow-hidden transition-all duration-300"
+               [class.max-h-0]="activeFAQ !== 6"
+               [class.max-h-96]="activeFAQ === 6">
+            <div class="text-gray-600">
+              <p>Ofrecemos múltiples opciones de pago adaptadas a servicios médicos:</p>
+
+              <div class="grid md:grid-cols-2 gap-4 mt-3">
+                <div>
+                  <h4 class="font-semibold text-primary">Pago individual:</h4>
+                  <ul class="list-disc pl-5 space-y-1">
+                    <li>Tarjeta crédito/débito</li>
+                    <li>Transferencia bancaria</li>
+                    <li>Efectivo al recibir (con recargo)</li>
+                    <li>PayPal</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-primary">Pago institucional:</h4>
+                  <ul class="list-disc pl-5 space-y-1">
+                    <li>Facturación a clínicas/hospitales</li>
+                    <li>Convenios con aseguradoras</li>
+                    <li>Cuenta corporativa</li>
+                    <li>Órdenes de compra</li>
+                  </ul>
+                </div>
+              </div>
+
+              <p class="mt-3">Para servicios de emergencia, el pago puede realizarse posteriormente al servicio en un plazo máximo de 24 horas.</p>
+              <p class="mt-2 bg-yellow-50 border-l-4 border-yellow-400 p-2 text-sm">Nota: Algunos servicios especializados pueden requerir pago anticipado.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-8">
+        <p class="text-gray-600 mb-4">¿No encontraste lo que buscabas?</p>
+        <a href=" https://wa.me/573014456988?text=Quiero%20más%20información" target="_blank" class="btn-primary rounded-lg px-6 py-2 inline-flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+          </svg>
+          Contactar al soporte médico
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

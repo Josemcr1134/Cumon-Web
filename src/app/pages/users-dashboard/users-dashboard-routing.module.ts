@@ -12,6 +12,10 @@ const routes: Routes = [
         loadChildren:() => import('./services/services.module').then( s => s.ServicesModule)
       },
       {
+        path:'faqs',
+        loadComponent:() => import('./faqs/faqs.component').then( s => s.FaqsComponent)
+      },
+      {
         path:'**',
         redirectTo:'services',
         pathMatch:'full'
