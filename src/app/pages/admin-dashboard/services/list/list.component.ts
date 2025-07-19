@@ -33,7 +33,21 @@ export class ListComponent {
           "marca": "Honda",
           "modelo": "CB190"
         }
-      }
+      },
+      "evidencias": [
+        {
+          "tipo": "firma",
+          "url": "/assets/evidencias/firma-1.jpg",
+          "fechaHora": "2025-05-12T14:30:00"
+        },
+        {
+          "tipo": "foto",
+          "url": "/assets/evidencias/entrega-1.jpg",
+          "fechaHora": "2025-05-12T14:32:00",
+          "descripcion": "Paquete entregado en recepción"
+        }
+      ]
+
     },
     {
       "id": 2,
@@ -55,7 +69,8 @@ export class ListComponent {
           "marca": "Hyundai",
           "modelo": "Tucson"
         }
-      }
+      },
+
     },
     {
       "id": 3,
@@ -99,7 +114,20 @@ export class ListComponent {
           "marca": "Honda",
           "modelo": "CB190"
         }
-      }
+      },
+          "evidencias": [
+        {
+          "tipo": "firma",
+          "url": "/assets/evidencias/firma-1.jpg",
+          "fechaHora": "2025-05-12T14:30:00"
+        },
+        {
+          "tipo": "foto",
+          "url": "/assets/evidencias/entrega-1.jpg",
+          "fechaHora": "2025-05-12T14:32:00",
+          "descripcion": "Paquete entregado en recepción"
+        }
+      ]
     },
     {
       "id": 6,
@@ -154,7 +182,20 @@ export class ListComponent {
           "marca": "Honda",
           "modelo": "CB190"
         }
-      }
+      },
+      "evidencias": [
+        {
+          "tipo": "firma",
+          "url": "/assets/evidencias/firma-1.jpg",
+          "fechaHora": "2025-05-12T14:30:00"
+        },
+        {
+          "tipo": "foto",
+          "url": "/assets/evidencias/entrega-1.jpg",
+          "fechaHora": "2025-05-12T14:32:00",
+          "descripcion": "Paquete entregado en recepción"
+        }
+      ]
     },
     {
       "id": 9,
@@ -272,7 +313,20 @@ export class ListComponent {
     );
   }
 
+  evidenciasModalVisible = false;
+  evidenciasSeleccionadas: any[] = [];
 
+  mostrarEvidencias(envio: any) {
+    if (envio.estado === 'Entregada' && envio.evidencias) {
+      this.evidenciasSeleccionadas = envio.evidencias;
+      this.evidenciasModalVisible = true;
+    }
+  }
+
+  cerrarEvidencias() {
+    this.evidenciasModalVisible = false;
+    this.evidenciasSeleccionadas = [];
+  }
 
   getRepartidoresDisponibles() {
     return this.repartidores.filter(rep =>

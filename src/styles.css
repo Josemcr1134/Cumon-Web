@@ -26,6 +26,22 @@
   padding: 5px 10px;
   cursor: pointer;
 }
+.btn-secondary{
+  background-color: #123453;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.btn-tertiary{
+  background-color: #53799d;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 5px 10px;
+  cursor: pointer;
+}
 
 .btn-primary:hover{
     background-color: #046986;
