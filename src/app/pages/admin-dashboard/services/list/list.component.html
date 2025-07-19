@@ -56,7 +56,8 @@
               <td class="whitespace-nowrap border-b-8 border-white mb-2 bg-secondary text-center px-3 py-4 text-sm text-primary font-normal">
                 {{e.ciudad}}
               </td>
-              <td class="whitespace-nowrap border-b-8 rounded-r-3xl border-white mb-2 bg-secondary text-center px-3 py-4 text-sm text-primary font-normal ">
+
+              <td class="whitespace-nowrap border-b-8  border-white mb-2 bg-secondary text-center px-3 py-4 text-sm text-primary font-normal ">
                 <div *ngIf="e.estado == 'Entregada'" class="flex items-center gap-2 flex-nowrap">
                   <div class="h-2 w-2 rounded-full bg-green-600 p-2 "></div>
                   <span class="text-green-600 font-medium">Entregada</span>
@@ -64,6 +65,7 @@
                 <div *ngIf="e.estado == 'Pendiente'" class="flex items-center gap-2 flex-nowrap">
                   <div class="h-2 w-2 rounded-full bg-gray-600 p-2 "></div>
                   <span class="text-gray-600 font-medium">Pendiente</span>
+
                 </div>
                 <div *ngIf="e.estado == 'Cancelado'" class="flex items-center gap-2 flex-nowrap">
                   <div class="h-2 w-2 rounded-full bg-red-600 p-2 "></div>
@@ -72,8 +74,25 @@
                 <div *ngIf="e.estado == 'En curso'" class="flex items-center gap-2 flex-nowrap">
                   <div class="h-2 w-2 rounded-full bg-blue-600 p-2 "></div>
                   <span class="text-blue-600 font-medium">En curso</span>
+                  <span *ngIf="e.repartidor" class="text-xs ml-2">(Rep: {{e.repartidor.nombre}})</span>
                 </div>
               </td>
+              <td class="whitespace-nowrap border-b-8 rounded-r-3xl border-white mb-2 bg-secondary text-center px-3 py-4 text-sm text-primary font-normal ">
+
+                <div *ngIf="e.estado == 'Pendiente'" class="flex items-center gap-2 flex-nowrap">
+                  <button (click)="seleccionarEnvioParaAsignar(e)" class="ml-2 text-xs bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600">
+                    Asignar repartidor
+                  </button>
+                </div>
+
+                <div *ngIf="e.estado == 'En curso'" class="flex items-center gap-2 flex-nowrap">
+                  <button *ngIf="e.repartidor" (click)="mostrarDetalleRepartidor(e.repartidor)" class="ml-2 text-xs bg-gray-500 text-white px-2 py-1 rounded hover:bg-gray-600">
+                    Ver repartidor
+                  </button>
+                </div>
+
+              </td>
+
 
 
             </tr>
@@ -87,3 +106,56 @@
 </div>
 
 
+<!-- Modal para asignar repartidor -->
+<!-- <div *ngIf="envioSeleccionado" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+  <div class="bg-white p-6 rounded-lg max-w-md w-full">
+    <h3 class="text-lg font-bold mb-4 text-secondary">Asignar repartidor a envío #{{envioSeleccionado.id}}</h3>
+
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-700 mb-1">Seleccionar repartidor:</label>
+      <select [(ngModel)]="selectedRepartidor" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+        <option [ngValue]="null" disabled selected>Seleccione un repartidor</option>
+        <option *ngFor="let rep of getRepartidoresDisponibles()" [ngValue]="rep">
+          {{rep.nombre}} - {{rep.vehiculo.tipo}} ({{rep.vehiculo.placa}}) - {{getEstadoRepartidor(rep.estado)}}
+        </option>
+      </select>
+    </div>
+
+    <div *ngIf="selectedRepartidor" class="mb-4 p-3 bg-gray-50 rounded-md">
+      <h4 class="font-medium mb-2">Información del repartidor:</h4>
+      <p><span class="font-semibold text-primary">Teléfono:</span> {{selectedRepartidor.telefono}}</p>
+      <p><span class="font-semibold text-primary">Vehículo:</span> {{selectedRepartidor.vehiculo.marca}} {{selectedRepartidor.vehiculo.modelo}}</p>
+      <p><span class="font-semibold text-primary">Certificaciones:</span> {{selectedRepartidor.certificaciones.join(', ')}}</p>
+    </div>
+
+    <div class="flex justify-end space-x-3">
+      <button (click)="cancelarAsignacion()" class="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400">
+        Cancelar
+      </button>
+      <button (click)="asignarRepartidor()" [disabled]="!selectedRepartidor"
+             class="btn-primary mt-4 md:mt-0 rounded-md px-6 py-2 flex items-center">
+        Asignar
+      </button>
+    </div>
+  </div>
+</div> -->
+
+<!-- Modal para ver detalle del repartidor -->
+<!-- <div *ngIf="repartidorDetalle" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+  <div class="bg-white p-6 rounded-lg max-w-md w-full">
+    <h3 class="text-lg text-secondary font-bold mb-4">Detalle del repartidor</h3>
+
+    <div class="space-y-2">
+      <p><span class="font-semibold text-primary">Nombre:</span> {{repartidorDetalle.nombre}}</p>
+      <p><span class="font-semibold text-primary">Teléfono:</span> {{repartidorDetalle.telefono}}</p>
+      <p><span class="font-semibold text-primary">Vehículo:</span> {{repartidorDetalle.vehiculo.tipo}} - {{repartidorDetalle.vehiculo.marca}} {{repartidorDetalle.vehiculo.modelo}}</p>
+      <p><span class="font-semibold text-primary">Placa:</span> {{repartidorDetalle.vehiculo.placa}}</p>
+    </div>
+
+    <div class="mt-4 flex justify-end">
+      <button (click)="repartidorDetalle = null" class="btn-primary mt-4 md:mt-0 rounded-3xl px-6 py-2 flex items-center">
+        Cerrar
+      </button>
+    </div>
+  </div>
+</div> -->

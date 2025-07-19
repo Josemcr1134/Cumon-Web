@@ -22,7 +22,18 @@ export class ListComponent {
       "mercancia": "Extra Grande",
       "ciudad": "Barranquilla",
       "estado": "Entregada",
-      "remitente": "Pedro Martínez"
+      "remitente": "Pedro Martínez",
+      "repartidor": {
+        "id": 1,
+        "nombre": "Juan Pérez",
+        "telefono": "3001234567",
+        "vehiculo": {
+          "tipo": "Motocicleta",
+          "placa": "ABC123",
+          "marca": "Honda",
+          "modelo": "CB190"
+        }
+      }
     },
     {
       "id": 2,
@@ -33,7 +44,18 @@ export class ListComponent {
       "mercancia": "Grande",
       "ciudad": "Bogotá",
       "estado": "En curso",
-      "remitente": "Juan Pérez"
+      "remitente": "Juan Pérez",
+      "repartidor": {
+        "id": 2,
+        "nombre": "María Gómez",
+        "telefono": "3107654321",
+        "vehiculo": {
+          "tipo": "Automóvil",
+          "placa": "XYZ789",
+          "marca": "Hyundai",
+          "modelo": "Tucson"
+        }
+      }
     },
     {
       "id": 3,
@@ -66,7 +88,18 @@ export class ListComponent {
       "mercancia": "Extra Grande",
       "ciudad": "Cartagena",
       "estado": "Entregada",
-      "remitente": "Sofía Ramírez"
+      "remitente": "Sofía Ramírez",
+      "repartidor": {
+        "id": 1,
+        "nombre": "Juan Pérez",
+        "telefono": "3001234567",
+        "vehiculo": {
+          "tipo": "Motocicleta",
+          "placa": "ABC123",
+          "marca": "Honda",
+          "modelo": "CB190"
+        }
+      }
     },
     {
       "id": 6,
@@ -77,7 +110,18 @@ export class ListComponent {
       "mercancia": "Grande",
       "ciudad": "Bucaramanga",
       "estado": "En curso",
-      "remitente": "Camila Torres"
+      "remitente": "Camila Torres",
+      "repartidor": {
+        "id": 2,
+        "nombre": "María Gómez",
+        "telefono": "3107654321",
+        "vehiculo": {
+          "tipo": "Automóvil",
+          "placa": "XYZ789",
+          "marca": "Hyundai",
+          "modelo": "Tucson"
+        }
+      }
     },
     {
       "id": 7,
@@ -99,7 +143,18 @@ export class ListComponent {
       "mercancia": "Pequeño",
       "ciudad": "Santa Marta",
       "estado": "Entregada",
-      "remitente": "Oscar Jiménez"
+      "remitente": "Oscar Jiménez",
+      "repartidor": {
+        "id": 1,
+        "nombre": "Juan Pérez",
+        "telefono": "3001234567",
+        "vehiculo": {
+          "tipo": "Motocicleta",
+          "placa": "ABC123",
+          "marca": "Honda",
+          "modelo": "CB190"
+        }
+      }
     },
     {
       "id": 9,
@@ -121,12 +176,82 @@ export class ListComponent {
       "mercancia": "Grande",
       "ciudad": "Cúcuta",
       "estado": "En curso",
-      "remitente": "Hugo Rojas"
+      "remitente": "Hugo Rojas",
+      "repartidor": {
+        "id": 3,
+        "nombre": "Carlos Rojas",
+        "telefono": "3204567890",
+        "vehiculo": {
+          "tipo": "Motocicleta",
+          "placa": "DEF456",
+          "marca": "Yamaha",
+          "modelo": "FZ 2.0"
+        }
+      }
     }
   ];
 
-  searchTerm: string = '';
+   searchTerm: string = '';
   filteredEnvios: any[] = this.data;
+  repartidores = [
+    {
+      id: 1,
+      nombre: 'Juan Pérez',
+      tipoIdentificacion: 'CC',
+      identificacion: '123456789',
+      telefono: '3001234567',
+      email: 'juan@cumon.com',
+      vehiculo: {
+        tipo: 'Motocicleta',
+        placa: 'ABC123',
+        marca: 'Honda',
+        modelo: 'CB190'
+      },
+      certificaciones: ['Primeros Auxilios', 'Manejo de Muestras'],
+      estado: 'active',
+      ultimoServicio: new Date('2023-05-15'),
+      fechaIngreso: new Date('2022-01-10')
+    },
+    {
+      id: 2,
+      nombre: 'María Gómez',
+      tipoIdentificacion: 'CC',
+      identificacion: '987654321',
+      telefono: '3107654321',
+      email: 'maria@cumon.com',
+      vehiculo: {
+        tipo: 'Automóvil',
+        placa: 'XYZ789',
+        marca: 'Hyundai',
+        modelo: 'Tucson'
+      },
+      certificaciones: ['Primeros Auxilios', 'Cadena de Frío', 'BPM'],
+      estado: 'on_delivery',
+      ultimoServicio: new Date('2023-05-20'),
+      fechaIngreso: new Date('2021-11-15')
+    },
+    {
+      id: 3,
+      nombre: 'Carlos Rojas',
+      tipoIdentificacion: 'CE',
+      identificacion: 'PA123456',
+      telefono: '3204567890',
+      email: 'carlos@cumon.com',
+      vehiculo: {
+        tipo: 'Motocicleta',
+        placa: 'DEF456',
+        marca: 'Yamaha',
+        modelo: 'FZ 2.0'
+      },
+      certificaciones: ['Manejo de Muestras'],
+      estado: 'inactive',
+      ultimoServicio: new Date('2023-04-30'),
+      fechaIngreso: new Date('2023-02-01')
+    }
+  ];
+
+   selectedRepartidor: any = null;
+  envioSeleccionado: any = null;
 
   filterTable() {
     if (!this.searchTerm) {
@@ -146,4 +271,67 @@ export class ListComponent {
       envio.remitente.toLowerCase().includes(searchTermLower)
     );
   }
+
+
+
+  getRepartidoresDisponibles() {
+    return this.repartidores.filter(rep =>
+      rep.estado === 'active' || rep.estado === 'on_delivery'
+    ).sort((a, b) => {
+      // Priorizar repartidores con menos entregas recientes
+      return a.ultimoServicio.getTime() - b.ultimoServicio.getTime();
+    });
+  }
+
+  seleccionarEnvioParaAsignar(envio: any) {
+    if (envio.estado === 'Pendiente') {
+      this.envioSeleccionado = envio;
+      this.selectedRepartidor = null;
+    }
+  }
+
+  asignarRepartidor() {
+    if (this.envioSeleccionado && this.selectedRepartidor) {
+      // Actualizar el estado del envío
+      this.envioSeleccionado.estado = 'En curso';
+
+      // Guardar toda la información del repartidor, no solo el nombre
+      this.envioSeleccionado.repartidor = {
+        id: this.selectedRepartidor.id,
+        nombre: this.selectedRepartidor.nombre,
+        telefono: this.selectedRepartidor.telefono,
+        vehiculo: this.selectedRepartidor.vehiculo
+      };
+
+      // Actualizar estado del repartidor
+      this.selectedRepartidor.estado = 'on_delivery';
+      this.selectedRepartidor.ultimoServicio = new Date();
+
+      // Resetear la selección
+      this.envioSeleccionado = null;
+      this.selectedRepartidor = null;
+    }
+  }
+
+  cancelarAsignacion() {
+    this.envioSeleccionado = null;
+    this.selectedRepartidor = null;
+  }
+
+  getEstadoRepartidor(estado: string): string {
+    switch(estado) {
+      case 'active': return 'Disponible';
+      case 'on_delivery': return 'En entrega';
+      case 'inactive': return 'Inactivo';
+      default: return estado;
+    }
+  }
+
+  repartidorDetalle: any = null;
+
+  mostrarDetalleRepartidor(repartidor: any) {
+    // Buscar el repartidor completo en el array
+    this.repartidorDetalle = this.repartidores.find(r => r.id === repartidor.id) || repartidor;
+  }
+
 }
