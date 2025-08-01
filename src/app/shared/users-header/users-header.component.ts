@@ -15,4 +15,5 @@ export class UsersHeaderComponent {
   public showMobileMenu:boolean = false;
   public showUserMenu:boolean = false;
   @Input() isStaff:boolean = false;
+  @Input() isDelivery:boolean = false;
 }
