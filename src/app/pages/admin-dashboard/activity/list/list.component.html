@@ -1,0 +1,348 @@
+<div class="min-h-screen">
+  <div class="container mx-auto ">
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+      <div>
+        <h1 class="text-xl md:text-2xl font-bold tracking-tight text-secondary mb-1 md:mb-2">Registro de Actividad</h1>
+        <p class="text-sm md:text-base text-gray-600">Historial de cambios y acciones en el sistema</p>
+      </div>
+      <button class="btn-primary w-full md:w-auto mt-0 rounded-3xl px-4 md:px-6 py-2 flex items-center justify-center"
+              (click)="exportLogs()">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 md:h-5 md:w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+        </svg>
+        <span class="text-sm md:text-base">Exportar</span>
+      </button>
+    </div>
+
+    <!-- Filtros - Versión móvil (acordeón) -->
+    <div class="md:hidden mb-4">
+      <button class="w-full flex justify-between items-center bg-secondary rounded-lg p-3"
+              (click)="showMobileFilters = !showMobileFilters">
+        <span class="font-medium">Filtros</span>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform transition-transform duration-200"
+             [class.rotate-180]="showMobileFilters" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+
+      <div class="bg-gray-50 rounded-b-lg p-4" *ngIf="showMobileFilters">
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Usuario</label>
+            <select class="block w-full rounded-2xl bg-white px-3 py-2 text-sm border border-gray-300"
+                    [(ngModel)]="userFilter">
+              <option value="">Todos</option>
+              <option *ngFor="let user of users" [value]="user.id">{{ user.nombre }}</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Acción</label>
+            <select class="block w-full rounded-2xl bg-white px-3 py-2 text-sm border border-gray-300"
+                    [(ngModel)]="actionFilter">
+              <option value="">Todas</option>
+              <option value="cambio_estado">Cambio estado</option>
+              <option value="modificación">Modificación</option>
+              <option value="creación">Creación</option>
+            </select>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Desde</label>
+              <input type="date" class="block w-full rounded-2xl bg-white px-3 py-2 text-sm border border-gray-300"
+                     [(ngModel)]="dateFrom">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Hasta</label>
+              <input type="date" class="block w-full rounded-2xl bg-white px-3 py-2 text-sm border border-gray-300"
+                     [(ngModel)]="dateTo">
+            </div>
+          </div>
+
+          <button class="btn-primary w-full rounded-2xl px-4 py-2 text-sm"
+                  (click)="applyFilters(); showMobileFilters = false">
+            Aplicar Filtros
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filtros - Versión desktop -->
+    <div class="hidden md:block bg-secondary rounded-lg shadow-sm p-4 mb-6">
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-4 items-end">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Usuario</label>
+          <select class="block w-full rounded-2xl bg-white px-3 py-2 text-sm border border-gray-300"
+                  [(ngModel)]="userFilter">
+            <option value="">Todos</option>
+            <option *ngFor="let user of users" [value]="user.id">{{ user.nombre }}</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Acción</label>
+          <select class="block w-full rounded-2xl bg-white px-3 py-2 text-sm border border-gray-300"
+                  [(ngModel)]="actionFilter">
+            <option value="">Todas</option>
+            <option value="cambio_estado">Cambio estado</option>
+            <option value="modificación">Modificación</option>
+            <option value="creación">Creación</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Fecha desde</label>
+          <input type="date" class="block w-full rounded-2xl bg-white px-3 py-2 text-sm border border-gray-300"
+                 [(ngModel)]="dateFrom">
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Fecha hasta</label>
+          <input type="date" class="block w-full rounded-2xl bg-white px-3 py-2 text-sm border border-gray-300"
+                 [(ngModel)]="dateTo">
+        </div>
+
+        <div class="flex items-end">
+          <button class="btn-primary w-full rounded-2xl px-4 py-2 text-sm"
+                  (click)="applyFilters()">
+            Filtrar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lista de logs -->
+    <div class="overflow-x-auto">
+      <!-- Versión desktop -->
+      <div class="hidden md:block">
+        <!-- Table Header -->
+        <div class="grid grid-cols-12 py-3 px-4 text-sm font-semibold text-gray-500 bg-gray-50 rounded-t-lg">
+          <div class="col-span-2">Fecha/Hora</div>
+          <div class="col-span-3">Usuario</div>
+          <div class="col-span-2">Acción</div>
+          <div class="col-span-3">Entidad</div>
+          <div class="col-span-1">Estado</div>
+          <div class="col-span-1 text-right">Acciones</div>
+        </div>
+
+        <!-- Table Body -->
+        <div *ngFor="let log of paginatedLogs" class="grid grid-cols-12 py-3 px-4 border-b border-gray-100 hover:bg-gray-50 items-center">
+          <div class="col-span-2 text-sm text-gray-700">
+            {{ log.fechaHora | date:'short' }}
+          </div>
+
+          <div class="col-span-3">
+            <div class="font-medium text-sm text-gray-800">{{ log.usuario.nombre }}</div>
+            <div class="text-xs text-gray-500 capitalize">{{ log.usuario.role }}</div>
+          </div>
+
+          <div class="col-span-2">
+            <span [ngClass]="{
+              'bg-blue-100 text-blue-800': log.accion === 'creación',
+              'bg-yellow-100 text-yellow-800': log.accion === 'modificación',
+              'bg-green-100 text-green-800': log.accion === 'cambio_estado',
+              'bg-red-100 text-red-800': log.accion === 'eliminación'
+            }" class="px-2 py-1 rounded-full text-xs font-medium capitalize">
+              {{ log.accion.replace('_', ' ') }}
+            </span>
+          </div>
+
+          <div class="col-span-3">
+            <div class="text-sm text-gray-800 capitalize">{{ log.entidadAfectada }}</div>
+            <div class="text-xs text-gray-500" *ngIf="log.idEntidadAfectada">ID: {{ log.idEntidadAfectada }}</div>
+            <div class="text-xs text-blue-600" *ngIf="log.pedidoVinculado">
+              Pedido: {{ log.pedidoVinculado.codigo }}
+            </div>
+          </div>
+
+          <div class="col-span-1">
+            <div *ngIf="log.estadoAnterior" class="flex flex-col items-center">
+              <span class="text-xs text-red-500 line-through">{{ log.estadoAnterior }}</span>
+              <span class="text-xs text-green-500">{{ log.estadoNuevo }}</span>
+            </div>
+          </div>
+
+          <div class="col-span-1 flex justify-end">
+            <button class="text-blue-600 hover:text-blue-800 p-1"
+                    (click)="openLogDetails(log)">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Versión móvil -->
+      <div class="md:hidden space-y-3">
+        <div *ngFor="let log of paginatedLogs" class="bg-white rounded-lg shadow-sm p-4 border border-gray-100">
+          <div class="flex justify-between items-start mb-2">
+            <div class="font-medium text-gray-800">{{ log.usuario.nombre }}</div>
+            <span [ngClass]="{
+              'bg-blue-100 text-blue-800': log.accion === 'creación',
+              'bg-yellow-100 text-yellow-800': log.accion === 'modificación',
+              'bg-green-100 text-green-800': log.accion === 'cambio_estado',
+              'bg-red-100 text-red-800': log.accion === 'eliminación'
+            }" class="px-2 py-1 rounded-full text-xs font-medium capitalize">
+              {{ log.accion.replace('_', ' ') }}
+            </span>
+          </div>
+
+          <div class="text-xs text-gray-500 mb-2">{{ log.fechaHora | date:'medium' }}</div>
+
+          <div class="text-sm text-gray-700 mb-1">
+            <span class="font-medium">Entidad:</span>
+            <span class="capitalize">{{ log.entidadAfectada }}</span>
+            <span *ngIf="log.idEntidadAfectada" class="text-gray-500"> (ID: {{ log.idEntidadAfectada }})</span>
+          </div>
+
+          <div *ngIf="log.pedidoVinculado" class="text-sm text-blue-600 mb-1">
+            <span class="font-medium">Pedido:</span> {{ log.pedidoVinculado.codigo }}
+          </div>
+
+          <div *ngIf="log.estadoAnterior" class="text-sm mb-2">
+            <span class="font-medium">Estado:</span>
+            <span class="text-red-500 line-through ml-1">{{ log.estadoAnterior }}</span>
+            <span class="mx-1">→</span>
+            <span class="text-green-500">{{ log.estadoNuevo }}</span>
+          </div>
+
+          <div class="flex justify-between items-center pt-2 border-t border-gray-100">
+            <div class="text-xs text-gray-500 capitalize">{{ log.usuario.role }}</div>
+            <button class="text-blue-600 hover:text-blue-800 text-sm flex items-center"
+                    (click)="openLogDetails(log)">
+              Detalles
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Empty State -->
+      <div *ngIf="filteredLogs.length === 0" class="p-8 text-center bg-white rounded-lg shadow-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <p class="mt-3 text-gray-600">No se encontraron registros de actividad</p>
+        <button class="btn-primary mt-4 rounded-2xl px-6 py-2 text-sm"
+                (click)="resetFilters()">
+          Reiniciar filtros
+        </button>
+      </div>
+    </div>
+
+    <!-- Paginación -->
+    <div class="flex flex-col md:flex-row justify-between items-center mt-6 gap-4">
+      <div class="text-sm text-gray-500">
+        Mostrando {{ (currentPage - 1) * itemsPerPage + 1 }} -
+      </div>
+      <div class="flex space-x-2">
+        <button [disabled]="currentPage === 1"
+                class="px-3 py-1 rounded-2xl border border-gray-300 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                (click)="previousPage()">
+          Anterior
+        </button>
+        <button [disabled]="currentPage * itemsPerPage >= filteredLogs.length"
+                class="px-3 py-1 rounded-2xl border border-gray-300 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                (click)="nextPage()">
+          Siguiente
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Detalles -->
+  <div *ngIf="selectedLog" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-xl shadow-lg w-full max-w-md max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-center p-4 border-b sticky top-0 bg-white z-10">
+        <h3 class="text-lg font-bold text-gray-800">Detalles del registro</h3>
+        <button class="text-gray-500 hover:text-gray-700 p-1"
+                (click)="selectedLog = null">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="p-4 space-y-4">
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-medium text-gray-500">Usuario</label>
+            <p class="mt-1 text-sm text-gray-800">{{ selectedLog.usuario.nombre }}</p>
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-500">Rol</label>
+            <p class="mt-1 text-sm text-gray-800 capitalize">{{ selectedLog.usuario.role }}</p>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-medium text-gray-500">Fecha/Hora</label>
+          <p class="mt-1 text-sm text-gray-800">{{ selectedLog.fechaHora | date:'medium' }}</p>
+        </div>
+
+        <div>
+          <label class="block text-xs font-medium text-gray-500">Acción</label>
+          <p class="mt-1 text-sm text-gray-800 capitalize">{{ selectedLog.accion.replace('_', ' ') }}</p>
+        </div>
+
+        <div>
+          <label class="block text-xs font-medium text-gray-500">Entidad afectada</label>
+          <p class="mt-1 text-sm text-gray-800 capitalize">
+            {{ selectedLog.entidadAfectada }}
+            <span *ngIf="selectedLog.idEntidadAfectada" class="text-gray-500">
+              (ID: {{ selectedLog.idEntidadAfectada }})
+            </span>
+          </p>
+        </div>
+
+        <div *ngIf="selectedLog.estadoAnterior">
+          <label class="block text-xs font-medium text-gray-500">Cambio de estado</label>
+          <div class="mt-1 flex items-center space-x-2">
+            <span class="text-sm text-red-500 line-through">{{ selectedLog.estadoAnterior }}</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+            <span class="text-sm text-green-500">{{ selectedLog.estadoNuevo }}</span>
+          </div>
+        </div>
+
+        <div *ngIf="selectedLog.pedidoVinculado">
+          <label class="block text-xs font-medium text-gray-500">Pedido vinculado</label>
+          <a class="mt-1 text-sm text-blue-600 hover:underline inline-block"
+             [routerLink]="['/pedidos', selectedLog.pedidoVinculado.id]">
+            {{ selectedLog.pedidoVinculado.codigo }}
+          </a>
+        </div>
+
+        <div *ngIf="selectedLog.observaciones">
+          <label class="block text-xs font-medium text-gray-500">Observaciones</label>
+          <p class="mt-1 text-sm text-gray-800 whitespace-pre-line">{{ selectedLog.observaciones }}</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-medium text-gray-500">IP de origen</label>
+            <p class="mt-1 text-sm text-gray-800">{{ selectedLog.ipOrigen }}</p>
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-500">Dispositivo</label>
+            <p class="mt-1 text-sm text-gray-800">{{ selectedLog.dispositivo }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-4 border-t flex justify-end">
+        <button class="btn-primary rounded-2xl px-6 py-2 text-sm"
+                (click)="selectedLog = null">
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

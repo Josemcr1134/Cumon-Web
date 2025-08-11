@@ -123,7 +123,7 @@
       <select [(ngModel)]="selectedRepartidor" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
         <option [ngValue]="null" disabled selected>Seleccione un repartidor</option>
         <option *ngFor="let rep of getRepartidoresDisponibles()" [ngValue]="rep">
-          {{rep.nombre}} - {{rep.vehiculo.tipo}} ({{rep.vehiculo.placa}}) - {{getEstadoRepartidor(rep.estado)}}
+          {{rep.repartidor?.nombre   }} - {{rep.repartidor?.vehiculo?.tipo}} ({{rep.repartidor?.vehiculo?.placa}}) - {{getEstadoRepartidor(rep.estado)}}
         </option>
       </select>
     </div>

@@ -1,0 +1,8 @@
+{
+  "src": "src",
+  "tsconfig": "tsconfig.json",
+  "dest": "documentation",
+  "theme": "default",
+  "includePattern": ".+\\.ts$",
+  "excludePattern": "(node_modules|\\.spec\\.ts)$"
+}

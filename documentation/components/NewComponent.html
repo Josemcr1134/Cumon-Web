@@ -1,0 +1,1736 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>platform documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/default.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">platform documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  NewComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/pages/coordinator-dashboard/orders/new/new.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-new</code></td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                            <code>FormsModule</code>
+                            <code>ReactiveFormsModule</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./new.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./new.component.css</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#availableDrivers" >availableDrivers</a>
+                            </li>
+                            <li>
+                                <a href="#availableRoutes" >availableRoutes</a>
+                            </li>
+                            <li>
+                                <a href="#currentStep" >currentStep</a>
+                            </li>
+                            <li>
+                                <a href="#manualServiceData" >manualServiceData</a>
+                            </li>
+                            <li>
+                                <a href="#packageTypes" >packageTypes</a>
+                            </li>
+                            <li>
+                                <a href="#registrationType" >registrationType</a>
+                            </li>
+                            <li>
+                                <a href="#steps" >steps</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#goToStep" >goToStep</a>
+                            </li>
+                            <li>
+                                <a href="#nextStep" >nextStep</a>
+                            </li>
+                            <li>
+                                <a href="#onFileSelected" >onFileSelected</a>
+                            </li>
+                            <li>
+                                <a href="#prevStep" >prevStep</a>
+                            </li>
+                            <li>
+                                <a href="#resetForm" >resetForm</a>
+                            </li>
+                            <li>
+                                <a href="#selectRegistrationType" >selectRegistrationType</a>
+                            </li>
+                            <li>
+                                <a href="#startBulkProcess" >startBulkProcess</a>
+                            </li>
+                            <li>
+                                <a href="#submitManualService" >submitManualService</a>
+                            </li>
+                            <li>
+                                <a href="#validateStep1" >validateStep1</a>
+                            </li>
+                            <li>
+                                <a href="#validateStep2" >validateStep2</a>
+                            </li>
+                            <li>
+                                <a href="#validateStep3" >validateStep3</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#todayDate" >todayDate</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(router: Router)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/app/pages/coordinator-dashboard/orders/new/new.component.ts:60</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                    <code>Router</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="goToStep"></a>
+                    <span class="name">
+                        <span ><b>goToStep</b></span>
+                        <a href="#goToStep"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>goToStep(step: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="86"
+                                    class="link-to-prism">src/app/pages/coordinator-dashboard/orders/new/new.component.ts:86</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>step</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="nextStep"></a>
+                    <span class="name">
+                        <span ><b>nextStep</b></span>
+                        <a href="#nextStep"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>nextStep()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="74"
+                                    class="link-to-prism">src/app/pages/coordinator-dashboard/orders/new/new.component.ts:74</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onFileSelected"></a>
+                    <span class="name">
+                        <span ><b>onFileSelected</b></span>
+                        <a href="#onFileSelected"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onFileSelected(event: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="93"
+                                    class="link-to-prism">src/app/pages/coordinator-dashboard/orders/new/new.component.ts:93</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="prevStep"></a>
+                    <span class="name">
+                        <span ><b>prevStep</b></span>
+                        <a href="#prevStep"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>prevStep()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="80"
+                                    class="link-to-prism">src/app/pages/coordinator-dashboard/orders/new/new.component.ts:80</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="resetForm"></a>
+                    <span class="name">
+                        <span ><b>resetForm</b></span>
+                        <a href="#resetForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>resetForm()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="162"
+                                    class="link-to-prism">src/app/pages/coordinator-dashboard/orders/new/new.component.ts:162</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectRegistrationType"></a>
+                    <span class="name">
+                        <span ><b>selectRegistrationType</b></span>
+                        <a href="#selectRegistrationType"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>selectRegistrationType(type: "manual" | "bulk")</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="65"
+                                    class="link-to-prism">src/app/pages/coordinator-dashboard/orders/new/new.component.ts:65</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>type</td>
+                                            <td>
+                                                        <code>&quot;manual&quot; | &quot;bulk&quot;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="startBulkProcess"></a>
+                    <span class="name">
+                        <span ><b>startBulkProcess</b></span>
+                        <a href="#startBulkProcess"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>startBulkProcess()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="182"
+                                    class="link-to-prism">src/app/pages/coordinator-dashboard/orders/new/new.component.ts:182</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="submitManualService"></a>
+                    <span class="name">
+                        <span ><b>submitManualService</b></span>
+                        <a href="#submitManualService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>submitManualService()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="139"
+                                    class="link-to-prism">src/app/pages/coordinator-dashboard/orders/new/new.component.ts:139</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="validateStep1"></a>
+                    <span class="name">
+                        <span ><b>validateStep1</b></span>
+                        <a href="#validateStep1"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>validateStep1()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="119"
+                                    class="link-to-prism">src/app/pages/coordinator-dashboard/orders/new/new.component.ts:119</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="validateStep2"></a>
+                    <span class="name">
+                        <span ><b>validateStep2</b></span>
+                        <a href="#validateStep2"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>validateStep2()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="125"
+                                    class="link-to-prism">src/app/pages/coordinator-dashboard/orders/new/new.component.ts:125</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="validateStep3"></a>
+                    <span class="name">
+                        <span ><b>validateStep3</b></span>
+                        <a href="#validateStep3"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>validateStep3()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="131"
+                                    class="link-to-prism">src/app/pages/coordinator-dashboard/orders/new/new.component.ts:131</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="availableDrivers"></a>
+                    <span class="name">
+                        <span ><b>availableDrivers</b></span>
+                        <a href="#availableDrivers"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    { id: &#x27;1&#x27;, name: &#x27;Juan Pérez&#x27; },
+    { id: &#x27;2&#x27;, name: &#x27;María García&#x27; },
+    { id: &#x27;3&#x27;, name: &#x27;Carlos López&#x27; }
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/pages/coordinator-dashboard/orders/new/new.component.ts:48</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="availableRoutes"></a>
+                    <span class="name">
+                        <span ><b>availableRoutes</b></span>
+                        <a href="#availableRoutes"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    &#x27;Ruta Norte&#x27;, &#x27;Ruta Sur&#x27;, &#x27;Ruta Este&#x27;, &#x27;Ruta Oeste&#x27;, &#x27;Ruta Centro&#x27;
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/pages/coordinator-dashboard/orders/new/new.component.ts:44</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currentStep"></a>
+                    <span class="name">
+                        <span ><b>currentStep</b></span>
+                        <a href="#currentStep"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>1</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/pages/coordinator-dashboard/orders/new/new.component.ts:18</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="manualServiceData"></a>
+                    <span class="name">
+                        <span ><b>manualServiceData</b></span>
+                        <a href="#manualServiceData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+    document: &#x27;&#x27;,
+    order: &#x27;&#x27;,
+    date: &#x27;&#x27;,
+    type: &#x27;&#x27; as &#x27;Sobre&#x27; | &#x27;Caja&#x27; | &#x27;Bolsa&#x27; | &#x27;&#x27;,
+    quantity: null as number | null,
+    value: null as number | null,
+    observations: &#x27;&#x27;,
+    route: &#x27;&#x27;,
+    address: &#x27;&#x27;,
+    city: &#x27;&#x27;,
+    driver: &#x27;&#x27;,
+    pdf: null as File | null
+  }</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/pages/coordinator-dashboard/orders/new/new.component.ts:22</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="packageTypes"></a>
+                    <span class="name">
+                        <span ><b>packageTypes</b></span>
+                        <a href="#packageTypes"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    { value: &#x27;Sobre&#x27;, label: &#x27;Sobre&#x27; },
+    { value: &#x27;Caja&#x27;, label: &#x27;Caja&#x27; },
+    { value: &#x27;Bolsa&#x27;, label: &#x27;Bolsa&#x27; }
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/pages/coordinator-dashboard/orders/new/new.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="registrationType"></a>
+                    <span class="name">
+                        <span ><b>registrationType</b></span>
+                        <a href="#registrationType"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>&quot;manual&quot; | &quot;bulk&quot; | undefined</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/pages/coordinator-dashboard/orders/new/new.component.ts:19</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="steps"></a>
+                    <span class="name">
+                        <span ><b>steps</b></span>
+                        <a href="#steps"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    { label: &#x27;Tipo de registro&#x27;, disabled: false },
+    { label: &#x27;Información básica&#x27;, disabled: this.currentStep &lt; 2 },
+    { label: &#x27;Detalles del envío&#x27;, disabled: this.currentStep &lt; 3 },
+    { label: &#x27;Confirmación&#x27;, disabled: this.currentStep &lt; 4 }
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/app/pages/coordinator-dashboard/orders/new/new.component.ts:55</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="todayDate"></a>
+                        <span class="name"><b>todayDate</b><a href="#todayDate"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>todayDate()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="187" class="link-to-prism">src/app/pages/coordinator-dashboard/orders/new/new.component.ts:187</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { CommonModule } from &#x27;@angular/common&#x27;;
+import { Component } from &#x27;@angular/core&#x27;;
+import { FormsModule, ReactiveFormsModule } from &#x27;@angular/forms&#x27;;
+import { Router } from &#x27;@angular/router&#x27;;
+import Swal from &#x27;sweetalert2&#x27;;
+
+@Component({
+  selector: &#x27;app-new&#x27;,
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule
+  ],
+  templateUrl: &#x27;./new.component.html&#x27;,
+  styleUrl: &#x27;./new.component.css&#x27;
+})
+export class NewComponent {
+  currentStep &#x3D; 1;
+  registrationType: &#x27;manual&#x27; | &#x27;bulk&#x27; | undefined;
+
+  // Data models for manual registration
+  manualServiceData &#x3D; {
+    document: &#x27;&#x27;,
+    order: &#x27;&#x27;,
+    date: &#x27;&#x27;,
+    type: &#x27;&#x27; as &#x27;Sobre&#x27; | &#x27;Caja&#x27; | &#x27;Bolsa&#x27; | &#x27;&#x27;,
+    quantity: null as number | null,
+    value: null as number | null,
+    observations: &#x27;&#x27;,
+    route: &#x27;&#x27;,
+    address: &#x27;&#x27;,
+    city: &#x27;&#x27;,
+    driver: &#x27;&#x27;,
+    pdf: null as File | null
+  };
+
+  // Static data
+  packageTypes &#x3D; [
+    { value: &#x27;Sobre&#x27;, label: &#x27;Sobre&#x27; },
+    { value: &#x27;Caja&#x27;, label: &#x27;Caja&#x27; },
+    { value: &#x27;Bolsa&#x27;, label: &#x27;Bolsa&#x27; }
+  ];
+
+  availableRoutes &#x3D; [
+    &#x27;Ruta Norte&#x27;, &#x27;Ruta Sur&#x27;, &#x27;Ruta Este&#x27;, &#x27;Ruta Oeste&#x27;, &#x27;Ruta Centro&#x27;
+  ];
+
+  availableDrivers &#x3D; [
+    { id: &#x27;1&#x27;, name: &#x27;Juan Pérez&#x27; },
+    { id: &#x27;2&#x27;, name: &#x27;María García&#x27; },
+    { id: &#x27;3&#x27;, name: &#x27;Carlos López&#x27; }
+  ];
+
+  // Steps configuration
+  steps &#x3D; [
+    { label: &#x27;Tipo de registro&#x27;, disabled: false },
+    { label: &#x27;Información básica&#x27;, disabled: this.currentStep &lt; 2 },
+    { label: &#x27;Detalles del envío&#x27;, disabled: this.currentStep &lt; 3 },
+    { label: &#x27;Confirmación&#x27;, disabled: this.currentStep &lt; 4 }
+  ];
+
+  constructor(private router: Router) {}
+
+  // Navigation methods
+  selectRegistrationType(type: &#x27;manual&#x27; | &#x27;bulk&#x27;): void {
+    this.registrationType &#x3D; type;
+    if (type &#x3D;&#x3D;&#x3D; &#x27;bulk&#x27;) {
+      this.startBulkProcess();
+    } else {
+      this.nextStep();
+    }
+  }
+
+  nextStep(): void {
+    if (this.currentStep &lt; 4) {
+      this.currentStep++;
+    }
+  }
+
+  prevStep(): void {
+    if (this.currentStep &gt; 1) {
+      this.currentStep--;
+    }
+  }
+
+  goToStep(step: number): void {
+    if (step &gt;&#x3D; 1 &amp;&amp; step &lt;&#x3D; 4 &amp;&amp; step &lt;&#x3D; this.currentStep) {
+      this.currentStep &#x3D; step;
+    }
+  }
+
+  // File handling
+  onFileSelected(event: any): void {
+    const file: File &#x3D; event.target.files[0];
+    if (file) {
+      if (file.size &gt; 2 * 1024 * 1024) {
+        Swal.fire({
+          icon: &#x27;error&#x27;,
+          title: &#x27;Archivo demasiado grande&#x27;,
+          text: &#x27;El tamaño máximo permitido es 2MB&#x27;,
+          confirmButtonColor: &#x27;#08A2CB&#x27;
+        });
+        return;
+      }
+      if (!file.name.endsWith(&#x27;.pdf&#x27;)) {
+        Swal.fire({
+          icon: &#x27;error&#x27;,
+          title: &#x27;Formato no válido&#x27;,
+          text: &#x27;Solo se permiten archivos PDF&#x27;,
+          confirmButtonColor: &#x27;#08A2CB&#x27;
+        });
+        return;
+      }
+      this.manualServiceData.pdf &#x3D; file;
+    }
+  }
+
+  // Validation methods
+  validateStep1(): boolean {
+    return !!this.manualServiceData.document &amp;&amp;
+           !!this.manualServiceData.order &amp;&amp;
+           !!this.manualServiceData.date;
+  }
+
+  validateStep2(): boolean {
+    return !!this.manualServiceData.type &amp;&amp;
+           !!this.manualServiceData.quantity &amp;&amp;
+           this.manualServiceData.quantity &gt; 0;
+  }
+
+  validateStep3(): boolean {
+    return !!this.manualServiceData.route &amp;&amp;
+           !!this.manualServiceData.address &amp;&amp;
+           !!this.manualServiceData.city &amp;&amp;
+           !!this.manualServiceData.driver;
+  }
+
+  // Form submission
+  submitManualService(): void {
+    // Here you would typically send the data to your backend
+    Swal.fire({
+      title: &#x27;Procesando envío...&#x27;,
+      allowOutsideClick: false,
+      didOpen: () &#x3D;&gt; {
+        Swal.showLoading();
+
+        setTimeout(() &#x3D;&gt; {
+          Swal.fire({
+            icon: &#x27;success&#x27;,
+            title: &#x27;¡Envío registrado!&#x27;,
+            text: &#x27;El envío manual ha sido registrado correctamente&#x27;,
+            confirmButtonColor: &#x27;#08A2CB&#x27;
+          }).then(() &#x3D;&gt; {
+            this.resetForm();
+          });
+        }, 1500);
+      }
+    });
+  }
+
+  // Reset form
+  resetForm(): void {
+    this.currentStep &#x3D; 1;
+    this.registrationType &#x3D; undefined;
+    this.manualServiceData &#x3D; {
+      document: &#x27;&#x27;,
+      order: &#x27;&#x27;,
+      date: &#x27;&#x27;,
+      type: &#x27;&#x27;,
+      quantity: null,
+      value: null,
+      observations: &#x27;&#x27;,
+      route: &#x27;&#x27;,
+      address: &#x27;&#x27;,
+      city: &#x27;&#x27;,
+      driver: &#x27;&#x27;,
+      pdf: null
+    };
+  }
+
+  // Bulk process navigation
+  startBulkProcess(): void {
+    this.router.navigateByUrl(&#x27;/coordinator-dashboard/orders/bulk&#x27;);
+  }
+
+  // Helper to get today&#x27;s date in YYYY-MM-DD format
+  get todayDate(): string {
+    return new Date().toISOString().split(&#x27;T&#x27;)[0];
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;min-h-screen bg-secondary&quot;&gt;
+  &lt;div class&#x3D;&quot;container mx-auto px-4 py-8&quot;&gt;
+    &lt;h1 class&#x3D;&quot;lg:text-2xl text-lg font-bold tracking-tight text-secondary mb-2&quot;&gt;Servicio de Envíos&lt;/h1&gt;
+    &lt;p class&#x3D;&quot;text-gray-600 mb-8&quot;&gt;Complete los pasos para registrar su envío&lt;/p&gt;
+
+    &lt;div class&#x3D;&quot;bg-white rounded-lg shadow-md p-6 animate__animated animate__fadeIn&quot;&gt;
+      &lt;!-- Stepper --&gt;
+      &lt;div class&#x3D;&quot;mb-8&quot; *ngIf&#x3D;&quot;registrationType &#x3D;&#x3D;&#x3D; &#x27;manual&#x27;&quot;&gt;
+        &lt;div class&#x3D;&quot;flex justify-between relative&quot;&gt;
+          &lt;!-- Progress bar --&gt;
+          &lt;div class&#x3D;&quot;absolute top-1/2 left-0 right-0 h-1 bg-gray-200 -translate-y-1/2&quot;&gt;&lt;/div&gt;
+          &lt;div class&#x3D;&quot;absolute top-1/2 left-0 h-1 bg-primary -translate-y-1/2 transition-all duration-300&quot;
+               [style.width]&#x3D;&quot;(currentStep - 1) * (100 / 3) + &#x27;%&#x27;&quot;&gt;&lt;/div&gt;
+
+          &lt;!-- Steps --&gt;
+          &lt;div *ngFor&#x3D;&quot;let step of steps; let i &#x3D; index&quot;
+               class&#x3D;&quot;relative z-10 flex flex-col items-center&quot;&gt;
+            &lt;button class&#x3D;&quot;w-8 h-8 rounded-full flex items-center justify-center transition-all&quot;
+                    [ngClass]&#x3D;&quot;{
+                      &#x27;bg-primary text-white&#x27;: currentStep &gt; i + 1,
+                      &#x27;bg-white border-2 border-gray-300 text-gray-400&#x27;: currentStep &lt;&#x3D; i + 1 &amp;&amp; step.disabled,
+                      &#x27;bg-white border-2 border-primary text-primary&#x27;: currentStep &#x3D;&#x3D;&#x3D; i + 1 &amp;&amp; !step.disabled
+                    }&quot;
+                    (click)&#x3D;&quot;goToStep(i + 1)&quot;
+                    [disabled]&#x3D;&quot;step.disabled &amp;&amp; currentStep &lt;&#x3D; i + 1&quot;&gt;
+              &lt;span *ngIf&#x3D;&quot;currentStep &lt;&#x3D; i + 1&quot;&gt;{{ i + 1 }}&lt;/span&gt;
+              &lt;svg *ngIf&#x3D;&quot;currentStep &gt; i + 1&quot; xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; class&#x3D;&quot;h-5 w-5&quot; viewBox&#x3D;&quot;0 0 20 20&quot; fill&#x3D;&quot;currentColor&quot;&gt;
+                &lt;path fill-rule&#x3D;&quot;evenodd&quot; d&#x3D;&quot;M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z&quot; clip-rule&#x3D;&quot;evenodd&quot; /&gt;
+              &lt;/svg&gt;
+            &lt;/button&gt;
+            &lt;span class&#x3D;&quot;text-xs mt-2 text-center&quot;
+                  [ngClass]&#x3D;&quot;{
+                    &#x27;text-primary font-medium&#x27;: currentStep &#x3D;&#x3D;&#x3D; i + 1,
+                    &#x27;text-gray-500&#x27;: currentStep !&#x3D;&#x3D; i + 1
+                  }&quot;&gt;{{ step.label }}&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Step Content --&gt;
+      &lt;div class&#x3D;&quot;animate__animated animate__fadeIn&quot;&gt;
+        &lt;!-- Step 1: Tipo de registro --&gt;
+        &lt;div *ngIf&#x3D;&quot;currentStep &#x3D;&#x3D;&#x3D; 1&quot; class&#x3D;&quot;text-center&quot;&gt;
+          &lt;h2 class&#x3D;&quot;text-2xl font-bold text-primary mb-4&quot;&gt;¿Cómo deseas registrar el envío?&lt;/h2&gt;
+          &lt;div class&#x3D;&quot;grid grid-cols-1 md:grid-cols-2 gap-6 mt-8&quot;&gt;
+            &lt;!-- Opción Manual --&gt;
+            &lt;div class&#x3D;&quot;border rounded-lg p-6 cursor-pointer transition-all hover:shadow-md&quot;
+                [ngClass]&#x3D;&quot;{&#x27;border-primary shadow-md&#x27;: registrationType &#x3D;&#x3D;&#x3D; &#x27;manual&#x27;}&quot;
+                (click)&#x3D;&quot;selectRegistrationType(&#x27;manual&#x27;)&quot;&gt;
+              &lt;div class&#x3D;&quot;bg-primary bg-opacity-10 p-4 rounded-full inline-block mb-4&quot;&gt;
+                &lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; class&#x3D;&quot;h-10 w-10 text-primary&quot; fill&#x3D;&quot;none&quot; viewBox&#x3D;&quot;0 0 24 24&quot; stroke&#x3D;&quot;currentColor&quot;&gt;
+                  &lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; stroke-width&#x3D;&quot;2&quot; d&#x3D;&quot;M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z&quot; /&gt;
+                &lt;/svg&gt;
+              &lt;/div&gt;
+              &lt;h3 class&#x3D;&quot;text-xl font-semibold mb-2&quot;&gt;Registro Manual&lt;/h3&gt;
+              &lt;p class&#x3D;&quot;text-gray-600&quot;&gt;Ingresa manualmente los datos del envío&lt;/p&gt;
+            &lt;/div&gt;
+
+            &lt;!-- Opción Masivo --&gt;
+            &lt;div class&#x3D;&quot;border rounded-lg p-6 cursor-pointer transition-all hover:shadow-md&quot;
+                [ngClass]&#x3D;&quot;{&#x27;border-primary shadow-md&#x27;: registrationType &#x3D;&#x3D;&#x3D; &#x27;bulk&#x27;}&quot;
+                (click)&#x3D;&quot;selectRegistrationType(&#x27;bulk&#x27;)&quot;&gt;
+              &lt;div class&#x3D;&quot;bg-primary bg-opacity-10 p-4 rounded-full inline-block mb-4&quot;&gt;
+                &lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; class&#x3D;&quot;h-10 w-10 text-primary&quot; fill&#x3D;&quot;none&quot; viewBox&#x3D;&quot;0 0 24 24&quot; stroke&#x3D;&quot;currentColor&quot;&gt;
+                  &lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; stroke-width&#x3D;&quot;2&quot; d&#x3D;&quot;M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z&quot; /&gt;
+                &lt;/svg&gt;
+              &lt;/div&gt;
+              &lt;h3 class&#x3D;&quot;text-xl font-semibold mb-2&quot;&gt;Registro Masivo&lt;/h3&gt;
+              &lt;p class&#x3D;&quot;text-gray-600&quot;&gt;Carga múltiples servicios mediante archivo&lt;/p&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Step 2: Información básica (manual) --&gt;
+        &lt;div *ngIf&#x3D;&quot;currentStep &#x3D;&#x3D;&#x3D; 2 &amp;&amp; registrationType &#x3D;&#x3D;&#x3D; &#x27;manual&#x27;&quot; class&#x3D;&quot;max-w-md mx-auto&quot;&gt;
+          &lt;h2 class&#x3D;&quot;text-2xl font-bold text-primary mb-6&quot;&gt;Información básica&lt;/h2&gt;
+
+          &lt;div class&#x3D;&quot;space-y-4&quot;&gt;
+            &lt;div&gt;
+              &lt;label class&#x3D;&quot;block text-gray-700 mb-1&quot;&gt;Documento &lt;span class&#x3D;&quot;text-red-500&quot;&gt;*&lt;/span&gt;&lt;/label&gt;
+              &lt;input type&#x3D;&quot;text&quot; class&#x3D;&quot;w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent&quot;
+                    [(ngModel)]&#x3D;&quot;manualServiceData.document&quot; placeholder&#x3D;&quot;Ingrese el número de documento&quot; required&gt;
+            &lt;/div&gt;
+
+            &lt;div&gt;
+              &lt;label class&#x3D;&quot;block text-gray-700 mb-1&quot;&gt;Orden &lt;span class&#x3D;&quot;text-red-500&quot;&gt;*&lt;/span&gt;&lt;/label&gt;
+              &lt;input type&#x3D;&quot;text&quot; class&#x3D;&quot;w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent&quot;
+                    [(ngModel)]&#x3D;&quot;manualServiceData.order&quot; placeholder&#x3D;&quot;Ingrese el número de orden&quot; required&gt;
+            &lt;/div&gt;
+
+            &lt;div&gt;
+              &lt;label class&#x3D;&quot;block text-gray-700 mb-1&quot;&gt;Fecha &lt;span class&#x3D;&quot;text-red-500&quot;&gt;*&lt;/span&gt;&lt;/label&gt;
+              &lt;input type&#x3D;&quot;date&quot; class&#x3D;&quot;w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent&quot;
+                    [(ngModel)]&#x3D;&quot;manualServiceData.date&quot; [max]&#x3D;&quot;todayDate&quot; required&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;div class&#x3D;&quot;flex justify-between mt-8&quot;&gt;
+            &lt;button class&#x3D;&quot;text-primary font-medium px-4 py-2 rounded-lg hover:bg-primary hover:bg-opacity-10 transition-all&quot;
+                    (click)&#x3D;&quot;prevStep()&quot;&gt;
+              &lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; class&#x3D;&quot;h-5 w-5 inline mr-1&quot; viewBox&#x3D;&quot;0 0 20 20&quot; fill&#x3D;&quot;currentColor&quot;&gt;
+                &lt;path fill-rule&#x3D;&quot;evenodd&quot; d&#x3D;&quot;M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z&quot; clip-rule&#x3D;&quot;evenodd&quot; /&gt;
+              &lt;/svg&gt;
+              Anterior
+            &lt;/button&gt;
+            &lt;button class&#x3D;&quot;btn-primary rounded-lg px-6 py-2 disabled:opacity-50&quot;
+                    [disabled]&#x3D;&quot;!validateStep1()&quot;
+                    (click)&#x3D;&quot;nextStep()&quot;&gt;
+              Siguiente
+              &lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; class&#x3D;&quot;h-5 w-5 inline ml-1&quot; viewBox&#x3D;&quot;0 0 20 20&quot; fill&#x3D;&quot;currentColor&quot;&gt;
+                &lt;path fill-rule&#x3D;&quot;evenodd&quot; d&#x3D;&quot;M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z&quot; clip-rule&#x3D;&quot;evenodd&quot; /&gt;
+              &lt;/svg&gt;
+            &lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Step 3: Detalles del envío (manual) --&gt;
+        &lt;div *ngIf&#x3D;&quot;currentStep &#x3D;&#x3D;&#x3D; 3 &amp;&amp; registrationType &#x3D;&#x3D;&#x3D; &#x27;manual&#x27;&quot; class&#x3D;&quot;max-w-md mx-auto&quot;&gt;
+          &lt;h2 class&#x3D;&quot;text-2xl font-bold text-primary mb-6&quot;&gt;Detalles del envío&lt;/h2&gt;
+
+          &lt;div class&#x3D;&quot;space-y-4&quot;&gt;
+            &lt;div&gt;
+              &lt;label class&#x3D;&quot;block text-gray-700 mb-1&quot;&gt;Tipo &lt;span class&#x3D;&quot;text-red-500&quot;&gt;*&lt;/span&gt;&lt;/label&gt;
+              &lt;select class&#x3D;&quot;w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent&quot;
+                      [(ngModel)]&#x3D;&quot;manualServiceData.type&quot; required&gt;
+                &lt;option value&#x3D;&quot;&quot;&gt;Seleccione un tipo&lt;/option&gt;
+                &lt;option *ngFor&#x3D;&quot;let type of packageTypes&quot; [value]&#x3D;&quot;type.value&quot;&gt;{{ type.label }}&lt;/option&gt;
+              &lt;/select&gt;
+            &lt;/div&gt;
+
+            &lt;div&gt;
+              &lt;label class&#x3D;&quot;block text-gray-700 mb-1&quot;&gt;Cantidad &lt;span class&#x3D;&quot;text-red-500&quot;&gt;*&lt;/span&gt;&lt;/label&gt;
+              &lt;input type&#x3D;&quot;number&quot; class&#x3D;&quot;w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent&quot;
+                    [(ngModel)]&#x3D;&quot;manualServiceData.quantity&quot; min&#x3D;&quot;1&quot; required&gt;
+            &lt;/div&gt;
+
+            &lt;div&gt;
+              &lt;label class&#x3D;&quot;block text-gray-700 mb-1&quot;&gt;Valor (opcional)&lt;/label&gt;
+              &lt;input type&#x3D;&quot;number&quot; class&#x3D;&quot;w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent&quot;
+                    [(ngModel)]&#x3D;&quot;manualServiceData.value&quot; step&#x3D;&quot;0.01&quot; min&#x3D;&quot;0&quot;&gt;
+            &lt;/div&gt;
+
+            &lt;div&gt;
+              &lt;label class&#x3D;&quot;block text-gray-700 mb-1&quot;&gt;Observaciones (opcional)&lt;/label&gt;
+              &lt;textarea class&#x3D;&quot;w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent&quot;
+                        rows&#x3D;&quot;2&quot; [(ngModel)]&#x3D;&quot;manualServiceData.observations&quot; maxlength&#x3D;&quot;255&quot;&gt;&lt;/textarea&gt;
+              &lt;p class&#x3D;&quot;text-xs text-gray-500&quot;&gt;Máximo 255 caracteres&lt;/p&gt;
+            &lt;/div&gt;
+
+            &lt;div&gt;
+              &lt;label class&#x3D;&quot;block text-gray-700 mb-1&quot;&gt;Ruta &lt;span class&#x3D;&quot;text-red-500&quot;&gt;*&lt;/span&gt;&lt;/label&gt;
+              &lt;select class&#x3D;&quot;w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent&quot;
+                      [(ngModel)]&#x3D;&quot;manualServiceData.route&quot; required&gt;
+                &lt;option value&#x3D;&quot;&quot;&gt;Seleccione una ruta&lt;/option&gt;
+                &lt;option *ngFor&#x3D;&quot;let route of availableRoutes&quot; [value]&#x3D;&quot;route&quot;&gt;{{ route }}&lt;/option&gt;
+              &lt;/select&gt;
+            &lt;/div&gt;
+
+            &lt;div&gt;
+              &lt;label class&#x3D;&quot;block text-gray-700 mb-1&quot;&gt;Dirección &lt;span class&#x3D;&quot;text-red-500&quot;&gt;*&lt;/span&gt;&lt;/label&gt;
+              &lt;input type&#x3D;&quot;text&quot; class&#x3D;&quot;w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent&quot;
+                    [(ngModel)]&#x3D;&quot;manualServiceData.address&quot; maxlength&#x3D;&quot;150&quot; required&gt;
+              &lt;p class&#x3D;&quot;text-xs text-gray-500&quot;&gt;Máximo 150 caracteres&lt;/p&gt;
+            &lt;/div&gt;
+
+            &lt;div&gt;
+              &lt;label class&#x3D;&quot;block text-gray-700 mb-1&quot;&gt;Ciudad &lt;span class&#x3D;&quot;text-red-500&quot;&gt;*&lt;/span&gt;&lt;/label&gt;
+              &lt;input type&#x3D;&quot;text&quot; class&#x3D;&quot;w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent&quot;
+                    [(ngModel)]&#x3D;&quot;manualServiceData.city&quot; required&gt;
+            &lt;/div&gt;
+
+            &lt;div&gt;
+              &lt;label class&#x3D;&quot;block text-gray-700 mb-1&quot;&gt;Conductor &lt;span class&#x3D;&quot;text-red-500&quot;&gt;*&lt;/span&gt;&lt;/label&gt;
+              &lt;select class&#x3D;&quot;w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent&quot;
+                      [(ngModel)]&#x3D;&quot;manualServiceData.driver&quot; required&gt;
+                &lt;option value&#x3D;&quot;&quot;&gt;Seleccione un conductor&lt;/option&gt;
+                &lt;option *ngFor&#x3D;&quot;let driver of availableDrivers&quot; [value]&#x3D;&quot;driver.id&quot;&gt;{{ driver.name }}&lt;/option&gt;
+              &lt;/select&gt;
+            &lt;/div&gt;
+
+            &lt;div&gt;
+              &lt;label class&#x3D;&quot;block text-gray-700 mb-1&quot;&gt;PDF (opcional)&lt;/label&gt;
+              &lt;div class&#x3D;&quot;flex items-center&quot;&gt;
+                &lt;input type&#x3D;&quot;file&quot; class&#x3D;&quot;hidden&quot; id&#x3D;&quot;pdfUpload&quot; accept&#x3D;&quot;.pdf&quot; (change)&#x3D;&quot;onFileSelected($event)&quot;&gt;
+                &lt;label for&#x3D;&quot;pdfUpload&quot; class&#x3D;&quot;cursor-pointer bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-lg border border-gray-300 transition-all&quot;&gt;
+                  Seleccionar archivo
+                &lt;/label&gt;
+                &lt;span class&#x3D;&quot;ml-3 text-sm text-gray-600&quot; *ngIf&#x3D;&quot;manualServiceData.pdf&quot;&gt;
+                  {{ manualServiceData.pdf.name }}
+                &lt;/span&gt;
+                &lt;span class&#x3D;&quot;ml-3 text-sm text-gray-600&quot; *ngIf&#x3D;&quot;!manualServiceData.pdf&quot;&gt;
+                  Ningún archivo seleccionado
+                &lt;/span&gt;
+              &lt;/div&gt;
+              &lt;p class&#x3D;&quot;text-xs text-gray-500&quot;&gt;Formato PDF, máximo 2MB&lt;/p&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;div class&#x3D;&quot;flex justify-between mt-8&quot;&gt;
+            &lt;button class&#x3D;&quot;text-primary font-medium px-4 py-2 rounded-lg hover:bg-primary hover:bg-opacity-10 transition-all&quot;
+                    (click)&#x3D;&quot;prevStep()&quot;&gt;
+              &lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; class&#x3D;&quot;h-5 w-5 inline mr-1&quot; viewBox&#x3D;&quot;0 0 20 20&quot; fill&#x3D;&quot;currentColor&quot;&gt;
+                &lt;path fill-rule&#x3D;&quot;evenodd&quot; d&#x3D;&quot;M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z&quot; clip-rule&#x3D;&quot;evenodd&quot; /&gt;
+              &lt;/svg&gt;
+              Anterior
+            &lt;/button&gt;
+            &lt;button class&#x3D;&quot;btn-primary rounded-lg px-6 py-2 disabled:opacity-50&quot;
+                    [disabled]&#x3D;&quot;!validateStep3()&quot;
+                    (click)&#x3D;&quot;nextStep()&quot;&gt;
+              Siguiente
+              &lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; class&#x3D;&quot;h-5 w-5 inline ml-1&quot; viewBox&#x3D;&quot;0 0 20 20&quot; fill&#x3D;&quot;currentColor&quot;&gt;
+                &lt;path fill-rule&#x3D;&quot;evenodd&quot; d&#x3D;&quot;M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z&quot; clip-rule&#x3D;&quot;evenodd&quot; /&gt;
+              &lt;/svg&gt;
+            &lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Step 4: Confirmación (manual) --&gt;
+        &lt;div *ngIf&#x3D;&quot;currentStep &#x3D;&#x3D;&#x3D; 4 &amp;&amp; registrationType &#x3D;&#x3D;&#x3D; &#x27;manual&#x27;&quot; class&#x3D;&quot;max-w-md mx-auto&quot;&gt;
+          &lt;div class&#x3D;&quot;text-center animate__animated animate__fadeIn&quot;&gt;
+            &lt;h2 class&#x3D;&quot;text-2xl font-bold text-primary mb-6&quot;&gt;Confirmación de envío&lt;/h2&gt;
+
+            &lt;div class&#x3D;&quot;bg-secondary rounded-lg p-6 text-left mb-6&quot;&gt;
+              &lt;h3 class&#x3D;&quot;font-bold text-primary mb-3&quot;&gt;Resumen del envío&lt;/h3&gt;
+              &lt;div class&#x3D;&quot;space-y-3&quot;&gt;
+                &lt;div class&#x3D;&quot;flex justify-between&quot;&gt;
+                  &lt;span class&#x3D;&quot;text-gray-600&quot;&gt;Documento:&lt;/span&gt;
+                  &lt;span class&#x3D;&quot;font-medium&quot;&gt;{{ manualServiceData.document }}&lt;/span&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;flex justify-between&quot;&gt;
+                  &lt;span class&#x3D;&quot;text-gray-600&quot;&gt;Orden:&lt;/span&gt;
+                  &lt;span class&#x3D;&quot;font-medium&quot;&gt;{{ manualServiceData.order }}&lt;/span&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;flex justify-between&quot;&gt;
+                  &lt;span class&#x3D;&quot;text-gray-600&quot;&gt;Fecha:&lt;/span&gt;
+                  &lt;span class&#x3D;&quot;font-medium&quot;&gt;{{ manualServiceData.date | date }}&lt;/span&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;flex justify-between&quot;&gt;
+                  &lt;span class&#x3D;&quot;text-gray-600&quot;&gt;Tipo:&lt;/span&gt;
+                  &lt;span class&#x3D;&quot;font-medium&quot;&gt;{{ manualServiceData.type }}&lt;/span&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;flex justify-between&quot;&gt;
+                  &lt;span class&#x3D;&quot;text-gray-600&quot;&gt;Cantidad:&lt;/span&gt;
+                  &lt;span class&#x3D;&quot;font-medium&quot;&gt;{{ manualServiceData.quantity }}&lt;/span&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;flex justify-between&quot; *ngIf&#x3D;&quot;manualServiceData.value&quot;&gt;
+                  &lt;span class&#x3D;&quot;text-gray-600&quot;&gt;Valor:&lt;/span&gt;
+                  &lt;span class&#x3D;&quot;font-medium&quot;&gt;{{ manualServiceData.value | currency }}&lt;/span&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;flex justify-between&quot; *ngIf&#x3D;&quot;manualServiceData.observations&quot;&gt;
+                  &lt;span class&#x3D;&quot;text-gray-600&quot;&gt;Observaciones:&lt;/span&gt;
+                  &lt;span class&#x3D;&quot;font-medium&quot;&gt;{{ manualServiceData.observations }}&lt;/span&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;flex justify-between&quot;&gt;
+                  &lt;span class&#x3D;&quot;text-gray-600&quot;&gt;Ruta:&lt;/span&gt;
+                  &lt;span class&#x3D;&quot;font-medium&quot;&gt;{{ manualServiceData.route }}&lt;/span&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;flex justify-between&quot;&gt;
+                  &lt;span class&#x3D;&quot;text-gray-600&quot;&gt;Dirección:&lt;/span&gt;
+                  &lt;span class&#x3D;&quot;font-medium&quot;&gt;{{ manualServiceData.address }}&lt;/span&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;flex justify-between&quot;&gt;
+                  &lt;span class&#x3D;&quot;text-gray-600&quot;&gt;Ciudad:&lt;/span&gt;
+                  &lt;span class&#x3D;&quot;font-medium&quot;&gt;{{ manualServiceData.city }}&lt;/span&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;flex justify-between&quot;&gt;
+                  &lt;span class&#x3D;&quot;text-gray-600&quot;&gt;Conductor:&lt;/span&gt;
+                  &lt;span class&#x3D;&quot;font-medium&quot;&gt;
+                    Pedro Perez
+                  &lt;/span&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;flex justify-between&quot; *ngIf&#x3D;&quot;manualServiceData.pdf&quot;&gt;
+                  &lt;span class&#x3D;&quot;text-gray-600&quot;&gt;Archivo PDF:&lt;/span&gt;
+                  &lt;span class&#x3D;&quot;font-medium&quot;&gt;{{ manualServiceData.pdf?.name }}&lt;/span&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;div class&#x3D;&quot;flex justify-between&quot;&gt;
+              &lt;button class&#x3D;&quot;text-primary font-medium px-4 py-2 rounded-lg hover:bg-primary hover:bg-opacity-10 transition-all&quot;
+                      (click)&#x3D;&quot;prevStep()&quot;&gt;
+                &lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; class&#x3D;&quot;h-5 w-5 inline mr-1&quot; viewBox&#x3D;&quot;0 0 20 20&quot; fill&#x3D;&quot;currentColor&quot;&gt;
+                  &lt;path fill-rule&#x3D;&quot;evenodd&quot; d&#x3D;&quot;M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z&quot; clip-rule&#x3D;&quot;evenodd&quot; /&gt;
+                &lt;/svg&gt;
+                Anterior
+              &lt;/button&gt;
+              &lt;button class&#x3D;&quot;btn-primary rounded-lg px-6 py-2&quot;
+                      (click)&#x3D;&quot;submitManualService()&quot;&gt;
+                Confirmar envío
+                &lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; class&#x3D;&quot;h-5 w-5 inline ml-1&quot; viewBox&#x3D;&quot;0 0 20 20&quot; fill&#x3D;&quot;currentColor&quot;&gt;
+                  &lt;path fill-rule&#x3D;&quot;evenodd&quot; d&#x3D;&quot;M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z&quot; clip-rule&#x3D;&quot;evenodd&quot; /&gt;
+                &lt;/svg&gt;
+              &lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="min-h-screen bg-secondary">  <div class="container mx-auto px-4 py-8">    <h1 class="lg:text-2xl text-lg font-bold tracking-tight text-secondary mb-2">Servicio de Envíos</h1>    <p class="text-gray-600 mb-8">Complete los pasos para registrar su envío</p>    <div class="bg-white rounded-lg shadow-md p-6 animate__animated animate__fadeIn">      <!-- Stepper -->      <div class="mb-8" *ngIf="registrationType === \'manual\'">        <div class="flex justify-between relative">          <!-- Progress bar -->          <div class="absolute top-1/2 left-0 right-0 h-1 bg-gray-200 -translate-y-1/2"></div>          <div class="absolute top-1/2 left-0 h-1 bg-primary -translate-y-1/2 transition-all duration-300"               [style.width]="(currentStep - 1) * (100 / 3) + \'%\'"></div>          <!-- Steps -->          <div *ngFor="let step of steps; let i = index"               class="relative z-10 flex flex-col items-center">            <button class="w-8 h-8 rounded-full flex items-center justify-center transition-all"                    [ngClass]="{                      \'bg-primary text-white\': currentStep > i + 1,                      \'bg-white border-2 border-gray-300 text-gray-400\': currentStep <= i + 1 && step.disabled,                      \'bg-white border-2 border-primary text-primary\': currentStep === i + 1 && !step.disabled                    }"                    (click)="goToStep(i + 1)"                    [disabled]="step.disabled && currentStep <= i + 1">              <span *ngIf="currentStep <= i + 1">{{ i + 1 }}</span>              <svg *ngIf="currentStep > i + 1" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />              </svg>            </button>            <span class="text-xs mt-2 text-center"                  [ngClass]="{                    \'text-primary font-medium\': currentStep === i + 1,                    \'text-gray-500\': currentStep !== i + 1                  }">{{ step.label }}</span>          </div>        </div>      </div>      <!-- Step Content -->      <div class="animate__animated animate__fadeIn">        <!-- Step 1: Tipo de registro -->        <div *ngIf="currentStep === 1" class="text-center">          <h2 class="text-2xl font-bold text-primary mb-4">¿Cómo deseas registrar el envío?</h2>          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">            <!-- Opción Manual -->            <div class="border rounded-lg p-6 cursor-pointer transition-all hover:shadow-md"                [ngClass]="{\'border-primary shadow-md\': registrationType === \'manual\'}"                (click)="selectRegistrationType(\'manual\')">              <div class="bg-primary bg-opacity-10 p-4 rounded-full inline-block mb-4">                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />                </svg>              </div>              <h3 class="text-xl font-semibold mb-2">Registro Manual</h3>              <p class="text-gray-600">Ingresa manualmente los datos del envío</p>            </div>            <!-- Opción Masivo -->            <div class="border rounded-lg p-6 cursor-pointer transition-all hover:shadow-md"                [ngClass]="{\'border-primary shadow-md\': registrationType === \'bulk\'}"                (click)="selectRegistrationType(\'bulk\')">              <div class="bg-primary bg-opacity-10 p-4 rounded-full inline-block mb-4">                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />                </svg>              </div>              <h3 class="text-xl font-semibold mb-2">Registro Masivo</h3>              <p class="text-gray-600">Carga múltiples servicios mediante archivo</p>            </div>          </div>        </div>        <!-- Step 2: Información básica (manual) -->        <div *ngIf="currentStep === 2 && registrationType === \'manual\'" class="max-w-md mx-auto">          <h2 class="text-2xl font-bold text-primary mb-6">Información básica</h2>          <div class="space-y-4">            <div>              <label class="block text-gray-700 mb-1">Documento <span class="text-red-500">*</span></label>              <input type="text" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"                    [(ngModel)]="manualServiceData.document" placeholder="Ingrese el número de documento" required>            </div>            <div>              <label class="block text-gray-700 mb-1">Orden <span class="text-red-500">*</span></label>              <input type="text" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"                    [(ngModel)]="manualServiceData.order" placeholder="Ingrese el número de orden" required>            </div>            <div>              <label class="block text-gray-700 mb-1">Fecha <span class="text-red-500">*</span></label>              <input type="date" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"                    [(ngModel)]="manualServiceData.date" [max]="todayDate" required>            </div>          </div>          <div class="flex justify-between mt-8">            <button class="text-primary font-medium px-4 py-2 rounded-lg hover:bg-primary hover:bg-opacity-10 transition-all"                    (click)="prevStep()">              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline mr-1" viewBox="0 0 20 20" fill="currentColor">                <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />              </svg>              Anterior            </button>            <button class="btn-primary rounded-lg px-6 py-2 disabled:opacity-50"                    [disabled]="!validateStep1()"                    (click)="nextStep()">              Siguiente              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline ml-1" viewBox="0 0 20 20" fill="currentColor">                <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />              </svg>            </button>          </div>        </div>        <!-- Step 3: Detalles del envío (manual) -->        <div *ngIf="currentStep === 3 && registrationType === \'manual\'" class="max-w-md mx-auto">          <h2 class="text-2xl font-bold text-primary mb-6">Detalles del envío</h2>          <div class="space-y-4">            <div>              <label class="block text-gray-700 mb-1">Tipo <span class="text-red-500">*</span></label>              <select class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"                      [(ngModel)]="manualServiceData.type" required>                <option value="">Seleccione un tipo</option>                <option *ngFor="let type of packageTypes" [value]="type.value">{{ type.label }}</option>              </select>            </div>            <div>              <label class="block text-gray-700 mb-1">Cantidad <span class="text-red-500">*</span></label>              <input type="number" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"                    [(ngModel)]="manualServiceData.quantity" min="1" required>            </div>            <div>              <label class="block text-gray-700 mb-1">Valor (opcional)</label>              <input type="number" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"                    [(ngModel)]="manualServiceData.value" step="0.01" min="0">            </div>            <div>              <label class="block text-gray-700 mb-1">Observaciones (opcional)</label>              <textarea class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"                        rows="2" [(ngModel)]="manualServiceData.observations" maxlength="255"></textarea>              <p class="text-xs text-gray-500">Máximo 255 caracteres</p>            </div>            <div>              <label class="block text-gray-700 mb-1">Ruta <span class="text-red-500">*</span></label>              <select class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"                      [(ngModel)]="manualServiceData.route" required>                <option value="">Seleccione una ruta</option>                <option *ngFor="let route of availableRoutes" [value]="route">{{ route }}</option>              </select>            </div>            <div>              <label class="block text-gray-700 mb-1">Dirección <span class="text-red-500">*</span></label>              <input type="text" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"                    [(ngModel)]="manualServiceData.address" maxlength="150" required>              <p class="text-xs text-gray-500">Máximo 150 caracteres</p>            </div>            <div>              <label class="block text-gray-700 mb-1">Ciudad <span class="text-red-500">*</span></label>              <input type="text" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"                    [(ngModel)]="manualServiceData.city" required>            </div>            <div>              <label class="block text-gray-700 mb-1">Conductor <span class="text-red-500">*</span></label>              <select class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"                      [(ngModel)]="manualServiceData.driver" required>                <option value="">Seleccione un conductor</option>                <option *ngFor="let driver of availableDrivers" [value]="driver.id">{{ driver.name }}</option>              </select>            </div>            <div>              <label class="block text-gray-700 mb-1">PDF (opcional)</label>              <div class="flex items-center">                <input type="file" class="hidden" id="pdfUpload" accept=".pdf" (change)="onFileSelected($event)">                <label for="pdfUpload" class="cursor-pointer bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-lg border border-gray-300 transition-all">                  Seleccionar archivo                </label>                <span class="ml-3 text-sm text-gray-600" *ngIf="manualServiceData.pdf">                  {{ manualServiceData.pdf.name }}                </span>                <span class="ml-3 text-sm text-gray-600" *ngIf="!manualServiceData.pdf">                  Ningún archivo seleccionado                </span>              </div>              <p class="text-xs text-gray-500">Formato PDF, máximo 2MB</p>            </div>          </div>          <div class="flex justify-between mt-8">            <button class="text-primary font-medium px-4 py-2 rounded-lg hover:bg-primary hover:bg-opacity-10 transition-all"                    (click)="prevStep()">              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline mr-1" viewBox="0 0 20 20" fill="currentColor">                <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />              </svg>              Anterior            </button>            <button class="btn-primary rounded-lg px-6 py-2 disabled:opacity-50"                    [disabled]="!validateStep3()"                    (click)="nextStep()">              Siguiente              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline ml-1" viewBox="0 0 20 20" fill="currentColor">                <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />              </svg>            </button>          </div>        </div>        <!-- Step 4: Confirmación (manual) -->        <div *ngIf="currentStep === 4 && registrationType === \'manual\'" class="max-w-md mx-auto">          <div class="text-center animate__animated animate__fadeIn">            <h2 class="text-2xl font-bold text-primary mb-6">Confirmación de envío</h2>            <div class="bg-secondary rounded-lg p-6 text-left mb-6">              <h3 class="font-bold text-primary mb-3">Resumen del envío</h3>              <div class="space-y-3">                <div class="flex justify-between">                  <span class="text-gray-600">Documento:</span>                  <span class="font-medium">{{ manualServiceData.document }}</span>                </div>                <div class="flex justify-between">                  <span class="text-gray-600">Orden:</span>                  <span class="font-medium">{{ manualServiceData.order }}</span>                </div>                <div class="flex justify-between">                  <span class="text-gray-600">Fecha:</span>                  <span class="font-medium">{{ manualServiceData.date | date }}</span>                </div>                <div class="flex justify-between">                  <span class="text-gray-600">Tipo:</span>                  <span class="font-medium">{{ manualServiceData.type }}</span>                </div>                <div class="flex justify-between">                  <span class="text-gray-600">Cantidad:</span>                  <span class="font-medium">{{ manualServiceData.quantity }}</span>                </div>                <div class="flex justify-between" *ngIf="manualServiceData.value">                  <span class="text-gray-600">Valor:</span>                  <span class="font-medium">{{ manualServiceData.value | currency }}</span>                </div>                <div class="flex justify-between" *ngIf="manualServiceData.observations">                  <span class="text-gray-600">Observaciones:</span>                  <span class="font-medium">{{ manualServiceData.observations }}</span>                </div>                <div class="flex justify-between">                  <span class="text-gray-600">Ruta:</span>                  <span class="font-medium">{{ manualServiceData.route }}</span>                </div>                <div class="flex justify-between">                  <span class="text-gray-600">Dirección:</span>                  <span class="font-medium">{{ manualServiceData.address }}</span>                </div>                <div class="flex justify-between">                  <span class="text-gray-600">Ciudad:</span>                  <span class="font-medium">{{ manualServiceData.city }}</span>                </div>                <div class="flex justify-between">                  <span class="text-gray-600">Conductor:</span>                  <span class="font-medium">                    Pedro Perez                  </span>                </div>                <div class="flex justify-between" *ngIf="manualServiceData.pdf">                  <span class="text-gray-600">Archivo PDF:</span>                  <span class="font-medium">{{ manualServiceData.pdf?.name }}</span>                </div>              </div>            </div>            <div class="flex justify-between">              <button class="text-primary font-medium px-4 py-2 rounded-lg hover:bg-primary hover:bg-opacity-10 transition-all"                      (click)="prevStep()">                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline mr-1" viewBox="0 0 20 20" fill="currentColor">                  <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />                </svg>                Anterior              </button>              <button class="btn-primary rounded-lg px-6 py-2"                      (click)="submitManualService()">                Confirmar envío                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline ml-1" viewBox="0 0 20 20" fill="currentColor">                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />                </svg>              </button>            </div>          </div>        </div>      </div>    </div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AdminDashboardComponent', 'selector': 'app-admin-dashboard'},{'name': 'AdminLoginComponent', 'selector': 'app-admin-login'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BulkUploadComponent', 'selector': 'app-bulk-upload'},{'name': 'CoordinatorDashboardComponent', 'selector': 'app-coordinator-dashboard'},{'name': 'DeliveriesDashboardComponent', 'selector': 'app-deliveries-dashboard'},{'name': 'FaqsComponent', 'selector': 'app-faqs'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'ListComponent', 'selector': 'app-list'},{'name': 'ListComponent', 'selector': 'app-list'},{'name': 'ListComponent', 'selector': 'app-list'},{'name': 'ListComponent', 'selector': 'app-list'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'ManageComponent', 'selector': 'app-manage'},{'name': 'ManagementComponent', 'selector': 'app-management'},{'name': 'MapaViewerComponent', 'selector': 'app-mapa-viewer'},{'name': 'MyServicesComponent', 'selector': 'app-my-services'},{'name': 'NewComponent', 'selector': 'app-new'},{'name': 'NewComponent', 'selector': 'app-new'},{'name': 'PaginationComponent', 'selector': 'app-pagination'},{'name': 'PanelComponent', 'selector': 'app-panel'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'SendRecoverEmailComponent', 'selector': 'app-send-recover-email'},{'name': 'SetNewPasswordComponent', 'selector': 'app-set-new-password'},{'name': 'SupportDashboardComponent', 'selector': 'app-support-dashboard'},{'name': 'UsersDashboardComponent', 'selector': 'app-users-dashboard'},{'name': 'UsersHeaderComponent', 'selector': 'app-users-header'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'NewComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'NewComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

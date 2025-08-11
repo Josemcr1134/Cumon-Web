@@ -4,8 +4,25 @@ import { FormGroup, FormBuilder, Validators, FormsModule, ReactiveFormsModule } 
 import { RouterModule } from '@angular/router';
 import Swal from 'sweetalert2';
 
+/**
+ * Component for managing users in the platform
+ *
+ * @Component
+ * @selector app-manage
+ *
+ * @description
+ * Provides comprehensive user management functionality including:
+ * - User listing with filtering and pagination
+ * - Create, read, update, and delete (CRUD) operations
+ * - Role-based user management
+ * - Form validation and user status management
+ *
+ * @example
+ * <app-manage></app-manage>
+ */
 @Component({
   selector: 'app-manage',
+  standalone: true,
   imports: [
     CommonModule,
     RouterModule,
@@ -16,431 +33,361 @@ import Swal from 'sweetalert2';
   styleUrl: './manage.component.css'
 })
 export class ManageComponent implements OnInit {
-  // Datos de ejemplo
-  users = [
+  /**
+   * Controls visibility of mobile filters panel
+   * @type {boolean}
+   * @default false
+   */
+  public showMobileFilters: boolean = false;
+
+  /**
+   * Sample user data (in a real app, this would come from a service)
+   * @type {Array<{
+   *   id: number,
+   *   nombre: string,
+   *   correo: string,
+   *   document: string,
+   *   documentType: string,
+   *   role: string,
+   *   estado: string
+   * }>}
+   */
+  public users =  [
     {
       id: 1,
       nombre: 'Dra. María Fernanda López',
       correo: 'maria.lopez@hospitalcentral.com',
-      telefono: '3101234567',
-      empresa: 'Hospital Central',
-      cargo: 'Pediatra Jefe',
-      estado: 'active',
-      ultimoAcceso: new Date('2023-06-15'),
-      permisos: {
-        gestionEnvios: true,
-        gestionRepartidores: false,
-        gestionUsuarios: false,
-        verReportes: true,
-        configurarSistema: false
-      }
+      document: '12345678',
+      documentType: 'CC',
+      role: 'Coordinador',
+      estado: 'activo'
     },
     {
       id: 2,
       nombre: 'Dr. Carlos Andrés Mendoza',
       correo: 'carlos.mendoza@clinicasanitas.com',
-      telefono: '3152345678',
-      empresa: 'Clínica Sanitas',
-      cargo: 'Cardiólogo',
-      estado: 'active',
-      ultimoAcceso: new Date('2023-06-14'),
-      permisos: {
-        gestionEnvios: true,
-        gestionRepartidores: false,
-        gestionUsuarios: false,
-        verReportes: false,
-        configurarSistema: false
-      }
+      document: '23456789',
+      documentType: 'CC',
+      role: 'Coordinador',
+      estado: 'activo'
     },
     {
       id: 3,
       nombre: 'Lic. Ana María Rodríguez',
       correo: 'ana.rodriguez@farmaciascruzverde.com',
-      telefono: '3203456789',
-      empresa: 'Farmacias Cruz Verde',
-      cargo: 'Coordinadora Logística',
-      estado: 'active',
-      ultimoAcceso: new Date('2023-06-14'),
-      permisos: {
-        gestionEnvios: true,
-        gestionRepartidores: true,
-        gestionUsuarios: false,
-        verReportes: true,
-        configurarSistema: false
-      }
+      document: '34567890',
+      documentType: 'CC',
+      role: 'Administrador',
+      estado: 'activo'
     },
     {
       id: 4,
       nombre: 'Enf. Javier Eduardo Gómez',
       correo: 'javier.gomez@hospitalrosario.com',
-      telefono: '3004567890',
-      empresa: 'Hospital del Rosario',
-      cargo: 'Enfermero Jefe',
-      estado: 'active',
-      ultimoAcceso: new Date('2023-06-13'),
-      permisos: {
-        gestionEnvios: true,
-        gestionRepartidores: false,
-        gestionUsuarios: false,
-        verReportes: false,
-        configurarSistema: false
-      }
+      document: '45678901',
+      documentType: 'CC',
+      role: 'Coordinador',
+      estado: 'activo'
     },
     {
       id: 5,
       nombre: 'Dr. Luis Fernando Ramírez',
       correo: 'luis.ramirez@laboratoriodinamico.com',
-      telefono: '3015678901',
-      empresa: 'Laboratorio Dinámico',
-      cargo: 'Patólogo',
-      estado: 'active',
-      ultimoAcceso: new Date('2023-06-12'),
-      permisos: {
-        gestionEnvios: true,
-        gestionRepartidores: false,
-        gestionUsuarios: false,
-        verReportes: true,
-        configurarSistema: false
-      }
+      document: '56789012',
+      documentType: 'CC',
+      role: 'Coordinador',
+      estado: 'activo'
     },
     {
       id: 6,
       nombre: 'Dra. Sandra Milena Pérez',
       correo: 'sandra.perez@clinicasanfernando.com',
-      telefono: '3026789012',
-      empresa: 'Clínica San Fernando',
-      cargo: 'Ginecóloga',
-      estado: 'inactive',
-      ultimoAcceso: new Date('2023-05-20'),
-      permisos: {
-        gestionEnvios: false,
-        gestionRepartidores: false,
-        gestionUsuarios: false,
-        verReportes: false,
-        configurarSistema: false
-      }
+      document: '67890123',
+      documentType: 'CC',
+      role: 'Soporte',
+      estado: 'inactivo'
     },
     {
       id: 7,
       nombre: 'Dr. Juan Pablo Castro',
       correo: 'juan.castro@hospitaluniversitario.com',
-      telefono: '3037890123',
-      empresa: 'Hospital Universitario',
-      cargo: 'Traumatólogo',
-      estado: 'active',
-      ultimoAcceso: new Date('2023-06-10'),
-      permisos: {
-        gestionEnvios: true,
-        gestionRepartidores: false,
-        gestionUsuarios: false,
-        verReportes: false,
-        configurarSistema: false
-      }
+      document: '78901234',
+      documentType: 'CC',
+      role: 'Coordinador',
+      estado: 'activo'
     },
     {
       id: 8,
       nombre: 'Lic. Daniela Alejandra Torres',
       correo: 'daniela.torres@farmaciasaves.com',
-      telefono: '3048901234',
-      empresa: 'Farmacias Aves',
-      cargo: 'Gerente de Distribución',
-      estado: 'active',
-      ultimoAcceso: new Date('2023-06-09'),
-      permisos: {
-        gestionEnvios: true,
-        gestionRepartidores: true,
-        gestionUsuarios: false,
-        verReportes: true,
-        configurarSistema: false
-      }
+      document: '89012345',
+      documentType: 'CC',
+      role: 'Administrador',
+      estado: 'activo'
     },
     {
       id: 9,
       nombre: 'Dr. Oscar Eduardo Ruiz',
       correo: 'oscar.ruiz@centromedicoandino.com',
-      telefono: '3059012345',
-      empresa: 'Centro Médico Andino',
-      cargo: 'Neurólogo',
-      estado: 'pending',
-      ultimoAcceso: new Date('2023-06-01'),
-      permisos: {
-        gestionEnvios: false,
-        gestionRepartidores: false,
-        gestionUsuarios: false,
-        verReportes: false,
-        configurarSistema: false
-      }
+      document: '90123456',
+      documentType: 'CC',
+      role: 'mensajero',
+      estado: 'inactivo'
     },
     {
       id: 10,
       nombre: 'Enf. Laura Valentina Sánchez',
       correo: 'laura.sanchez@clinicasanvicente.com',
-      telefono: '3060123456',
-      empresa: 'Clínica San Vicente',
-      cargo: 'Enfermera Especializada',
-      estado: 'active',
-      ultimoAcceso: new Date('2023-06-08'),
-      permisos: {
-        gestionEnvios: true,
-        gestionRepartidores: false,
-        gestionUsuarios: false,
-        verReportes: false,
-        configurarSistema: false
-      }
+      document: '01234567',
+      documentType: 'CC',
+      role: 'Coordinador',
+      estado: 'activo'
     },
     {
       id: 11,
       nombre: 'Dr. Ricardo Antonio Morales',
       correo: 'ricardo.morales@laboratoriolabco.com',
-      telefono: '3071234567',
-      empresa: 'Laboratorio Labco',
-      cargo: 'Microbiólogo',
-      estado: 'active',
-      ultimoAcceso: new Date('2023-06-07'),
-      permisos: {
-        gestionEnvios: true,
-        gestionRepartidores: false,
-        gestionUsuarios: false,
-        verReportes: true,
-        configurarSistema: false
-      }
+      document: '11223344',
+      documentType: 'CC',
+      role: 'Coordinador',
+      estado: 'activo'
     },
     {
       id: 12,
       nombre: 'Dra. Patricia Jiménez',
       correo: 'patricia.jimenez@hospitalitaliano.com',
-      telefono: '3082345678',
-      empresa: 'Hospital Italiano',
-      cargo: 'Oncóloga',
-      estado: 'active',
-      ultimoAcceso: new Date('2023-06-06'),
-      permisos: {
-        gestionEnvios: true,
-        gestionRepartidores: false,
-        gestionUsuarios: false,
-        verReportes: true,
-        configurarSistema: false
-      }
+      document: '22334455',
+      documentType: 'CC',
+      role: 'Coordinador',
+      estado: 'activo'
     },
     {
       id: 13,
       nombre: 'Lic. Andrés Felipe Gutiérrez',
       correo: 'andres.gutierrez@farmaciascafam.com',
-      telefono: '3093456789',
-      empresa: 'Farmacias Cafam',
-      cargo: 'Director de Operaciones',
-      estado: 'active',
-      ultimoAcceso: new Date('2023-06-05'),
-      permisos: {
-        gestionEnvios: true,
-        gestionRepartidores: true,
-        gestionUsuarios: true,
-        verReportes: true,
-        configurarSistema: true
-      }
+      document: '33445566',
+      documentType: 'CC',
+      role: 'Administrador',
+      estado: 'activo'
     },
     {
       id: 14,
       nombre: 'Enf. Miguel Ángel Rojas',
       correo: 'miguel.rojas@clinicalasamericas.com',
-      telefono: '3104567890',
-      empresa: 'Clínica Las Américas',
-      cargo: 'Enfermero Coordinador',
-      estado: 'active',
-      ultimoAcceso: new Date('2023-06-04'),
-      permisos: {
-        gestionEnvios: true,
-        gestionRepartidores: false,
-        gestionUsuarios: false,
-        verReportes: false,
-        configurarSistema: false
-      }
+      document: '44556677',
+      documentType: 'CC',
+      role: 'Coordinador',
+      estado: 'activo'
     },
     {
       id: 15,
       nombre: 'Dr. Fernando José Herrera',
       correo: 'fernando.herrera@centrodiagnostico.com',
-      telefono: '3115678901',
-      empresa: 'Centro de Diagnóstico',
-      cargo: 'Radiólogo',
-      estado: 'inactive',
-      ultimoAcceso: new Date('2023-04-15'),
-      permisos: {
-        gestionEnvios: false,
-        gestionRepartidores: false,
-        gestionUsuarios: false,
-        verReportes: false,
-        configurarSistema: false
-      }
+      document: '55667788',
+      documentType: 'CC',
+      role: 'Mensajero',
+      estado: 'inactivo'
     },
     {
       id: 16,
       nombre: 'Dra. Carolina Estrada',
       correo: 'carolina.estrada@hospitalmilitar.com',
-      telefono: '3126789012',
-      empresa: 'Hospital Militar',
-      cargo: 'Cirujana',
-      estado: 'active',
-      ultimoAcceso: new Date('2023-06-03'),
-      permisos: {
-        gestionEnvios: true,
-        gestionRepartidores: false,
-        gestionUsuarios: false,
-        verReportes: true,
-        configurarSistema: false
-      }
+      document: '66778899',
+      documentType: 'CC',
+      role: 'Coordinador',
+      estado: 'activo'
     },
     {
       id: 17,
       nombre: 'Lic. David Leonardo Vargas',
       correo: 'david.vargas@farmaciassaludtotal.com',
-      telefono: '3137890123',
-      empresa: 'Farmacias Salud Total',
-      cargo: 'Especialista en Cadena de Frío',
-      estado: 'active',
-      ultimoAcceso: new Date('2023-06-02'),
-      permisos: {
-        gestionEnvios: true,
-        gestionRepartidores: true,
-        gestionUsuarios: false,
-        verReportes: true,
-        configurarSistema: false
-      }
+      document: '77889900',
+      documentType: 'CC',
+      role: 'Administrador',
+      estado: 'activo'
     },
     {
       id: 18,
       nombre: 'Dr. Eduardo Antonio Silva',
       correo: 'eduardo.silva@clinicasanluis.com',
-      telefono: '3148901234',
-      empresa: 'Clínica San Luis',
-      cargo: 'Internista',
-      estado: 'pending',
-      ultimoAcceso: new Date('2023-05-25'),
-      permisos: {
-        gestionEnvios: false,
-        gestionRepartidores: false,
-        gestionUsuarios: false,
-        verReportes: false,
-        configurarSistema: false
-      }
+      document: '88990011',
+      documentType: 'CC',
+      role: 'mensajero',
+      estado: 'inactivo'
     },
     {
       id: 19,
       nombre: 'Enf. Diana Marcela Ríos',
       correo: 'diana.rios@hospitalinfantil.com',
-      telefono: '3159012345',
-      empresa: 'Hospital Infantil',
-      cargo: 'Enfermera Pediátrica',
-      estado: 'active',
-      ultimoAcceso: new Date('2023-06-01'),
-      permisos: {
-        gestionEnvios: true,
-        gestionRepartidores: false,
-        gestionUsuarios: false,
-        verReportes: false,
-        configurarSistema: false
-      }
+      document: '99001122',
+      documentType: 'CC',
+      role: 'Coordinador',
+      estado: 'activo'
     },
     {
       id: 20,
       nombre: 'Dr. Alfonso Rodríguez',
       correo: 'alfonso.rodriguez@laboratorioslabgen.com',
-      telefono: '3160123456',
-      empresa: 'Laboratorios Labgen',
-      cargo: 'Genetista',
-      estado: 'active',
-      ultimoAcceso: new Date('2023-05-30'),
-      permisos: {
-        gestionEnvios: true,
-        gestionRepartidores: false,
-        gestionUsuarios: false,
-        verReportes: true,
-        configurarSistema: false
-      }
+      document: '00112233',
+      documentType: 'CC',
+      role: 'Coordinador',
+      estado: 'activo'
     }
   ];
 
+  /**
+   * Filtered list of users based on current filters
+   * @type {Array}
+   */
   filteredUsers = [...this.users];
-  companies = ['Hospital Central', 'Farmacias La Salud', 'Clínica del Norte', 'Laboratorios Diagnóstico', 'Otro'];
+
+  /**
+   * Available user roles for filtering/creation
+   * @type {string[]}
+   */
   roles = [
-    'Médico Coordinador',
-    'Enfermero Jefe',
-    'Gerente de Operaciones',
-    'Coordinador Logístico',
-    'Auxiliar Administrativo',
-    'Técnico de Laboratorio',
-    'Otro'
+    'Mensajero',
+    'Administrador',
+    'Soporte',
+    'Coordinador',
   ];
 
-  // Filtros
+  // Filter properties
+  /**
+   * Current search query for filtering users
+   * @type {string}
+   * @default ''
+   */
   searchQuery = '';
-  companyFilter = '';
+
+  /**
+   * Current role filter value
+   * @type {string}
+   * @default ''
+   */
   roleFilter = '';
+
+  /**
+   * Current pagination page
+   * @type {number}
+   * @default 1
+   */
   currentPage = 1;
+
+  /**
+   * Number of items to show per page
+   * @type {number}
+   * @default 10
+   */
   itemsPerPage = 10;
 
-  // Modal
+  // Modal properties
+  /**
+   * Controls visibility of user modal
+   * @type {boolean}
+   * @default false
+   */
   showUserModal = false;
+
+  /**
+   * Currently edited user (null when creating new)
+   * @type {any}
+   * @default null
+   */
   editingUser: any = null;
+
+  /**
+   * Toggles password visibility in forms
+   * @type {boolean}
+   * @default false
+   */
   showPassword = false;
+
+  /**
+   * Form group for user creation/editing
+   * @type {FormGroup}
+   */
   userForm: FormGroup;
 
+  /**
+   * Component constructor
+   * @param fb FormBuilder service for reactive forms
+   */
   constructor(private fb: FormBuilder) {
     this.userForm = this.fb.group({
       nombre: ['', Validators.required],
       correo: ['', [Validators.required, Validators.email]],
-      telefono: ['', Validators.required],
-      empresa: ['', Validators.required],
-      cargo: ['', Validators.required],
+      document: ['', Validators.required],
+      documentType: ['', Validators.required],
+      role: ['', Validators.required],
       estado: ['active', Validators.required],
       password: ['', [Validators.minLength(8)]],
-
     });
   }
 
+  /**
+   * Angular lifecycle hook - initializes component
+   * @method
+   */
   ngOnInit(): void {
     this.applyFilters();
   }
 
-  // Filtros y paginación
+  /**
+   * Applies current filters to user list
+   * @method
+   */
   applyFilters(): void {
-    this.filteredUsers = this.users.filter(user => {
+    this.filteredUsers = this.users.filter((user:any) => {
       const matchesSearch =
         user.nombre.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
         user.correo.toLowerCase().includes(this.searchQuery.toLowerCase());
-      const matchesCompany = this.companyFilter ? user.empresa === this.companyFilter : true;
-      const matchesRole = this.roleFilter ? user.cargo === this.roleFilter : true;
-      return matchesSearch && matchesCompany && matchesRole;
+      const matchesRole = this.roleFilter ? user.role === this.roleFilter : true;
+      return matchesSearch && matchesRole;
     });
   }
 
+  /**
+   * Resets all filters to default values
+   * @method
+   */
   resetFilters(): void {
     this.searchQuery = '';
-    this.companyFilter = '';
     this.roleFilter = '';
     this.applyFilters();
   }
 
+  /**
+   * Navigates to next page of results
+   * @method
+   */
   nextPage(): void {
     if (this.currentPage * this.itemsPerPage < this.users.length) {
       this.currentPage++;
     }
   }
 
+  /**
+   * Navigates to previous page of results
+   * @method
+   */
   prevPage(): void {
     if (this.currentPage > 1) {
       this.currentPage--;
     }
   }
 
-  // Modal y formulario
+  /**
+   * Opens user modal for creation/editing
+   * @method
+   * @param user Optional user object to edit (null for new user)
+   */
   openUserModal(user?: any): void {
     this.editingUser = user || null;
 
     if (user) {
       this.userForm.patchValue({
         ...user,
-
       });
       this.userForm.get('password')?.clearValidators();
     } else {
@@ -453,12 +400,20 @@ export class ManageComponent implements OnInit {
     this.showUserModal = true;
   }
 
+  /**
+   * Closes user modal and resets form
+   * @method
+   */
   closeUserModal(): void {
     this.showUserModal = false;
     this.userForm.reset();
     this.showPassword = false;
   }
 
+  /**
+   * Saves user data (create or update)
+   * @method
+   */
   saveUser(): void {
     if (this.userForm.invalid) return;
 
@@ -467,19 +422,10 @@ export class ManageComponent implements OnInit {
       id: this.editingUser ? this.editingUser.id : this.generateId(),
       nombre: formValue.nombre,
       correo: formValue.correo,
-      telefono: formValue.telefono,
-      empresa: formValue.empresa,
-      departamento: formValue.departamento,
-      cargo: formValue.cargo,
+      role: formValue.role,
       estado: formValue.estado,
-      ultimoAcceso: this.editingUser ? this.editingUser.ultimoAcceso : null,
-      permisos: {
-        gestionEnvios: formValue.puedeGestionarEnvios,
-        gestionRepartidores: formValue.puedeGestionarRepartidores,
-        gestionUsuarios: formValue.puedeGestionarUsuarios,
-        verReportes: formValue.puedeVerReportes,
-        configurarSistema: formValue.puedeConfigurarSistema
-      }
+      document: formValue.document,
+      documentType: formValue.documentType
     };
 
     if (this.editingUser) {
@@ -505,7 +451,13 @@ export class ManageComponent implements OnInit {
     this.closeUserModal();
   }
 
-  // Helpers
+
+  /**
+   * Converts status code to display text
+   * @method
+   * @param status Status code
+   * @returns {string} Display text for status
+   */
   getStatusText(status: string): string {
     switch(status) {
       case 'active': return 'Activo';
@@ -515,11 +467,20 @@ export class ManageComponent implements OnInit {
     }
   }
 
+  /**
+   * Generates new ID for user creation
+   * @method
+   * @returns {number} New unique ID
+   */
   generateId(): number {
-    return Math.max(...this.users.map(u => u.id)) + 1;
+    return Math.max(...this.users.map((u:any) => u.id)) + 1;
   }
 
-  // Eliminar usuario
+  /**
+   * Shows confirmation dialog before deleting user
+   * @method
+   * @param user User to be deleted
+   */
   confirmDelete(user: any): void {
     Swal.fire({
       title: '¿Eliminar usuario?',
@@ -532,7 +493,7 @@ export class ManageComponent implements OnInit {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.users = this.users.filter(u => u.id !== user.id);
+        this.users = this.users.filter((u:any) => u.id !== user.id);
         this.applyFilters();
         Swal.fire(
           'Eliminado',
@@ -543,9 +504,12 @@ export class ManageComponent implements OnInit {
     });
   }
 
-  // Editar usuario
+  /**
+   * Opens edit modal for specified user
+   * @method
+   * @param user User to edit
+   */
   editUser(user: any): void {
     this.openUserModal(user);
   }
-
 }

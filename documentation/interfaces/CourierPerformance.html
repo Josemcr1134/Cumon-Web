@@ -1,0 +1,906 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>platform documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/default.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">platform documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  CourierPerformance</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/pages/admin-dashboard/metrics/panel/panel.component.ts</code>
+        </p>
+
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Interface representing courier performance metrics</p>
+
+            </p>
+
+
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                        <a href="#assigned" 
+>
+                                            assigned
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#avgTime" 
+>
+                                            avgTime
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#delivered" 
+>
+                                            delivered
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#id" 
+>
+                                            id
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#name" 
+>
+                                            name
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#satisfaction" 
+>
+                                            satisfaction
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#successRate" 
+>
+                                            successRate
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#zone" 
+>
+                                            zone
+                                        </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section data-compodoc="block-properties">
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="assigned"></a>
+                                        <span class="name "><b>assigned</b>
+                                            <a href="#assigned">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>assigned:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="avgTime"></a>
+                                        <span class="name "><b>avgTime</b>
+                                            <a href="#avgTime">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>avgTime:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="delivered"></a>
+                                        <span class="name "><b>delivered</b>
+                                            <a href="#delivered">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>delivered:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="id"></a>
+                                        <span class="name "><b>id</b>
+                                            <a href="#id">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>id:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="name"></a>
+                                        <span class="name "><b>name</b>
+                                            <a href="#name">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>name:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="satisfaction"></a>
+                                        <span class="name "><b>satisfaction</b>
+                                            <a href="#satisfaction">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>satisfaction:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="successRate"></a>
+                                        <span class="name "><b>successRate</b>
+                                            <a href="#successRate">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>successRate:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="zone"></a>
+                                        <span class="name "><b>zone</b>
+                                            <a href="#zone">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>zone:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { CommonModule } from &#x27;@angular/common&#x27;;
+import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from &#x27;@angular/forms&#x27;;
+
+/**
+ * Interface representing a metric card for dashboard display
+ */
+interface MetricCard {
+  title: string;
+  value: string | number;
+  icon: string;
+  change: number;
+  changeType: &#x27;positive&#x27; | &#x27;negative&#x27;;
+  description?: string;
+}
+
+/**
+ * Interface representing courier performance metrics
+ */
+interface CourierPerformance {
+  id: number;
+  name: string;
+  zone: string;
+  assigned: number;
+  delivered: number;
+  successRate: number;
+  avgTime: number;
+  satisfaction: number;
+}
+
+/**
+ * Interface representing zone-specific metrics
+ */
+interface ZoneMetric {
+  name: string;
+  totalOrders: number;
+  delivered: number;
+  pending: number;
+  id: any;
+}
+
+/**
+ * Dashboard panel component for displaying delivery metrics and analytics
+ *
+ * @Component
+ * @selector app-panel
+ *
+ * @description
+ * Provides a comprehensive dashboard view with:
+ * - Key performance metrics cards
+ * - Courier performance statistics
+ * - Zone-based delivery analytics
+ * - Advanced filtering capabilities
+ * - Data export functionality
+ *
+ * @example
+ * &lt;app-panel&gt;&lt;/app-panel&gt;
+ */
+@Component({
+  selector: &#x27;app-panel&#x27;,
+  templateUrl: &#x27;./panel.component.html&#x27;,
+  styleUrls: [&#x27;./panel.component.css&#x27;],
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule
+  ]
+})
+export class PanelComponent implements OnInit {
+  // Filter properties
+  /**
+   * Current time range filter (&#x27;week&#x27;, &#x27;month&#x27;, etc.)
+   * @type {string}
+   * @default &#x27;week&#x27;
+   */
+  timeRange: string &#x3D; &#x27;week&#x27;;
+
+  /**
+   * Currently selected zone filter
+   * @type {string}
+   * @default &#x27;&#x27;
+   */
+  zoneFilter: string &#x3D; &#x27;&#x27;;
+
+  /**
+   * Currently selected courier filter
+   * @type {string}
+   * @default &#x27;&#x27;
+   */
+  courierFilter: string &#x3D; &#x27;&#x27;;
+
+  /**
+   * Start date for custom date range filter
+   * @type {string}
+   */
+  startDate: string &#x3D; &#x27;&#x27;;
+
+  /**
+   * End date for custom date range filter
+   * @type {string}
+   */
+  endDate: string &#x3D; &#x27;&#x27;;
+
+  /**
+   * Controls visibility of advanced filters panel
+   * @type {boolean}
+   * @default false
+   */
+  showAdvancedFilters: boolean &#x3D; false;
+
+  /**
+   * Time period for chart data display
+   * @type {string}
+   * @default &#x27;week&#x27;
+   */
+  chartPeriod: string &#x3D; &#x27;week&#x27;;
+
+  // Sample data
+  /**
+   * Key delivery performance metrics
+   * @type {{
+   *   totalOrders: number,
+   *   ordersChange: number,
+   *   deliveredOrders: number,
+   *   deliveryRate: number,
+   *   avgDeliveryTime: number,
+   *   timeChange: number,
+   *   satisfactionRate: number,
+   *   satisfactionChange: number
+   * }}
+   */
+  metrics &#x3D; {
+    totalOrders: 342,
+    ordersChange: 12.5,
+    deliveredOrders: 298,
+    deliveryRate: 87.1,
+    avgDeliveryTime: 45,
+    timeChange: -3,
+    satisfactionRate: 92,
+    satisfactionChange: 2.5
+  };
+
+  /**
+   * Courier performance data
+   * @type {CourierPerformance[]}
+   */
+  courierPerformance: CourierPerformance[] &#x3D; [
+    { id: 1, name: &#x27;Juan Pérez&#x27;, zone: &#x27;Norte&#x27;, assigned: 45, delivered: 42, successRate: 93, avgTime: 38, satisfaction: 4.8 },
+    { id: 2, name: &#x27;María Gómez&#x27;, zone: &#x27;Sur&#x27;, assigned: 38, delivered: 35, successRate: 92, avgTime: 42, satisfaction: 4.7 },
+    { id: 3, name: &#x27;Carlos Rojas&#x27;, zone: &#x27;Centro&#x27;, assigned: 52, delivered: 48, successRate: 92, avgTime: 47, satisfaction: 4.6 },
+    { id: 4, name: &#x27;Ana López&#x27;, zone: &#x27;Este&#x27;, assigned: 41, delivered: 37, successRate: 90, avgTime: 51, satisfaction: 4.5 },
+    { id: 5, name: &#x27;Pedro Sánchez&#x27;, zone: &#x27;Oeste&#x27;, assigned: 36, delivered: 32, successRate: 89, avgTime: 49, satisfaction: 4.4 }
+  ];
+
+  /**
+   * Zone-specific metrics
+   * @type {ZoneMetric[]}
+   */
+   zones: ZoneMetric[] &#x3D; [
+    {id:1,  name: &#x27;Norte&#x27;, totalOrders: 120, delivered: 110, pending: 10 },
+    {id:2,  name: &#x27;Sur&#x27;, totalOrders: 95, delivered: 85, pending: 10 },
+    {id:3,  name: &#x27;Centro&#x27;, totalOrders: 150, delivered: 140, pending: 10 },
+    {id:4,  name: &#x27;Este&#x27;, totalOrders: 80, delivered: 70, pending: 10 },
+    {id:5,  name: &#x27;Oeste&#x27;, totalOrders: 65, delivered: 55, pending: 10 }
+  ];
+
+
+  /**
+   * List of available couriers for filtering
+   * @type {Array&lt;{id: number, name: string}&gt;}
+   */
+  couriers &#x3D; [
+    { id: 1, name: &#x27;Juan Pérez&#x27; },
+    { id: 2, name: &#x27;María Gómez&#x27; },
+    { id: 3, name: &#x27;Carlos Rojas&#x27; },
+    { id: 4, name: &#x27;Ana López&#x27; },
+    { id: 5, name: &#x27;Pedro Sánchez&#x27; }
+  ];
+
+  /**
+   * List of available zones for filtering
+   * @type {Array&lt;{id: string, name: string}&gt;}
+   */
+  zonesList &#x3D; [
+    { id: &#x27;norte&#x27;, name: &#x27;Norte&#x27; },
+    { id: &#x27;sur&#x27;, name: &#x27;Sur&#x27; },
+    { id: &#x27;centro&#x27;, name: &#x27;Centro&#x27; },
+    { id: &#x27;este&#x27;, name: &#x27;Este&#x27; },
+    { id: &#x27;oeste&#x27;, name: &#x27;Oeste&#x27; }
+  ];
+
+
+  // Pagination
+  /**
+   * Current page number for courier performance table
+   * @type {number}
+   * @default 1
+   */
+  currentPage: number &#x3D; 1;
+
+  /**
+   * Number of items to display per page
+   * @type {number}
+   * @default 5
+   */
+  itemsPerPage: number &#x3D; 5;
+
+  /**
+   * Total number of couriers (for pagination)
+   * @type {number}
+   */
+  totalCouriers: number &#x3D; this.courierPerformance.length;
+
+  /**
+   * Form group for filter controls
+   * @type {FormGroup}
+   */
+  filtersForm: FormGroup;
+
+  /**
+   * Component constructor
+   * @param fb FormBuilder service for reactive forms
+   */
+  constructor(private fb: FormBuilder) {
+    this.filtersForm &#x3D; this.fb.group({
+      timeRange: [&#x27;week&#x27;],
+      zone: [&#x27;&#x27;],
+      courier: [&#x27;&#x27;],
+      startDate: [&#x27;&#x27;],
+      endDate: [&#x27;&#x27;]
+    });
+  }
+
+  /**
+   * Angular lifecycle hook - initializes component
+   * @method
+   */
+  ngOnInit(): void {
+    this.setDefaultDates();
+  }
+
+  /**
+   * Sets default date range (last 7 days)
+   * @method
+   */
+  setDefaultDates(): void {
+    const today &#x3D; new Date();
+    const lastWeek &#x3D; new Date();
+    lastWeek.setDate(today.getDate() - 7);
+
+    this.startDate &#x3D; lastWeek.toISOString().split(&#x27;T&#x27;)[0];
+    this.endDate &#x3D; today.toISOString().split(&#x27;T&#x27;)[0];
+  }
+
+  /**
+   * Applies current filters to dashboard data
+   * @method
+   * @description
+   * In a real implementation, this would call an API service
+   * Currently simulates filtered data with random values
+   */
+  applyFilters(): void {
+    console.log(&#x27;Aplicando filtros:&#x27;, {
+      timeRange: this.timeRange,
+      zoneFilter: this.zoneFilter,
+      courierFilter: this.courierFilter,
+      startDate: this.startDate,
+      endDate: this.endDate
+    });
+
+    // Simulate API call with timeout
+    setTimeout(() &#x3D;&gt; {
+      this.metrics &#x3D; {
+        totalOrders: Math.floor(Math.random() * 400) + 100,
+        ordersChange: (Math.random() * 20 - 5),
+        deliveredOrders: Math.floor(Math.random() * 350) + 80,
+        deliveryRate: Math.floor(Math.random() * 20) + 80,
+        avgDeliveryTime: Math.floor(Math.random() * 30) + 30,
+        timeChange: (Math.random() * 10 - 5),
+        satisfactionRate: Math.floor(Math.random() * 15) + 85,
+        satisfactionChange: (Math.random() * 5 - 1)
+      };
+    }, 500);
+  }
+
+  /**
+   * Handles export functionality for dashboard metrics
+   * @method
+   * @description
+   * In a real implementation, this would generate an Excel/PDF report
+   */
+  exportMetrics(): void {
+    console.log(&#x27;Exportando métricas...&#x27;);
+    alert(&#x27;Métricas exportadas correctamente&#x27;);
+  }
+
+  /**
+   * Navigates to previous page of courier performance data
+   * @method
+   */
+  previousPage(): void {
+    if (this.currentPage &gt; 1) {
+      this.currentPage--;
+    }
+  }
+
+  /**
+   * Navigates to next page of courier performance data
+   * @method
+   */
+  nextPage(): void {
+    if (this.currentPage * this.itemsPerPage &lt; this.totalCouriers) {
+      this.currentPage++;
+    }
+  }
+
+  /**
+   * Generates metric cards for dashboard display
+   * @method
+   * @returns {MetricCard[]} Array of metric card objects
+   */
+  getMetricCards(): MetricCard[] {
+    return [
+      {
+        title: &#x27;Total pedidos&#x27;,
+        value: this.metrics.totalOrders,
+        icon: &#x27;chart-bar&#x27;,
+        change: this.metrics.ordersChange,
+        changeType: this.metrics.ordersChange &gt;&#x3D; 0 ? &#x27;positive&#x27; : &#x27;negative&#x27;,
+        description: &#x27;vs periodo anterior&#x27;
+      },
+      // ... (other cards remain the same)
+    ];
+  }
+
+  /**
+   * Gets paginated courier performance data
+   * @method
+   * @returns {CourierPerformance[]} Current page of courier data
+   */
+  getPaginatedCouriers(): CourierPerformance[] {
+    const startIndex &#x3D; (this.currentPage - 1) * this.itemsPerPage;
+    return this.courierPerformance.slice(startIndex, startIndex + this.itemsPerPage);
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'CourierPerformance.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -1,0 +1,1992 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>platform documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/default.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">platform documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  MyServicesComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/pages/deliveries-dashboard/my-services/my-services.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-my-services</code></td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>FormsModule</code>
+                            <code>ReactiveFormsModule</code>
+                            <code>CommonModule</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./my-services.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./my-services.component.css</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#deliveryComments" >deliveryComments</a>
+                            </li>
+                            <li>
+                                <a href="#deliveryProofImage" >deliveryProofImage</a>
+                            </li>
+                            <li>
+                                <a href="#domiciliario" >domiciliario</a>
+                            </li>
+                            <li>
+                                <a href="#filterStatus" >filterStatus</a>
+                            </li>
+                            <li>
+                                <a href="#servicioActivo" >servicioActivo</a>
+                            </li>
+                            <li>
+                                <a href="#servicios" >servicios</a>
+                            </li>
+                            <li>
+                                <a href="#serviciosFiltrados" >serviciosFiltrados</a>
+                            </li>
+                            <li>
+                                <a href="#showDeliveryProofModal" >showDeliveryProofModal</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#applyFilter" >applyFilter</a>
+                            </li>
+                            <li>
+                                <a href="#closeDeliveryProofModal" >closeDeliveryProofModal</a>
+                            </li>
+                            <li>
+                                <a href="#confirmDelivery" >confirmDelivery</a>
+                            </li>
+                            <li>
+                                <a href="#getEstadoText" >getEstadoText</a>
+                            </li>
+                            <li>
+                                <a href="#getProgress" >getProgress</a>
+                            </li>
+                            <li>
+                                <a href="#handleImageUpload" >handleImageUpload</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#openChat" >openChat</a>
+                            </li>
+                            <li>
+                                <a href="#openDeliveryProofModal" >openDeliveryProofModal</a>
+                            </li>
+                            <li>
+                                <a href="#removeImage" >removeImage</a>
+                            </li>
+                            <li>
+                                <a href="#setActiveService" >setActiveService</a>
+                            </li>
+                            <li>
+                                <a href="#startService" >startService</a>
+                            </li>
+                            <li>
+                                <a href="#updateStatus" >updateStatus</a>
+                            </li>
+                            <li>
+                                <a href="#viewServiceDetails" >viewServiceDetails</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="applyFilter"></a>
+                    <span class="name">
+                        <span ><b>applyFilter</b></span>
+                        <a href="#applyFilter"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>applyFilter()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="210"
+                                    class="link-to-prism">src/app/pages/deliveries-dashboard/my-services/my-services.component.ts:210</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeDeliveryProofModal"></a>
+                    <span class="name">
+                        <span ><b>closeDeliveryProofModal</b></span>
+                        <a href="#closeDeliveryProofModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>closeDeliveryProofModal()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="157"
+                                    class="link-to-prism">src/app/pages/deliveries-dashboard/my-services/my-services.component.ts:157</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="confirmDelivery"></a>
+                    <span class="name">
+                        <span ><b>confirmDelivery</b></span>
+                        <a href="#confirmDelivery"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>confirmDelivery()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="176"
+                                    class="link-to-prism">src/app/pages/deliveries-dashboard/my-services/my-services.component.ts:176</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getEstadoText"></a>
+                    <span class="name">
+                        <span ><b>getEstadoText</b></span>
+                        <a href="#getEstadoText"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getEstadoText(estado: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="221"
+                                    class="link-to-prism">src/app/pages/deliveries-dashboard/my-services/my-services.component.ts:221</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>estado</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getProgress"></a>
+                    <span class="name">
+                        <span ><b>getProgress</b></span>
+                        <a href="#getProgress"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getProgress()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="143"
+                                    class="link-to-prism">src/app/pages/deliveries-dashboard/my-services/my-services.component.ts:143</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handleImageUpload"></a>
+                    <span class="name">
+                        <span ><b>handleImageUpload</b></span>
+                        <a href="#handleImageUpload"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>handleImageUpload(event: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="161"
+                                    class="link-to-prism">src/app/pages/deliveries-dashboard/my-services/my-services.component.ts:161</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="121"
+                                    class="link-to-prism">src/app/pages/deliveries-dashboard/my-services/my-services.component.ts:121</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openChat"></a>
+                    <span class="name">
+                        <span ><b>openChat</b></span>
+                        <a href="#openChat"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openChat(clienteId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="270"
+                                    class="link-to-prism">src/app/pages/deliveries-dashboard/my-services/my-services.component.ts:270</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>clienteId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openDeliveryProofModal"></a>
+                    <span class="name">
+                        <span ><b>openDeliveryProofModal</b></span>
+                        <a href="#openDeliveryProofModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openDeliveryProofModal()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="151"
+                                    class="link-to-prism">src/app/pages/deliveries-dashboard/my-services/my-services.component.ts:151</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="removeImage"></a>
+                    <span class="name">
+                        <span ><b>removeImage</b></span>
+                        <a href="#removeImage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>removeImage()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="172"
+                                    class="link-to-prism">src/app/pages/deliveries-dashboard/my-services/my-services.component.ts:172</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setActiveService"></a>
+                    <span class="name">
+                        <span ><b>setActiveService</b></span>
+                        <a href="#setActiveService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setActiveService(servicio: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="246"
+                                    class="link-to-prism">src/app/pages/deliveries-dashboard/my-services/my-services.component.ts:246</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>servicio</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="startService"></a>
+                    <span class="name">
+                        <span ><b>startService</b></span>
+                        <a href="#startService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>startService(servicio: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="232"
+                                    class="link-to-prism">src/app/pages/deliveries-dashboard/my-services/my-services.component.ts:232</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>servicio</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateStatus"></a>
+                    <span class="name">
+                        <span ><b>updateStatus</b></span>
+                        <a href="#updateStatus"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updateStatus()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="128"
+                                    class="link-to-prism">src/app/pages/deliveries-dashboard/my-services/my-services.component.ts:128</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="viewServiceDetails"></a>
+                    <span class="name">
+                        <span ><b>viewServiceDetails</b></span>
+                        <a href="#viewServiceDetails"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>viewServiceDetails(servicio: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="251"
+                                    class="link-to-prism">src/app/pages/deliveries-dashboard/my-services/my-services.component.ts:251</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>servicio</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deliveryComments"></a>
+                    <span class="name">
+                        <span ><b>deliveryComments</b></span>
+                        <a href="#deliveryComments"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="119" class="link-to-prism">src/app/pages/deliveries-dashboard/my-services/my-services.component.ts:119</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deliveryProofImage"></a>
+                    <span class="name">
+                        <span ><b>deliveryProofImage</b></span>
+                        <a href="#deliveryProofImage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="118" class="link-to-prism">src/app/pages/deliveries-dashboard/my-services/my-services.component.ts:118</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="domiciliario"></a>
+                    <span class="name">
+                        <span ><b>domiciliario</b></span>
+                        <a href="#domiciliario"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+    id: &#x27;DOM-12345&#x27;,
+    nombre: &#x27;Juan Pérez&#x27;,
+    activo: true,
+    vehiculo: &#x27;Moto - Honda CB190&#x27;,
+    telefono: &#x27;3001234567&#x27;
+  }</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/pages/deliveries-dashboard/my-services/my-services.component.ts:18</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filterStatus"></a>
+                    <span class="name">
+                        <span ><b>filterStatus</b></span>
+                        <a href="#filterStatus"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;all&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="114" class="link-to-prism">src/app/pages/deliveries-dashboard/my-services/my-services.component.ts:114</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="servicioActivo"></a>
+                    <span class="name">
+                        <span ><b>servicioActivo</b></span>
+                        <a href="#servicioActivo"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+    id: &#x27;SERV-1006&#x27;,
+    tipo: &#x27;Paquete médico urgente&#x27;,
+    direccionRecogida: &#x27;Laboratorio Dinámico, Av. Principal #23-45&#x27;,
+    direccionEntrega: &#x27;Clínica San Vicente, Urgencias&#x27;,
+    contactoEntrega: &#x27;Enfermera Jefe - Ext. 502&#x27;,
+    instruccionesRecogida: &#x27;Prioridad alta - Entregar en recepción de urgencias&#x27;,
+    fecha: new Date(),
+    horaRecogida: new Date(),
+    horaEntrega: null,
+    estado: &#x27;en_proceso&#x27;,
+    clienteId: &#x27;CLI-321&#x27;,
+    progreso: 50
+  }</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="98" class="link-to-prism">src/app/pages/deliveries-dashboard/my-services/my-services.component.ts:98</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="servicios"></a>
+                    <span class="name">
+                        <span ><b>servicios</b></span>
+                        <a href="#servicios"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    {
+      id: &#x27;SERV-1001&#x27;,
+      tipo: &#x27;Medicamentos urgentes&#x27;,
+      direccionRecogida: &#x27;Farmacias La Salud, Calle 123&#x27;,
+      direccionEntrega: &#x27;Carrera 45 #12-30, Apt 401&#x27;,
+      contactoEntrega: &#x27;María González - 3109876543&#x27;,
+      instruccionesRecogida: &#x27;Pedir factura con receta médica&#x27;,
+      fecha: new Date(&#x27;2023-06-15&#x27;),
+      horaRecogida: new Date(&#x27;2023-06-15T10:00:00&#x27;),
+      horaEntrega: new Date(&#x27;2023-06-15T10:45:00&#x27;),
+      estado: &#x27;entregado&#x27;,
+      clienteId: &#x27;CLI-789&#x27;,
+      imagenEvidencia: &#x27;assets/ejemplo-entrega.jpg&#x27;
+    },
+    {
+      id: &#x27;SERV-1002&#x27;,
+      tipo: &#x27;Muestras médicas&#x27;,
+      direccionRecogida: &#x27;Clínica Sanitas, Consultorio 502&#x27;,
+      direccionEntrega: &#x27;Laboratorio Labco, Torre B Piso 3&#x27;,
+      contactoEntrega: &#x27;Recepción laboratorio&#x27;,
+      instruccionesRecogida: &#x27;Manejar con cuidado - Cadena de frío&#x27;,
+      fecha: new Date(&#x27;2023-06-14&#x27;),
+      horaRecogida: new Date(&#x27;2023-06-14T14:30:00&#x27;),
+      horaEntrega: new Date(&#x27;2023-06-14T15:15:00&#x27;),
+      estado: &#x27;entregado&#x27;,
+      clienteId: &#x27;CLI-456&#x27;,
+      imagenEvidencia: &#x27;assets/ejemplo-entrega2.jpg&#x27;
+    },
+    {
+      id: &#x27;SERV-1003&#x27;,
+      tipo: &#x27;Equipo médico&#x27;,
+      direccionRecogida: &#x27;Hospital Central, Almacén&#x27;,
+      direccionEntrega: &#x27;Clínica del Norte, Sala de cirugía&#x27;,
+      contactoEntrega: &#x27;Dr. Carlos Mendoza - 3151234567&#x27;,
+      instruccionesRecogida: &#x27;Equipo frágil - Transportar verticalmente&#x27;,
+      fecha: new Date(&#x27;2023-06-14&#x27;),
+      horaRecogida: new Date(&#x27;2023-06-14T09:00:00&#x27;),
+      horaEntrega: new Date(&#x27;2023-06-14T09:50:00&#x27;),
+      estado: &#x27;entregado&#x27;,
+      clienteId: &#x27;CLI-123&#x27;,
+      imagenEvidencia: &#x27;assets/ejemplo-entrega3.jpg&#x27;
+    },
+    {
+      id: &#x27;SERV-1004&#x27;,
+      tipo: &#x27;Documentos médicos&#x27;,
+      direccionRecogida: &#x27;Consultorio Dr. Rodríguez, Oficina 304&#x27;,
+      direccionEntrega: &#x27;Aseguradora VidaPlena, Piso 5&#x27;,
+      contactoEntrega: &#x27;Departamento de Reclamaciones&#x27;,
+      fecha: new Date(&#x27;2023-06-13&#x27;),
+      horaRecogida: new Date(&#x27;2023-06-13T16:00:00&#x27;),
+      horaEntrega: new Date(&#x27;2023-06-13T16:40:00&#x27;),
+      estado: &#x27;entregado&#x27;,
+      clienteId: &#x27;CLI-987&#x27;,
+      imagenEvidencia: &#x27;assets/ejemplo-entrega4.jpg&#x27;
+    },
+    {
+      id: &#x27;SERV-1005&#x27;,
+      tipo: &#x27;Medicamentos controlados&#x27;,
+      direccionRecogida: &#x27;Farmacias Cruz Verde, Sede Norte&#x27;,
+      direccionEntrega: &#x27;Calle 78 #45-12, Casa blanca portón negro&#x27;,
+      contactoEntrega: &#x27;Sra. Laura Martínez - 3206543210&#x27;,
+      instruccionesRecogida: &#x27;Verificar identificación al entregar&#x27;,
+      fecha: new Date(&#x27;2023-06-12&#x27;),
+      horaRecogida: new Date(&#x27;2023-06-12T11:30:00&#x27;),
+      horaEntrega: new Date(&#x27;2023-06-12T12:15:00&#x27;),
+      estado: &#x27;entregado&#x27;,
+      clienteId: &#x27;CLI-654&#x27;,
+      imagenEvidencia: &#x27;assets/ejemplo-entrega5.jpg&#x27;
+    }
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/pages/deliveries-dashboard/my-services/my-services.component.ts:26</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="serviciosFiltrados"></a>
+                    <span class="name">
+                        <span ><b>serviciosFiltrados</b></span>
+                        <a href="#serviciosFiltrados"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[...this.servicios]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="113" class="link-to-prism">src/app/pages/deliveries-dashboard/my-services/my-services.component.ts:113</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showDeliveryProofModal"></a>
+                    <span class="name">
+                        <span ><b>showDeliveryProofModal</b></span>
+                        <a href="#showDeliveryProofModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="117" class="link-to-prism">src/app/pages/deliveries-dashboard/my-services/my-services.component.ts:117</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { CommonModule } from &#x27;@angular/common&#x27;;
+import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { FormsModule, ReactiveFormsModule } from &#x27;@angular/forms&#x27;;
+import Swal from &#x27;sweetalert2&#x27;;
+
+@Component({
+  selector: &#x27;app-my-services&#x27;,
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    CommonModule,
+
+  ],
+  templateUrl: &#x27;./my-services.component.html&#x27;,
+  styleUrl: &#x27;./my-services.component.css&#x27;
+})
+export class MyServicesComponent implements OnInit {
+  domiciliario &#x3D; {
+    id: &#x27;DOM-12345&#x27;,
+    nombre: &#x27;Juan Pérez&#x27;,
+    activo: true,
+    vehiculo: &#x27;Moto - Honda CB190&#x27;,
+    telefono: &#x27;3001234567&#x27;
+  };
+
+  servicios &#x3D; [
+    {
+      id: &#x27;SERV-1001&#x27;,
+      tipo: &#x27;Medicamentos urgentes&#x27;,
+      direccionRecogida: &#x27;Farmacias La Salud, Calle 123&#x27;,
+      direccionEntrega: &#x27;Carrera 45 #12-30, Apt 401&#x27;,
+      contactoEntrega: &#x27;María González - 3109876543&#x27;,
+      instruccionesRecogida: &#x27;Pedir factura con receta médica&#x27;,
+      fecha: new Date(&#x27;2023-06-15&#x27;),
+      horaRecogida: new Date(&#x27;2023-06-15T10:00:00&#x27;),
+      horaEntrega: new Date(&#x27;2023-06-15T10:45:00&#x27;),
+      estado: &#x27;entregado&#x27;,
+      clienteId: &#x27;CLI-789&#x27;,
+      imagenEvidencia: &#x27;assets/ejemplo-entrega.jpg&#x27;
+    },
+    {
+      id: &#x27;SERV-1002&#x27;,
+      tipo: &#x27;Muestras médicas&#x27;,
+      direccionRecogida: &#x27;Clínica Sanitas, Consultorio 502&#x27;,
+      direccionEntrega: &#x27;Laboratorio Labco, Torre B Piso 3&#x27;,
+      contactoEntrega: &#x27;Recepción laboratorio&#x27;,
+      instruccionesRecogida: &#x27;Manejar con cuidado - Cadena de frío&#x27;,
+      fecha: new Date(&#x27;2023-06-14&#x27;),
+      horaRecogida: new Date(&#x27;2023-06-14T14:30:00&#x27;),
+      horaEntrega: new Date(&#x27;2023-06-14T15:15:00&#x27;),
+      estado: &#x27;entregado&#x27;,
+      clienteId: &#x27;CLI-456&#x27;,
+      imagenEvidencia: &#x27;assets/ejemplo-entrega2.jpg&#x27;
+    },
+    {
+      id: &#x27;SERV-1003&#x27;,
+      tipo: &#x27;Equipo médico&#x27;,
+      direccionRecogida: &#x27;Hospital Central, Almacén&#x27;,
+      direccionEntrega: &#x27;Clínica del Norte, Sala de cirugía&#x27;,
+      contactoEntrega: &#x27;Dr. Carlos Mendoza - 3151234567&#x27;,
+      instruccionesRecogida: &#x27;Equipo frágil - Transportar verticalmente&#x27;,
+      fecha: new Date(&#x27;2023-06-14&#x27;),
+      horaRecogida: new Date(&#x27;2023-06-14T09:00:00&#x27;),
+      horaEntrega: new Date(&#x27;2023-06-14T09:50:00&#x27;),
+      estado: &#x27;entregado&#x27;,
+      clienteId: &#x27;CLI-123&#x27;,
+      imagenEvidencia: &#x27;assets/ejemplo-entrega3.jpg&#x27;
+    },
+    {
+      id: &#x27;SERV-1004&#x27;,
+      tipo: &#x27;Documentos médicos&#x27;,
+      direccionRecogida: &#x27;Consultorio Dr. Rodríguez, Oficina 304&#x27;,
+      direccionEntrega: &#x27;Aseguradora VidaPlena, Piso 5&#x27;,
+      contactoEntrega: &#x27;Departamento de Reclamaciones&#x27;,
+      fecha: new Date(&#x27;2023-06-13&#x27;),
+      horaRecogida: new Date(&#x27;2023-06-13T16:00:00&#x27;),
+      horaEntrega: new Date(&#x27;2023-06-13T16:40:00&#x27;),
+      estado: &#x27;entregado&#x27;,
+      clienteId: &#x27;CLI-987&#x27;,
+      imagenEvidencia: &#x27;assets/ejemplo-entrega4.jpg&#x27;
+    },
+    {
+      id: &#x27;SERV-1005&#x27;,
+      tipo: &#x27;Medicamentos controlados&#x27;,
+      direccionRecogida: &#x27;Farmacias Cruz Verde, Sede Norte&#x27;,
+      direccionEntrega: &#x27;Calle 78 #45-12, Casa blanca portón negro&#x27;,
+      contactoEntrega: &#x27;Sra. Laura Martínez - 3206543210&#x27;,
+      instruccionesRecogida: &#x27;Verificar identificación al entregar&#x27;,
+      fecha: new Date(&#x27;2023-06-12&#x27;),
+      horaRecogida: new Date(&#x27;2023-06-12T11:30:00&#x27;),
+      horaEntrega: new Date(&#x27;2023-06-12T12:15:00&#x27;),
+      estado: &#x27;entregado&#x27;,
+      clienteId: &#x27;CLI-654&#x27;,
+      imagenEvidencia: &#x27;assets/ejemplo-entrega5.jpg&#x27;
+    }
+  ];
+
+  servicioActivo:any &#x3D; {
+    id: &#x27;SERV-1006&#x27;,
+    tipo: &#x27;Paquete médico urgente&#x27;,
+    direccionRecogida: &#x27;Laboratorio Dinámico, Av. Principal #23-45&#x27;,
+    direccionEntrega: &#x27;Clínica San Vicente, Urgencias&#x27;,
+    contactoEntrega: &#x27;Enfermera Jefe - Ext. 502&#x27;,
+    instruccionesRecogida: &#x27;Prioridad alta - Entregar en recepción de urgencias&#x27;,
+    fecha: new Date(),
+    horaRecogida: new Date(),
+    horaEntrega: null,
+    estado: &#x27;en_proceso&#x27;,
+    clienteId: &#x27;CLI-321&#x27;,
+    progreso: 50
+  };
+
+  serviciosFiltrados:any &#x3D; [...this.servicios];
+  filterStatus &#x3D; &#x27;all&#x27;;
+
+  // Variables para modal de entrega
+  showDeliveryProofModal &#x3D; false;
+  deliveryProofImage: string | null &#x3D; null;
+  deliveryComments &#x3D; &#x27;&#x27;;
+
+  ngOnInit(): void {
+    // Simular servicio activo
+    this.serviciosFiltrados.unshift(this.servicioActivo);
+    this.applyFilter();
+  }
+
+  // Métodos para manejar el estado activo/inactivo
+  updateStatus(): void {
+    const action &#x3D; this.domiciliario.activo ? &#x27;activado&#x27; : &#x27;desactivado&#x27;;
+    Swal.fire({
+      position: &#x27;top&#x27;,
+      icon: &#x27;success&#x27;,
+      title: &#x60;Estado ${action}&#x60;,
+      showConfirmButton: false,
+      timer: 1500
+    });
+
+    // Aquí iría la llamada al servicio para actualizar el estado
+    console.log(&#x27;Estado actualizado:&#x27;, this.domiciliario.activo);
+  }
+
+  // Métodos para el servicio activo
+  getProgress(): number {
+    if (this.servicioActivo.estado &#x3D;&#x3D;&#x3D; &#x27;pendiente&#x27;) return 20;
+    if (this.servicioActivo.estado &#x3D;&#x3D;&#x3D; &#x27;en_proceso&#x27;) return 60;
+    if (this.servicioActivo.estado &#x3D;&#x3D;&#x3D; &#x27;entregado&#x27;) return 100;
+    return 0;
+  }
+
+  // Métodos para el modal de entrega
+  openDeliveryProofModal(): void {
+    this.showDeliveryProofModal &#x3D; true;
+    this.deliveryProofImage &#x3D; null;
+    this.deliveryComments &#x3D; &#x27;&#x27;;
+  }
+
+  closeDeliveryProofModal(): void {
+    this.showDeliveryProofModal &#x3D; false;
+  }
+
+  handleImageUpload(event: any): void {
+    const file &#x3D; event.target.files[0];
+    if (file) {
+      const reader &#x3D; new FileReader();
+      reader.onload &#x3D; (e: any) &#x3D;&gt; {
+        this.deliveryProofImage &#x3D; e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  removeImage(): void {
+    this.deliveryProofImage &#x3D; null;
+  }
+
+  confirmDelivery(): void {
+    Swal.fire({
+      title: &#x27;¿Confirmar entrega?&#x27;,
+      text: &#x27;Esta acción registrará el servicio como completado&#x27;,
+      icon: &#x27;question&#x27;,
+      showCancelButton: true,
+      confirmButtonColor: &#x27;#08A2CB&#x27;,
+      cancelButtonColor: &#x27;#d33&#x27;,
+      confirmButtonText: &#x27;Sí, confirmar&#x27;,
+      cancelButtonText: &#x27;Cancelar&#x27;
+    }).then((result) &#x3D;&gt; {
+      if (result.isConfirmed) {
+        // Actualizar estado del servicio
+        this.servicioActivo.estado &#x3D; &#x27;entregado&#x27;;
+        this.servicioActivo.horaEntrega &#x3D; new Date();
+        this.servicioActivo[&#x27;imagenEvidencia&#x27;] &#x3D; this.deliveryProofImage;
+
+        // Mover a historial
+        this.servicios.unshift({...this.servicioActivo});
+        this.servicioActivo &#x3D; null as any;
+        this.applyFilter();
+
+        this.closeDeliveryProofModal();
+
+        Swal.fire(
+          &#x27;¡Entrega confirmada!&#x27;,
+          &#x27;El servicio ha sido registrado como completado.&#x27;,
+          &#x27;success&#x27;
+        );
+      }
+    });
+  }
+
+  // Métodos para filtrar servicios
+  applyFilter(): void {
+    if (this.filterStatus &#x3D;&#x3D;&#x3D; &#x27;all&#x27;) {
+      this.serviciosFiltrados &#x3D; [...this.servicios];
+      if (this.servicioActivo) {
+        this.serviciosFiltrados.unshift(this.servicioActivo);
+      }
+    } else {
+      this.serviciosFiltrados &#x3D; this.servicios.filter(s &#x3D;&gt; s.estado &#x3D;&#x3D;&#x3D; this.filterStatus);
+    }
+  }
+
+  getEstadoText(estado: string): string {
+    switch(estado) {
+      case &#x27;pendiente&#x27;: return &#x27;Pendiente&#x27;;
+      case &#x27;en_proceso&#x27;: return &#x27;En proceso&#x27;;
+      case &#x27;entregado&#x27;: return &#x27;Entregado&#x27;;
+      case &#x27;cancelado&#x27;: return &#x27;Cancelado&#x27;;
+      default: return estado;
+    }
+  }
+
+  // Métodos para acciones de servicios
+  startService(servicio: any): void {
+    servicio.estado &#x3D; &#x27;en_proceso&#x27;;
+    this.servicioActivo &#x3D; servicio;
+    this.applyFilter();
+
+    Swal.fire({
+      position: &#x27;top-end&#x27;,
+      icon: &#x27;success&#x27;,
+      title: &#x27;Servicio iniciado&#x27;,
+      showConfirmButton: false,
+      timer: 1500
+    });
+  }
+
+  setActiveService(servicio: any): void {
+    this.servicioActivo &#x3D; servicio;
+    this.applyFilter();
+  }
+
+  viewServiceDetails(servicio: any): void {
+    // Aquí iría la navegación a los detalles completos
+    console.log(&#x27;Ver detalles del servicio:&#x27;, servicio.id);
+    Swal.fire({
+      title: &#x60;Detalles del servicio #${servicio.id}&#x60;,
+      html: &#x60;
+        &lt;div class&#x3D;&quot;text-left&quot;&gt;
+          &lt;p&gt;&lt;strong&gt;Tipo:&lt;/strong&gt; ${servicio.tipo}&lt;/p&gt;
+          &lt;p&gt;&lt;strong&gt;Recoger en:&lt;/strong&gt; ${servicio.direccionRecogida}&lt;/p&gt;
+          &lt;p&gt;&lt;strong&gt;Entregar en:&lt;/strong&gt; ${servicio.direccionEntrega}&lt;/p&gt;
+          &lt;p&gt;&lt;strong&gt;Contacto:&lt;/strong&gt; ${servicio.contactoEntrega}&lt;/p&gt;
+          &lt;p&gt;&lt;strong&gt;Estado:&lt;/strong&gt; ${this.getEstadoText(servicio.estado)}&lt;/p&gt;
+          ${servicio.instruccionesRecogida ? &#x60;&lt;p&gt;&lt;strong&gt;Instrucciones:&lt;/strong&gt; ${servicio.instruccionesRecogida}&lt;/p&gt;&#x60; : &#x27;&#x27;}
+        &lt;/div&gt;
+      &#x60;,
+      confirmButtonColor: &#x27;#08A2CB&#x27;
+    });
+  }
+
+  openChat(clienteId: string): void {
+    // Aquí iría la lógica para abrir el chat
+    console.log(&#x27;Abrir chat con cliente:&#x27;, clienteId);
+    Swal.fire({
+      title: &#x27;Chat con cliente&#x27;,
+      text: &#x27;Esta funcionalidad abriría el chat con el cliente en una implementación real&#x27;,
+      confirmButtonColor: &#x27;#08A2CB&#x27;
+    });
+  }
+
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;bg-gray-50 min-h-screen&quot;&gt;
+  &lt;div class&#x3D;&quot;container mx-auto px-4 py-8&quot;&gt;
+    &lt;!-- Encabezado con estado --&gt;
+    &lt;div class&#x3D;&quot;flex flex-col md:flex-row justify-between items-start md:items-center mb-8 bg-white p-4 rounded-lg shadow-sm&quot;&gt;
+      &lt;div&gt;
+        &lt;h1 class&#x3D;&quot;text-2xl font-bold text-primary&quot;&gt;Panel de Domiciliario&lt;/h1&gt;
+        &lt;p class&#x3D;&quot;text-gray-600&quot;&gt;Bienvenido, {{ domiciliario.nombre }}&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;mt-4 md:mt-0&quot;&gt;
+        &lt;div class&#x3D;&quot;flex items-center&quot;&gt;
+          &lt;span class&#x3D;&quot;mr-2 text-sm font-medium&quot;&gt;Estado:&lt;/span&gt;
+          &lt;label class&#x3D;&quot;relative inline-flex items-center cursor-pointer&quot;&gt;
+            &lt;input type&#x3D;&quot;checkbox&quot; class&#x3D;&quot;sr-only peer&quot; [(ngModel)]&#x3D;&quot;domiciliario.activo&quot; (change)&#x3D;&quot;updateStatus()&quot;&gt;
+            &lt;div class&#x3D;&quot;w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[&#x27;&#x27;] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary&quot;&gt;&lt;/div&gt;
+            &lt;span class&#x3D;&quot;ml-2 text-sm font-medium&quot;&gt;
+              {{ domiciliario.activo ? &#x27;Activo&#x27; : &#x27;Inactivo&#x27; }}
+            &lt;/span&gt;
+          &lt;/label&gt;
+        &lt;/div&gt;
+        &lt;p class&#x3D;&quot;text-xs text-gray-500 mt-1&quot;&gt;
+          {{ domiciliario.activo ? &#x27;Recibiendo nuevos servicios&#x27; : &#x27;No recibirás nuevos servicios&#x27; }}
+        &lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Servicio activo destacado --&gt;
+    &lt;div *ngIf&#x3D;&quot;servicioActivo&quot; class&#x3D;&quot;bg-white rounded-lg shadow-md overflow-hidden mb-8 border-l-4 border-primary animate__animated animate__fadeIn&quot;&gt;
+      &lt;div class&#x3D;&quot;p-6&quot;&gt;
+        &lt;div class&#x3D;&quot;flex justify-between items-start&quot;&gt;
+          &lt;div&gt;
+            &lt;div class&#x3D;&quot;flex items-center mb-2&quot;&gt;
+              &lt;span class&#x3D;&quot;bg-primary text-white text-xs font-medium px-2 py-0.5 rounded mr-2&quot;&gt;ACTIVO&lt;/span&gt;
+              &lt;span class&#x3D;&quot;text-sm text-gray-600&quot;&gt;#{{ servicioActivo.id }}&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;h2 class&#x3D;&quot;text-xl font-bold text-gray-800&quot;&gt;Servicio en curso&lt;/h2&gt;
+            &lt;p class&#x3D;&quot;text-gray-600&quot;&gt;{{ servicioActivo.tipo }}&lt;/p&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;text-right&quot;&gt;
+            &lt;span class&#x3D;&quot;text-xs text-gray-500&quot;&gt;Hora de recogida&lt;/span&gt;
+            &lt;p class&#x3D;&quot;font-medium&quot;&gt;{{ servicioActivo.horaRecogida | date:&#x27;shortTime&#x27; }}&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;grid grid-cols-1 md:grid-cols-2 gap-6 mt-6&quot;&gt;
+          &lt;!-- Información de recogida --&gt;
+          &lt;div class&#x3D;&quot;bg-gray-50 p-4 rounded-lg&quot;&gt;
+            &lt;div class&#x3D;&quot;flex items-center mb-3&quot;&gt;
+              &lt;div class&#x3D;&quot;bg-primary bg-opacity-10 p-2 rounded-full mr-3&quot;&gt;
+                &lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; class&#x3D;&quot;h-5 w-5 text-primary&quot; fill&#x3D;&quot;none&quot; viewBox&#x3D;&quot;0 0 24 24&quot; stroke&#x3D;&quot;currentColor&quot;&gt;
+                  &lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; stroke-width&#x3D;&quot;2&quot; d&#x3D;&quot;M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4&quot; /&gt;
+                &lt;/svg&gt;
+              &lt;/div&gt;
+              &lt;h3 class&#x3D;&quot;font-semibold&quot;&gt;Recoger en&lt;/h3&gt;
+            &lt;/div&gt;
+            &lt;p class&#x3D;&quot;font-medium&quot;&gt;{{ servicioActivo.direccionRecogida }}&lt;/p&gt;
+            &lt;p class&#x3D;&quot;text-sm text-gray-600 mt-1&quot;&gt;{{ servicioActivo.instruccionesRecogida || &#x27;Sin instrucciones adicionales&#x27; }}&lt;/p&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Información de entrega --&gt;
+          &lt;div class&#x3D;&quot;bg-gray-50 p-4 rounded-lg&quot;&gt;
+            &lt;div class&#x3D;&quot;flex items-center mb-3&quot;&gt;
+              &lt;div class&#x3D;&quot;bg-primary bg-opacity-10 p-2 rounded-full mr-3&quot;&gt;
+                &lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; class&#x3D;&quot;h-5 w-5 text-primary&quot; fill&#x3D;&quot;none&quot; viewBox&#x3D;&quot;0 0 24 24&quot; stroke&#x3D;&quot;currentColor&quot;&gt;
+                  &lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; stroke-width&#x3D;&quot;2&quot; d&#x3D;&quot;M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z&quot; /&gt;
+                  &lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; stroke-width&#x3D;&quot;2&quot; d&#x3D;&quot;M15 11a3 3 0 11-6 0 3 3 0 016 0z&quot; /&gt;
+                &lt;/svg&gt;
+              &lt;/div&gt;
+              &lt;h3 class&#x3D;&quot;font-semibold&quot;&gt;Entregar en&lt;/h3&gt;
+            &lt;/div&gt;
+            &lt;p class&#x3D;&quot;font-medium&quot;&gt;{{ servicioActivo.direccionEntrega }}&lt;/p&gt;
+            &lt;p class&#x3D;&quot;text-sm text-gray-600 mt-1&quot;&gt;{{ servicioActivo.contactoEntrega }}&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Progreso del servicio --&gt;
+        &lt;div class&#x3D;&quot;mt-6&quot;&gt;
+          &lt;h4 class&#x3D;&quot;text-sm font-medium text-gray-700 mb-2&quot;&gt;Progreso del servicio&lt;/h4&gt;
+          &lt;div class&#x3D;&quot;w-full bg-gray-200 rounded-full h-2.5&quot;&gt;
+            &lt;div class&#x3D;&quot;bg-primary h-2.5 rounded-full&quot; [style.width]&#x3D;&quot;getProgress() + &#x27;%&#x27;&quot;&gt;&lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;flex justify-between mt-2 text-xs text-gray-600&quot;&gt;
+            &lt;span&gt;Recogido&lt;/span&gt;
+            &lt;span&gt;En camino&lt;/span&gt;
+            &lt;span&gt;Entregado&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Acciones --&gt;
+        &lt;div class&#x3D;&quot;mt-8 flex flex-col sm:flex-row justify-end space-y-3 sm:space-y-0 sm:space-x-3&quot;&gt;
+          &lt;button *ngIf&#x3D;&quot;servicioActivo.estado !&#x3D;&#x3D; &#x27;entregado&#x27;&quot;
+                  class&#x3D;&quot;px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-all&quot;
+                  (click)&#x3D;&quot;openDeliveryProofModal()&quot;&gt;
+            &lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; class&#x3D;&quot;h-5 w-5 inline mr-1&quot; fill&#x3D;&quot;none&quot; viewBox&#x3D;&quot;0 0 24 24&quot; stroke&#x3D;&quot;currentColor&quot;&gt;
+              &lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; stroke-width&#x3D;&quot;2&quot; d&#x3D;&quot;M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z&quot; /&gt;
+            &lt;/svg&gt;
+            Registrar entrega
+          &lt;/button&gt;
+          &lt;button class&#x3D;&quot;btn-primary rounded-lg px-6 py-2&quot;
+                  (click)&#x3D;&quot;openChat(servicioActivo.clienteId)&quot;&gt;
+            &lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; class&#x3D;&quot;h-5 w-5 inline mr-1&quot; fill&#x3D;&quot;none&quot; viewBox&#x3D;&quot;0 0 24 24&quot; stroke&#x3D;&quot;currentColor&quot;&gt;
+              &lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; stroke-width&#x3D;&quot;2&quot; d&#x3D;&quot;M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z&quot; /&gt;
+            &lt;/svg&gt;
+            Contactar cliente
+          &lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Lista de servicios --&gt;
+    &lt;div class&#x3D;&quot;bg-white rounded-lg shadow-md overflow-hidden&quot;&gt;
+      &lt;div class&#x3D;&quot;border-b px-6 py-4 flex justify-between items-center&quot;&gt;
+        &lt;h2 class&#x3D;&quot;text-lg font-bold text-gray-800&quot;&gt;Historial de servicios&lt;/h2&gt;
+        &lt;div class&#x3D;&quot;relative&quot;&gt;
+          &lt;select class&#x3D;&quot;appearance-none bg-white border border-gray-300 rounded-lg pl-3 pr-8 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent&quot;
+                  [(ngModel)]&#x3D;&quot;filterStatus&quot; (change)&#x3D;&quot;applyFilter()&quot;&gt;
+            &lt;option value&#x3D;&quot;all&quot;&gt;Todos&lt;/option&gt;
+            &lt;option value&#x3D;&quot;pendiente&quot;&gt;Pendientes&lt;/option&gt;
+            &lt;option value&#x3D;&quot;en_proceso&quot;&gt;En proceso&lt;/option&gt;
+            &lt;option value&#x3D;&quot;entregado&quot;&gt;Entregados&lt;/option&gt;
+            &lt;option value&#x3D;&quot;cancelado&quot;&gt;Cancelados&lt;/option&gt;
+          &lt;/select&gt;
+          &lt;div class&#x3D;&quot;pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700&quot;&gt;
+            &lt;svg class&#x3D;&quot;fill-current h-4 w-4&quot; xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; viewBox&#x3D;&quot;0 0 20 20&quot;&gt;
+              &lt;path d&#x3D;&quot;M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z&quot; /&gt;
+            &lt;/svg&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;div class&#x3D;&quot;divide-y divide-gray-200&quot;&gt;
+        &lt;!-- Servicio en lista --&gt;
+        &lt;div *ngFor&#x3D;&quot;let servicio of serviciosFiltrados&quot; class&#x3D;&quot;px-6 py-4 hover:bg-gray-50 transition-all&quot;&gt;
+          &lt;div class&#x3D;&quot;flex flex-col sm:flex-row justify-between&quot;&gt;
+            &lt;div class&#x3D;&quot;mb-3 sm:mb-0&quot;&gt;
+              &lt;div class&#x3D;&quot;flex items-center&quot;&gt;
+                &lt;span class&#x3D;&quot;text-sm font-medium text-gray-600 mr-2&quot;&gt;#{{ servicio.id }}&lt;/span&gt;
+                &lt;span class&#x3D;&quot;text-xs px-2 py-0.5 rounded&quot;
+                      [ngClass]&#x3D;&quot;{
+                        &#x27;bg-blue-100 text-blue-800&#x27;: servicio.estado &#x3D;&#x3D;&#x3D; &#x27;pendiente&#x27;,
+                        &#x27;bg-yellow-100 text-yellow-800&#x27;: servicio.estado &#x3D;&#x3D;&#x3D; &#x27;en_proceso&#x27;,
+                        &#x27;bg-green-100 text-green-800&#x27;: servicio.estado &#x3D;&#x3D;&#x3D; &#x27;entregado&#x27;,
+                        &#x27;bg-red-100 text-red-800&#x27;: servicio.estado &#x3D;&#x3D;&#x3D; &#x27;cancelado&#x27;
+                      }&quot;&gt;
+                  {{ getEstadoText(servicio.estado) }}
+                &lt;/span&gt;
+              &lt;/div&gt;
+              &lt;h3 class&#x3D;&quot;font-medium mt-1&quot;&gt;{{ servicio.tipo }}&lt;/h3&gt;
+              &lt;p class&#x3D;&quot;text-sm text-gray-600&quot;&gt;{{ servicio.direccionEntrega }}&lt;/p&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;flex flex-col sm:items-end&quot;&gt;
+              &lt;span class&#x3D;&quot;text-sm text-gray-500&quot;&gt;{{ servicio.fecha | date:&#x27;mediumDate&#x27; }}&lt;/span&gt;
+              &lt;span class&#x3D;&quot;text-sm font-medium mt-1&quot;&gt;{{ servicio.horaRecogida | date:&#x27;shortTime&#x27; }} - {{ servicio.horaEntrega | date:&#x27;shortTime&#x27; }}&lt;/span&gt;
+              &lt;div class&#x3D;&quot;mt-2 flex space-x-2&quot;&gt;
+                &lt;button *ngIf&#x3D;&quot;servicio.estado &#x3D;&#x3D;&#x3D; &#x27;pendiente&#x27;&quot;
+                        class&#x3D;&quot;text-xs bg-primary text-white px-3 py-1 rounded-lg hover:bg-primary-dark transition-all&quot;
+                        (click)&#x3D;&quot;startService(servicio)&quot;&gt;
+                  Iniciar
+                &lt;/button&gt;
+                &lt;button *ngIf&#x3D;&quot;servicio.estado &#x3D;&#x3D;&#x3D; &#x27;en_proceso&#x27; &amp;&amp; !servicioActivo&quot;
+                        class&#x3D;&quot;text-xs bg-primary text-white px-3 py-1 rounded-lg hover:bg-primary-dark transition-all&quot;
+                        (click)&#x3D;&quot;setActiveService(servicio)&quot;&gt;
+                  Continuar
+                &lt;/button&gt;
+                &lt;button class&#x3D;&quot;text-xs border border-gray-300 text-gray-700 px-3 py-1 rounded-lg hover:bg-gray-50 transition-all&quot;
+                        (click)&#x3D;&quot;viewServiceDetails(servicio)&quot;&gt;
+                  Detalles
+                &lt;/button&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Empty state --&gt;
+        &lt;div *ngIf&#x3D;&quot;serviciosFiltrados.length &#x3D;&#x3D;&#x3D; 0&quot; class&#x3D;&quot;px-6 py-12 text-center&quot;&gt;
+          &lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; class&#x3D;&quot;h-12 w-12 mx-auto text-gray-400&quot; fill&#x3D;&quot;none&quot; viewBox&#x3D;&quot;0 0 24 24&quot; stroke&#x3D;&quot;currentColor&quot;&gt;
+            &lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; stroke-width&#x3D;&quot;2&quot; d&#x3D;&quot;M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z&quot; /&gt;
+          &lt;/svg&gt;
+          &lt;h3 class&#x3D;&quot;mt-2 text-sm font-medium text-gray-900&quot;&gt;No hay servicios&lt;/h3&gt;
+          &lt;p class&#x3D;&quot;mt-1 text-sm text-gray-500&quot;&gt;No se encontraron servicios con los filtros seleccionados.&lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Modal para registro de entrega --&gt;
+&lt;div *ngIf&#x3D;&quot;showDeliveryProofModal&quot; class&#x3D;&quot;fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50&quot;&gt;
+  &lt;div class&#x3D;&quot;bg-white rounded-lg shadow-xl w-full max-w-md&quot;&gt;
+    &lt;div class&#x3D;&quot;border-b px-6 py-4 flex justify-between items-center&quot;&gt;
+      &lt;h3 class&#x3D;&quot;text-lg font-bold text-primary&quot;&gt;Registrar entrega&lt;/h3&gt;
+      &lt;button class&#x3D;&quot;text-gray-500 hover:text-gray-700&quot; (click)&#x3D;&quot;closeDeliveryProofModal()&quot;&gt;
+        &lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; class&#x3D;&quot;h-6 w-6&quot; fill&#x3D;&quot;none&quot; viewBox&#x3D;&quot;0 0 24 24&quot; stroke&#x3D;&quot;currentColor&quot;&gt;
+          &lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; stroke-width&#x3D;&quot;2&quot; d&#x3D;&quot;M6 18L18 6M6 6l12 12&quot; /&gt;
+        &lt;/svg&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;p-6&quot;&gt;
+      &lt;div class&#x3D;&quot;mb-4&quot;&gt;
+        &lt;label class&#x3D;&quot;block text-gray-700 mb-2&quot;&gt;Subir foto de evidencia&lt;/label&gt;
+        &lt;div class&#x3D;&quot;border-2 border-dashed border-gray-300 rounded-lg p-4 text-center&quot;&gt;
+          &lt;input type&#x3D;&quot;file&quot; id&#x3D;&quot;deliveryProof&quot; accept&#x3D;&quot;image/*&quot; class&#x3D;&quot;hidden&quot; (change)&#x3D;&quot;handleImageUpload($event)&quot; #fileInput&gt;
+          &lt;div *ngIf&#x3D;&quot;!deliveryProofImage; else imagePreview&quot;&gt;
+            &lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; class&#x3D;&quot;h-12 w-12 mx-auto text-gray-400&quot; fill&#x3D;&quot;none&quot; viewBox&#x3D;&quot;0 0 24 24&quot; stroke&#x3D;&quot;currentColor&quot;&gt;
+              &lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; stroke-width&#x3D;&quot;2&quot; d&#x3D;&quot;M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z&quot; /&gt;
+            &lt;/svg&gt;
+            &lt;p class&#x3D;&quot;text-sm text-gray-600 mt-2&quot;&gt;Arrastra una imagen o haz clic para seleccionar&lt;/p&gt;
+            &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn-primary mt-2 rounded-lg px-4 py-1 text-sm&quot; (click)&#x3D;&quot;fileInput.click()&quot;&gt;
+              Seleccionar imagen
+            &lt;/button&gt;
+          &lt;/div&gt;
+          &lt;ng-template #imagePreview&gt;
+            &lt;div class&#x3D;&quot;relative&quot;&gt;
+              &lt;img [src]&#x3D;&quot;deliveryProofImage&quot; alt&#x3D;&quot;Foto de evidencia&quot; class&#x3D;&quot;max-h-48 mx-auto rounded-lg&quot;&gt;
+              &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;absolute top-2 right-2 bg-white rounded-full p-1 shadow-md hover:bg-gray-100&quot;
+                      (click)&#x3D;&quot;removeImage()&quot;&gt;
+                &lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; class&#x3D;&quot;h-5 w-5 text-gray-600&quot; fill&#x3D;&quot;none&quot; viewBox&#x3D;&quot;0 0 24 24&quot; stroke&#x3D;&quot;currentColor&quot;&gt;
+                  &lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; stroke-width&#x3D;&quot;2&quot; d&#x3D;&quot;M6 18L18 6M6 6l12 12&quot; /&gt;
+                &lt;/svg&gt;
+              &lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/ng-template&gt;
+        &lt;/div&gt;
+        &lt;p class&#x3D;&quot;text-xs text-gray-500 mt-1&quot;&gt;La imagen debe mostrar claramente el paquete entregado&lt;/p&gt;
+      &lt;/div&gt;
+
+      &lt;div class&#x3D;&quot;mb-4&quot;&gt;
+        &lt;label class&#x3D;&quot;block text-gray-700 mb-2&quot;&gt;Observaciones (opcional)&lt;/label&gt;
+        &lt;textarea class&#x3D;&quot;w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent&quot;
+                  rows&#x3D;&quot;3&quot; [(ngModel)]&#x3D;&quot;deliveryComments&quot; placeholder&#x3D;&quot;Ej: Entregado al portero&quot;&gt;&lt;/textarea&gt;
+      &lt;/div&gt;
+
+      &lt;div class&#x3D;&quot;flex justify-end space-x-3&quot;&gt;
+        &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50&quot;
+                (click)&#x3D;&quot;closeDeliveryProofModal()&quot;&gt;
+          Cancelar
+        &lt;/button&gt;
+        &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn-primary rounded-lg px-6 py-2 disabled:opacity-50&quot;
+                [disabled]&#x3D;&quot;!deliveryProofImage&quot; (click)&#x3D;&quot;confirmDelivery()&quot;&gt;
+          Confirmar entrega
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="bg-gray-50 min-h-screen">  <div class="container mx-auto px-4 py-8">    <!-- Encabezado con estado -->    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 bg-white p-4 rounded-lg shadow-sm">      <div>        <h1 class="text-2xl font-bold text-primary">Panel de Domiciliario</h1>        <p class="text-gray-600">Bienvenido, {{ domiciliario.nombre }}</p>      </div>      <div class="mt-4 md:mt-0">        <div class="flex items-center">          <span class="mr-2 text-sm font-medium">Estado:</span>          <label class="relative inline-flex items-center cursor-pointer">            <input type="checkbox" class="sr-only peer" [(ngModel)]="domiciliario.activo" (change)="updateStatus()">            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[\'\'] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>            <span class="ml-2 text-sm font-medium">              {{ domiciliario.activo ? \'Activo\' : \'Inactivo\' }}            </span>          </label>        </div>        <p class="text-xs text-gray-500 mt-1">          {{ domiciliario.activo ? \'Recibiendo nuevos servicios\' : \'No recibirás nuevos servicios\' }}        </p>      </div>    </div>    <!-- Servicio activo destacado -->    <div *ngIf="servicioActivo" class="bg-white rounded-lg shadow-md overflow-hidden mb-8 border-l-4 border-primary animate__animated animate__fadeIn">      <div class="p-6">        <div class="flex justify-between items-start">          <div>            <div class="flex items-center mb-2">              <span class="bg-primary text-white text-xs font-medium px-2 py-0.5 rounded mr-2">ACTIVO</span>              <span class="text-sm text-gray-600">#{{ servicioActivo.id }}</span>            </div>            <h2 class="text-xl font-bold text-gray-800">Servicio en curso</h2>            <p class="text-gray-600">{{ servicioActivo.tipo }}</p>          </div>          <div class="text-right">            <span class="text-xs text-gray-500">Hora de recogida</span>            <p class="font-medium">{{ servicioActivo.horaRecogida | date:\'shortTime\' }}</p>          </div>        </div>        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">          <!-- Información de recogida -->          <div class="bg-gray-50 p-4 rounded-lg">            <div class="flex items-center mb-3">              <div class="bg-primary bg-opacity-10 p-2 rounded-full mr-3">                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />                </svg>              </div>              <h3 class="font-semibold">Recoger en</h3>            </div>            <p class="font-medium">{{ servicioActivo.direccionRecogida }}</p>            <p class="text-sm text-gray-600 mt-1">{{ servicioActivo.instruccionesRecogida || \'Sin instrucciones adicionales\' }}</p>          </div>          <!-- Información de entrega -->          <div class="bg-gray-50 p-4 rounded-lg">            <div class="flex items-center mb-3">              <div class="bg-primary bg-opacity-10 p-2 rounded-full mr-3">                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />                </svg>              </div>              <h3 class="font-semibold">Entregar en</h3>            </div>            <p class="font-medium">{{ servicioActivo.direccionEntrega }}</p>            <p class="text-sm text-gray-600 mt-1">{{ servicioActivo.contactoEntrega }}</p>          </div>        </div>        <!-- Progreso del servicio -->        <div class="mt-6">          <h4 class="text-sm font-medium text-gray-700 mb-2">Progreso del servicio</h4>          <div class="w-full bg-gray-200 rounded-full h-2.5">            <div class="bg-primary h-2.5 rounded-full" [style.width]="getProgress() + \'%\'"></div>          </div>          <div class="flex justify-between mt-2 text-xs text-gray-600">            <span>Recogido</span>            <span>En camino</span>            <span>Entregado</span>          </div>        </div>        <!-- Acciones -->        <div class="mt-8 flex flex-col sm:flex-row justify-end space-y-3 sm:space-y-0 sm:space-x-3">          <button *ngIf="servicioActivo.estado !== \'entregado\'"                  class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-all"                  (click)="openDeliveryProofModal()">            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />            </svg>            Registrar entrega          </button>          <button class="btn-primary rounded-lg px-6 py-2"                  (click)="openChat(servicioActivo.clienteId)">            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />            </svg>            Contactar cliente          </button>        </div>      </div>    </div>    <!-- Lista de servicios -->    <div class="bg-white rounded-lg shadow-md overflow-hidden">      <div class="border-b px-6 py-4 flex justify-between items-center">        <h2 class="text-lg font-bold text-gray-800">Historial de servicios</h2>        <div class="relative">          <select class="appearance-none bg-white border border-gray-300 rounded-lg pl-3 pr-8 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"                  [(ngModel)]="filterStatus" (change)="applyFilter()">            <option value="all">Todos</option>            <option value="pendiente">Pendientes</option>            <option value="en_proceso">En proceso</option>            <option value="entregado">Entregados</option>            <option value="cancelado">Cancelados</option>          </select>          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">              <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />            </svg>          </div>        </div>      </div>      <div class="divide-y divide-gray-200">        <!-- Servicio en lista -->        <div *ngFor="let servicio of serviciosFiltrados" class="px-6 py-4 hover:bg-gray-50 transition-all">          <div class="flex flex-col sm:flex-row justify-between">            <div class="mb-3 sm:mb-0">              <div class="flex items-center">                <span class="text-sm font-medium text-gray-600 mr-2">#{{ servicio.id }}</span>                <span class="text-xs px-2 py-0.5 rounded"                      [ngClass]="{                        \'bg-blue-100 text-blue-800\': servicio.estado === \'pendiente\',                        \'bg-yellow-100 text-yellow-800\': servicio.estado === \'en_proceso\',                        \'bg-green-100 text-green-800\': servicio.estado === \'entregado\',                        \'bg-red-100 text-red-800\': servicio.estado === \'cancelado\'                      }">                  {{ getEstadoText(servicio.estado) }}                </span>              </div>              <h3 class="font-medium mt-1">{{ servicio.tipo }}</h3>              <p class="text-sm text-gray-600">{{ servicio.direccionEntrega }}</p>            </div>            <div class="flex flex-col sm:items-end">              <span class="text-sm text-gray-500">{{ servicio.fecha | date:\'mediumDate\' }}</span>              <span class="text-sm font-medium mt-1">{{ servicio.horaRecogida | date:\'shortTime\' }} - {{ servicio.horaEntrega | date:\'shortTime\' }}</span>              <div class="mt-2 flex space-x-2">                <button *ngIf="servicio.estado === \'pendiente\'"                        class="text-xs bg-primary text-white px-3 py-1 rounded-lg hover:bg-primary-dark transition-all"                        (click)="startService(servicio)">                  Iniciar                </button>                <button *ngIf="servicio.estado === \'en_proceso\' && !servicioActivo"                        class="text-xs bg-primary text-white px-3 py-1 rounded-lg hover:bg-primary-dark transition-all"                        (click)="setActiveService(servicio)">                  Continuar                </button>                <button class="text-xs border border-gray-300 text-gray-700 px-3 py-1 rounded-lg hover:bg-gray-50 transition-all"                        (click)="viewServiceDetails(servicio)">                  Detalles                </button>              </div>            </div>          </div>        </div>        <!-- Empty state -->        <div *ngIf="serviciosFiltrados.length === 0" class="px-6 py-12 text-center">          <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />          </svg>          <h3 class="mt-2 text-sm font-medium text-gray-900">No hay servicios</h3>          <p class="mt-1 text-sm text-gray-500">No se encontraron servicios con los filtros seleccionados.</p>        </div>      </div>    </div>  </div></div><!-- Modal para registro de entrega --><div *ngIf="showDeliveryProofModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">  <div class="bg-white rounded-lg shadow-xl w-full max-w-md">    <div class="border-b px-6 py-4 flex justify-between items-center">      <h3 class="text-lg font-bold text-primary">Registrar entrega</h3>      <button class="text-gray-500 hover:text-gray-700" (click)="closeDeliveryProofModal()">        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />        </svg>      </button>    </div>    <div class="p-6">      <div class="mb-4">        <label class="block text-gray-700 mb-2">Subir foto de evidencia</label>        <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center">          <input type="file" id="deliveryProof" accept="image/*" class="hidden" (change)="handleImageUpload($event)" #fileInput>          <div *ngIf="!deliveryProofImage; else imagePreview">            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />            </svg>            <p class="text-sm text-gray-600 mt-2">Arrastra una imagen o haz clic para seleccionar</p>            <button type="button" class="btn-primary mt-2 rounded-lg px-4 py-1 text-sm" (click)="fileInput.click()">              Seleccionar imagen            </button>          </div>          <ng-template #imagePreview>            <div class="relative">              <img [src]="deliveryProofImage" alt="Foto de evidencia" class="max-h-48 mx-auto rounded-lg">              <button type="button" class="absolute top-2 right-2 bg-white rounded-full p-1 shadow-md hover:bg-gray-100"                      (click)="removeImage()">                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />                </svg>              </button>            </div>          </ng-template>        </div>        <p class="text-xs text-gray-500 mt-1">La imagen debe mostrar claramente el paquete entregado</p>      </div>      <div class="mb-4">        <label class="block text-gray-700 mb-2">Observaciones (opcional)</label>        <textarea class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"                  rows="3" [(ngModel)]="deliveryComments" placeholder="Ej: Entregado al portero"></textarea>      </div>      <div class="flex justify-end space-x-3">        <button type="button" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50"                (click)="closeDeliveryProofModal()">          Cancelar        </button>        <button type="button" class="btn-primary rounded-lg px-6 py-2 disabled:opacity-50"                [disabled]="!deliveryProofImage" (click)="confirmDelivery()">          Confirmar entrega        </button>      </div>    </div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AdminDashboardComponent', 'selector': 'app-admin-dashboard'},{'name': 'AdminLoginComponent', 'selector': 'app-admin-login'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BulkUploadComponent', 'selector': 'app-bulk-upload'},{'name': 'CoordinatorDashboardComponent', 'selector': 'app-coordinator-dashboard'},{'name': 'DeliveriesDashboardComponent', 'selector': 'app-deliveries-dashboard'},{'name': 'FaqsComponent', 'selector': 'app-faqs'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'ListComponent', 'selector': 'app-list'},{'name': 'ListComponent', 'selector': 'app-list'},{'name': 'ListComponent', 'selector': 'app-list'},{'name': 'ListComponent', 'selector': 'app-list'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'ManageComponent', 'selector': 'app-manage'},{'name': 'ManagementComponent', 'selector': 'app-management'},{'name': 'MapaViewerComponent', 'selector': 'app-mapa-viewer'},{'name': 'MyServicesComponent', 'selector': 'app-my-services'},{'name': 'NewComponent', 'selector': 'app-new'},{'name': 'NewComponent', 'selector': 'app-new'},{'name': 'PaginationComponent', 'selector': 'app-pagination'},{'name': 'PanelComponent', 'selector': 'app-panel'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'SendRecoverEmailComponent', 'selector': 'app-send-recover-email'},{'name': 'SetNewPasswordComponent', 'selector': 'app-set-new-password'},{'name': 'SupportDashboardComponent', 'selector': 'app-support-dashboard'},{'name': 'UsersDashboardComponent', 'selector': 'app-users-dashboard'},{'name': 'UsersHeaderComponent', 'selector': 'app-users-header'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'MyServicesComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'MyServicesComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

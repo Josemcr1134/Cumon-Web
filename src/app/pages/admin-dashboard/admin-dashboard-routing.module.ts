@@ -8,20 +8,25 @@ const routes: Routes = [
     component: AdminDashboardComponent,
     children:[
       {
-        path:'services',
-        loadChildren: () => import('./services/services.module').then( s => s.ServicesModule)
+        path:'metrics',
+        loadChildren: () => import('./metrics/metrics.module').then( s => s.MetricsModule)
       },
       {
-        path:'dealers',
-        loadChildren: () => import('./dealers/dealers.module').then( s => s.DealersModule)
+        path:'zones',
+        loadChildren: () => import('./zones/zones.module').then( s => s.ZonesModule)
       },
+
        {
          path:'users',
          loadChildren: () => import('./users/users.module').then( s => s.UsersModule)
        },
+       {
+         path:'logs',
+         loadChildren: () => import('./activity/activity.module').then( s => s.ActivityModule)
+       },
       {
         path:'**',
-        redirectTo:'services',
+        redirectTo:'metrics',
         pathMatch:'full'
       }
     ]

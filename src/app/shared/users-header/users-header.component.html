@@ -65,22 +65,30 @@
       <div class="hidden border-t border-white/20 py-5 lg:block">
         <div class="grid grid-cols-3 items-center gap-8">
           <div class="col-span-2">
-            <nav *ngIf="!isStaff && !isDelivery" class="flex space-x-4">
-              <!-- Current: "text-white", Default: "text-indigo-100" -->
+            <!-- <nav *ngIf="!isStaff && !isDelivery" class="flex space-x-4">
               <a [routerLink]="['/users-dashboard/services/list']" routerLinkActive="active"  aria-current="page" class="rounded-md px-3 py-2 text-sm font-medium text-indigo-100 hover:bg-white/10">Mis Servicios</a>
               <a [routerLink]="['/users-dashboard/services/new']" routerLinkActive="active"  class="rounded-md px-3 py-2 text-sm font-medium text-indigo-100 hover:bg-white/10">Nuevo Servicio</a>
               <a [routerLink]="['/users-dashboard/faqs']" routerLinkActive="active" class="rounded-md px-3 py-2 text-sm font-medium text-indigo-100 hover:bg-white/10">Preguntas Frecuentes</a>
             </nav>
             <nav *ngIf="!isStaff && isDelivery" class="flex space-x-4">
-              <!-- Current: "text-white", Default: "text-indigo-100" -->
               <a [routerLink]="['/deliveries-dashboard/my-services']" routerLinkActive="active"  aria-current="page" class="rounded-md px-3 py-2 text-sm font-medium text-indigo-100 hover:bg-white/10">Mis Servicios</a>
               <a [routerLink]="['/deliveries-dashboard/faqs']" routerLinkActive="active" class="rounded-md px-3 py-2 text-sm font-medium text-indigo-100 hover:bg-white/10">Preguntas Frecuentes</a>
-            </nav>
-            <nav *ngIf="isStaff" class="flex space-x-4">
+            </nav> -->
+            <nav *ngIf="userRole == 1" class="flex space-x-4">
               <!-- Current: "text-white", Default: "text-indigo-100" -->
-              <a [routerLink]="['/admin-dashboard/services']" routerLinkActive="active"  aria-current="page" class="rounded-md px-3 py-2 text-sm font-medium text-indigo-100 hover:bg-white/10">Servicios</a>
-              <a [routerLink]="['/admin-dashboard/dealers']" routerLinkActive="active"  class="rounded-md px-3 py-2 text-sm font-medium text-indigo-100 hover:bg-white/10">Repartidores</a>
-              <a [routerLink]="['/admin-dashboard/users']" routerLinkActive="active" class="rounded-md px-3 py-2 text-sm font-medium text-indigo-100 hover:bg-white/10">Usuarios</a>
+              <a [routerLink]="['/admin-dashboard/metrics']" routerLinkActive="active"  aria-current="page" class="rounded-md px-3 py-2 text-sm font-medium text-indigo-100 hover:bg-white/10">Métricas</a>
+              <a [routerLink]="['/admin-dashboard/zones']" routerLinkActive="active"  aria-current="page" class="rounded-md px-3 py-2 text-sm font-medium text-indigo-100 hover:bg-white/10">Zonas Geográficas</a>
+              <a [routerLink]="['/admin-dashboard/users']" routerLinkActive="active"  class="rounded-md px-3 py-2 text-sm font-medium text-indigo-100 hover:bg-white/10">Usuarios y Roles</a>
+              <a [routerLink]="['/admin-dashboard/logs']" routerLinkActive="active" class="rounded-md px-3 py-2 text-sm font-medium text-indigo-100 hover:bg-white/10">Logs de Actividad</a>
+            </nav>
+            <nav *ngIf="userRole == 2" class="flex space-x-4">
+              <!-- Current: "text-white", Default: "text-indigo-100" -->
+              <a [routerLink]="['/coordinator-dashboard/metrics']" routerLinkActive="active"  aria-current="page" class="rounded-md px-3 py-2 text-sm font-medium text-indigo-100 hover:bg-white/10">Métricas</a>
+              <a [routerLink]="['/coordinator-dashboard/orders']" routerLinkActive="active"  aria-current="page" class="rounded-md px-3 py-2 text-sm font-medium text-indigo-100 hover:bg-white/10">Pedidos</a>
+            </nav>
+            <nav *ngIf="userRole == 3" class="flex space-x-4">
+              <!-- Current: "text-white", Default: "text-indigo-100" -->
+              <a [routerLink]="['/support-dashboard/logs']" routerLinkActive="active" class="rounded-md px-3 py-2 text-sm font-medium text-indigo-100 hover:bg-white/10">Logs de Actividad</a>
             </nav>
           </div>
 
@@ -129,11 +137,11 @@
                 </button>
               </div>
             </div>
-            <div  *ngIf="!isStaff" class="mt-3 space-y-1 px-2">
+            <!-- <div  *ngIf="!isStaff" class="mt-3 space-y-1 px-2">
               <a [routerLink]="['/users-dashboard/services/list']"  routerLinkActive="active"  class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-800">Mis Servicios</a>
               <a [routerLink]="['/users-dashboard/services/new']"  routerLinkActive="active"  class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-800">Nuevo Servicio</a>
               <a [routerLink]="['/users-dashboard/faqs']"  routerLinkActive="active"  class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-800">Preguntas Frecuentes</a>
-            </div>
+            </div> -->
           </div>
           <div class="pt-4 pb-2">
             <div class="flex items-center px-5">

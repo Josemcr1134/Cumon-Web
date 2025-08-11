@@ -1,0 +1,302 @@
+<div class="min-h-screen ">
+  <div class="container mx-auto">
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+      <div>
+        <h1 class="text-xl md:text-2xl font-bold tracking-tight text-secondary mb-1 md:mb-2">Dashboard de Métricas</h1>
+        <p class="text-sm md:text-base text-gray-600">Indicadores clave de desempeño del sistema</p>
+      </div>
+      <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+        <select class="rounded-full bg-white px-4 py-2 text-sm border border-gray-300"
+                [(ngModel)]="timeRange">
+          <option value="today">Hoy</option>
+          <option value="week">Esta semana</option>
+          <option value="month">Este mes</option>
+          <option value="custom">Personalizado</option>
+        </select>
+        <button class="btn-primary rounded-full px-4 py-2 text-sm flex items-center justify-center"
+                (click)="exportMetrics()">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+          </svg>
+          Exportar
+        </button>
+      </div>
+    </div>
+
+    <!-- Filtros avanzados (acordeón) -->
+    <div class="bg-white rounded-xl shadow-sm border border-gray-200 mb-6 overflow-hidden">
+      <button class="w-full flex justify-between items-center p-4"
+              (click)="showAdvancedFilters = !showAdvancedFilters">
+        <span class="font-medium text-gray-700">Filtros avanzados</span>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 transform transition-transform duration-200"
+             [class.rotate-180]="showAdvancedFilters" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+
+      <div class="p-4 border-t border-gray-200" *ngIf="showAdvancedFilters">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Zona</label>
+            <select class="block w-full rounded-xl bg-gray-50 px-3 py-2 text-sm border border-gray-300"
+                    [(ngModel)]="zoneFilter">
+              <option value="">Todas</option>
+              <option *ngFor="let zone of zones" [value]="zone.id">{{ zone.name }}</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Mensajero</label>
+            <select class="block w-full rounded-xl bg-gray-50 px-3 py-2 text-sm border border-gray-300"
+                    [(ngModel)]="courierFilter">
+              <option value="">Todos</option>
+              <option *ngFor="let courier of couriers" [value]="courier.id">{{ courier.name }}</option>
+            </select>
+          </div>
+          <div *ngIf="timeRange === 'custom'">
+            <label class="block text-sm font-medium text-gray-700 mb-1">Fecha inicio</label>
+            <input type="date" class="block w-full rounded-xl bg-gray-50 px-3 py-2 text-sm border border-gray-300"
+                   [(ngModel)]="startDate">
+          </div>
+          <div *ngIf="timeRange === 'custom'">
+            <label class="block text-sm font-medium text-gray-700 mb-1">Fecha fin</label>
+            <input type="date" class="block w-full rounded-xl bg-gray-50 px-3 py-2 text-sm border border-gray-300"
+                   [(ngModel)]="endDate">
+          </div>
+        </div>
+        <div class="flex justify-end mt-4">
+          <button class="btn-primary rounded-xl px-4 py-2 text-sm"
+                  (click)="applyFilters()">
+            Aplicar Filtros
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Resumen de métricas -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+      <!-- Tarjeta 1 -->
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
+        <div class="flex justify-between items-start">
+          <div>
+            <p class="text-sm text-gray-500">Total pedidos</p>
+            <p class="text-2xl font-bold text-gray-800">{{ metrics.totalOrders }}</p>
+          </div>
+          <div class="p-2 rounded-lg bg-blue-50 text-blue-600">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+            </svg>
+          </div>
+        </div>
+        <div class="mt-2">
+          <span class="text-xs font-medium" [ngClass]="{
+            'text-green-500': metrics.ordersChange >= 0,
+            'text-red-500': metrics.ordersChange < 0
+          }">
+            {{ metrics.ordersChange >= 0 ? '+' : '' }}{{ metrics.ordersChange }}% vs periodo anterior
+          </span>
+        </div>
+      </div>
+
+      <!-- Tarjeta 2 -->
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
+        <div class="flex justify-between items-start">
+          <div>
+            <p class="text-sm text-gray-500">Pedidos entregados</p>
+            <p class="text-2xl font-bold text-gray-800">{{ metrics.deliveredOrders }}</p>
+          </div>
+          <div class="p-2 rounded-lg bg-green-50 text-green-600">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+        </div>
+        <div class="mt-2">
+          <span class="text-xs font-medium text-gray-500">
+            {{ metrics.deliveryRate }}% tasa de entrega
+          </span>
+        </div>
+      </div>
+
+      <!-- Tarjeta 3 -->
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
+        <div class="flex justify-between items-start">
+          <div>
+            <p class="text-sm text-gray-500">Tiempo promedio</p>
+            <p class="text-2xl font-bold text-gray-800">{{ metrics.avgDeliveryTime }} min</p>
+          </div>
+          <div class="p-2 rounded-lg bg-yellow-50 text-yellow-600">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+        </div>
+        <div class="mt-2">
+          <span class="text-xs font-medium" [ngClass]="{
+            'text-green-500': metrics.timeChange <= 0,
+            'text-red-500': metrics.timeChange > 0
+          }">
+            {{ metrics.timeChange <= 0 ? '' : '+' }}{{ metrics.timeChange }} min vs periodo anterior
+          </span>
+        </div>
+      </div>
+
+      <!-- Tarjeta 4 -->
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
+        <div class="flex justify-between items-start">
+          <div>
+            <p class="text-sm text-gray-500">Satisfacción</p>
+            <p class="text-2xl font-bold text-gray-800">{{ metrics.satisfactionRate }}%</p>
+          </div>
+          <div class="p-2 rounded-lg bg-purple-50 text-purple-600">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+        </div>
+        <div class="mt-2">
+          <span class="text-xs font-medium" [ngClass]="{
+            'text-green-500': metrics.satisfactionChange >= 0,
+            'text-red-500': metrics.satisfactionChange < 0
+          }">
+            {{ metrics.satisfactionChange >= 0 ? '+' : '' }}{{ metrics.satisfactionChange }}% vs periodo anterior
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gráficos principales -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+      <!-- Gráfico 1 - Evolución de pedidos -->
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 lg:col-span-2">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="font-medium text-gray-800">Evolución de pedidos</h3>
+          <div class="flex space-x-2">
+            <button *ngFor="let period of ['Día', 'Semana', 'Mes']"
+                    [class.bg-primary]="chartPeriod === period.toLowerCase()"
+                    [class.text-white]="chartPeriod === period.toLowerCase()"
+                    [class.text-gray-700]="chartPeriod !== period.toLowerCase()"
+                    class="text-xs px-3 py-1 rounded-full border border-gray-300"
+                    (click)="chartPeriod = period.toLowerCase()">
+              {{ period }}
+            </button>
+          </div>
+        </div>
+        <div class="h-64">
+          <!-- Aquí iría el gráfico de líneas -->
+          <div class="flex items-center justify-center h-full bg-gray-50 rounded-lg">
+            <p class="text-gray-500">Gráfico de evolución de pedidos</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gráfico 2 - Distribución por estado -->
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
+        <h3 class="font-medium text-gray-800 mb-4">Distribución por estado</h3>
+        <div class="h-64">
+          <!-- Aquí iría el gráfico de donut -->
+          <div class="flex items-center justify-center h-full bg-gray-50 rounded-lg">
+            <p class="text-gray-500">Gráfico de distribución por estado</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gráficos secundarios y tablas -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+      <!-- Gráfico 3 - Pedidos por zona -->
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
+        <h3 class="font-medium text-gray-800 mb-4">Pedidos por zona</h3>
+        <div class="h-64">
+          <!-- Aquí iría el gráfico de barras horizontales -->
+          <div class="flex items-center justify-center h-full bg-gray-50 rounded-lg">
+            <p class="text-gray-500">Gráfico de pedidos por zona</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gráfico 4 - Cumplimiento mensajeros -->
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
+        <h3 class="font-medium text-gray-800 mb-4">Cumplimiento por mensajero</h3>
+        <div class="h-64">
+          <!-- Aquí iría el gráfico de barras agrupadas -->
+          <div class="flex items-center justify-center h-full bg-gray-50 rounded-lg">
+            <p class="text-gray-500">Gráfico de cumplimiento por mensajero</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabla de desempeño -->
+    <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden mb-6">
+      <div class="p-4 border-b border-gray-200">
+        <h3 class="font-medium text-secondary">Desempeño por mensajero</h3>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50">
+            <tr>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Mensajero</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pedidos asignados</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pedidos entregados</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tasa de éxito</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tiempo promedio</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Satisfacción</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <tr *ngFor="let courier of courierPerformance" class="hover:bg-gray-50">
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="flex items-center">
+                  <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center">
+                    <span class="text-secondary">{{ courier.name.charAt(0) }}</span>
+                  </div>
+                  <div class="ml-4">
+                    <div class="text-sm font-medium text-secondary">{{ courier.name }}</div>
+                    <div class="text-sm text-gray-500">{{ courier.zone }}</div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ courier.assigned }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ courier.delivered }}</td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="flex items-center">
+                  <div class="w-full bg-gray-200 rounded-full h-2.5">
+                    <div class="bg-green-600 h-2.5 rounded-full" [style.width]="courier.successRate + '%'"></div>
+                  </div>
+                  <span class="ml-2 text-sm font-medium text-gray-700">{{ courier.successRate }}%</span>
+                </div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ courier.avgTime }} min</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                <div class="flex items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-yellow-400 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                  {{ courier.satisfaction }}
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="px-6 py-3 border-t border-gray-200 flex items-center justify-between">
+        <div class="text-sm text-gray-500">
+          Mostrando {{ courierPerformance.length }} de {{ totalCouriers }} mensajeros
+        </div>
+        <div class="flex space-x-2">
+          <button [disabled]="currentPage === 1"
+                  class="px-3 py-1 rounded-lg border border-gray-300 text-sm disabled:opacity-50"
+                  (click)="previousPage()">
+            Anterior
+          </button>
+          <button [disabled]="currentPage * itemsPerPage >= totalCouriers"
+                  class="px-3 py-1 rounded-lg border border-gray-300 text-sm disabled:opacity-50"
+                  (click)="nextPage()">
+            Siguiente
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

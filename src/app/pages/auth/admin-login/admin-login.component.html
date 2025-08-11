@@ -21,7 +21,7 @@
                     <div>
                       <label for="email" class="block text-sm/6 font-medium text-secondary">Correo electrónico</label>
                       <div class="mt-2">
-                        <input id="email" type="email" name="email" required autocomplete="email" class="block w-full rounded-sm bg-secondary px-3 py-1.5 text-base text-secondary  placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-sky-600 sm:text-sm/6" />
+                        <input id="email" type="email" [(ngModel)]="email" name="email" required autocomplete="email" class="block w-full rounded-sm bg-secondary px-3 py-1.5 text-base text-secondary  placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-sky-600 sm:text-sm/6" />
                       </div>
                     </div>
 
@@ -50,7 +50,7 @@
                     </div>
 
                     <div class="mx-auto lg:max-w-3/5 mt-6">
-                      <button type="button" routerLink="/admin-dashboard" class="flex w-full justify-center btn-primary">Iniciar Sesión</button>
+                      <button type="button" (click)="login()" class="flex w-full justify-center btn-primary">Iniciar Sesión</button>
                     </div>
                   </div>
 

@@ -3,11 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
    {
-    path:'admin-login',
+    path:'',
     loadComponent: () => import('./admin-login/admin-login.component').then(a => a.AdminLoginComponent)
   },
   {
-    path:'',
+    path:'platform',
     loadComponent: () => import('./main/main.component').then( m => m.MainComponent),
     children:[
       {
@@ -33,6 +33,7 @@ const routes: Routes = [
       }
     ]
   },
+
 
 ];
 

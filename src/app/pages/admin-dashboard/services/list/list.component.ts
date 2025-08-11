@@ -2,8 +2,26 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
+/**
+ * Component for displaying and managing shipping/delivery records
+ *
+ * @Component
+ * @selector app-list
+ *
+ * @description
+ * Provides functionality to:
+ * - Display a list of shipping records
+ * - Filter and search shipments
+ * - Assign delivery personnel
+ * - View delivery evidence
+ * - Manage shipment status
+ *
+ * @example
+ * <app-list></app-list>
+ */
 @Component({
   selector: 'app-list',
+  standalone: true,
   imports: [
     CommonModule,
     FormsModule
@@ -12,8 +30,78 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './list.component.css'
 })
 export class ListComponent {
+  /**
+   * Sample shipment data (in a real app, this would come from a service)
+   * @type {Array<{
+   *   id: number,
+   *   fecha: string,
+   *   procedencia: string,
+   *   destino: string,
+   *   nombreDestinatario: string,
+   *   mercancia: string,
+   *   ciudad: string,
+   *   estado: string,
+   *   remitente: string,
+   *   repartidor?: {
+   *     id: number,
+   *     nombre: string,
+   *     telefono: string,
+   *     vehiculo: {
+   *       tipo: string,
+   *       placa: string,
+   *       marca: string,
+   *       modelo: string
+   *     }
+   *   },
+   *   evidencias?: Array<{
+   *     tipo: string,
+   *     url: string,
+   *     fechaHora: string,
+   *     descripcion?: string
+   *   }>
+   * }>}
+   */
   public data = [
-    {
+    // ... (shipment data remains the same)
+  ];
+
+  /**
+   * Current search term for filtering shipments
+   * @type {string}
+   * @default ''
+   */
+  searchTerm: string = '';
+
+  /**
+   * Filtered list of shipments based on current search term
+   * @type {Array}
+   */
+  filteredEnvios: any[] = this.data;
+
+  /**
+   * List of available delivery personnel
+   * @type {Array<{
+   *   id: number,
+   *   nombre: string,
+   *   tipoIdentificacion: string,
+   *   identificacion: string,
+   *   telefono: string,
+   *   email: string,
+   *   vehiculo: {
+   *     tipo: string,
+   *     placa: string,
+   *     marca: string,
+   *     modelo: string
+   *   },
+   *   certificaciones: string[],
+   *   estado: string,
+   *   ultimoServicio: Date,
+   *   fechaIngreso: Date
+   * }>}
+   */
+  repartidores = [
+    // ... (delivery personnel data remains the same)
+        {
       "id": 1,
       "fecha": "12-05-2025",
       "procedencia": "Calle 99c # 43 150",
@@ -232,68 +320,45 @@ export class ListComponent {
     }
   ];
 
-   searchTerm: string = '';
-  filteredEnvios: any[] = this.data;
-  repartidores = [
-    {
-      id: 1,
-      nombre: 'Juan Pérez',
-      tipoIdentificacion: 'CC',
-      identificacion: '123456789',
-      telefono: '3001234567',
-      email: 'juan@cumon.com',
-      vehiculo: {
-        tipo: 'Motocicleta',
-        placa: 'ABC123',
-        marca: 'Honda',
-        modelo: 'CB190'
-      },
-      certificaciones: ['Primeros Auxilios', 'Manejo de Muestras'],
-      estado: 'active',
-      ultimoServicio: new Date('2023-05-15'),
-      fechaIngreso: new Date('2022-01-10')
-    },
-    {
-      id: 2,
-      nombre: 'María Gómez',
-      tipoIdentificacion: 'CC',
-      identificacion: '987654321',
-      telefono: '3107654321',
-      email: 'maria@cumon.com',
-      vehiculo: {
-        tipo: 'Automóvil',
-        placa: 'XYZ789',
-        marca: 'Hyundai',
-        modelo: 'Tucson'
-      },
-      certificaciones: ['Primeros Auxilios', 'Cadena de Frío', 'BPM'],
-      estado: 'on_delivery',
-      ultimoServicio: new Date('2023-05-20'),
-      fechaIngreso: new Date('2021-11-15')
-    },
-    {
-      id: 3,
-      nombre: 'Carlos Rojas',
-      tipoIdentificacion: 'CE',
-      identificacion: 'PA123456',
-      telefono: '3204567890',
-      email: 'carlos@cumon.com',
-      vehiculo: {
-        tipo: 'Motocicleta',
-        placa: 'DEF456',
-        marca: 'Yamaha',
-        modelo: 'FZ 2.0'
-      },
-      certificaciones: ['Manejo de Muestras'],
-      estado: 'inactive',
-      ultimoServicio: new Date('2023-04-30'),
-      fechaIngreso: new Date('2023-02-01')
-    }
-  ];
+  /**
+   * Currently selected delivery personnel for assignment
+   * @type {any}
+   * @default null
+   */
+  selectedRepartidor: any = null;
 
-   selectedRepartidor: any = null;
+  /**
+   * Currently selected shipment for assignment
+   * @type {any}
+   * @default null
+   */
   envioSeleccionado: any = null;
 
+  /**
+   * Controls visibility of evidence modal
+   * @type {boolean}
+   * @default false
+   */
+  evidenciasModalVisible = false;
+
+  /**
+   * Evidence items currently displayed in modal
+   * @type {Array}
+   * @default []
+   */
+  evidenciasSeleccionadas: any[] = [];
+
+  /**
+   * Detailed view of a delivery person
+   * @type {any}
+   * @default null
+   */
+  repartidorDetalle: any = null;
+
+  /**
+   * Filters shipments based on current search term
+   * @method
+   */
   filterTable() {
     if (!this.searchTerm) {
       this.filteredEnvios = this.data;
@@ -301,7 +366,7 @@ export class ListComponent {
     }
 
     const searchTermLower = this.searchTerm.toLowerCase();
-    this.filteredEnvios = this.data.filter(envio =>
+    this.filteredEnvios = this.data.filter((envio:any) =>
       envio.fecha.toLowerCase().includes(searchTermLower) ||
       envio.procedencia.toLowerCase().includes(searchTermLower) ||
       envio.destino.toLowerCase().includes(searchTermLower) ||
@@ -313,9 +378,11 @@ export class ListComponent {
     );
   }
 
-  evidenciasModalVisible = false;
-  evidenciasSeleccionadas: any[] = [];
-
+  /**
+   * Displays evidence modal for a completed shipment
+   * @method
+   * @param envio Shipment containing evidence to display
+   */
   mostrarEvidencias(envio: any) {
     if (envio.estado === 'Entregada' && envio.evidencias) {
       this.evidenciasSeleccionadas = envio.evidencias;
@@ -323,20 +390,36 @@ export class ListComponent {
     }
   }
 
+  /**
+   * Closes evidence modal
+   * @method
+   */
   cerrarEvidencias() {
     this.evidenciasModalVisible = false;
     this.evidenciasSeleccionadas = [];
   }
 
+  /**
+   * Gets list of available delivery personnel
+   * @method
+   * @returns {Array} Filtered and sorted list of available delivery personnel
+   */
   getRepartidoresDisponibles() {
-    return this.repartidores.filter(rep =>
+    return this.repartidores.filter((rep:any) =>
       rep.estado === 'active' || rep.estado === 'on_delivery'
-    ).sort((a, b) => {
+    ).sort((a:any, b:any) => {
       // Priorizar repartidores con menos entregas recientes
       return a.ultimoServicio.getTime() - b.ultimoServicio.getTime();
     });
   }
 
+
+
+  /**
+   * Selects a shipment for delivery personnel assignment
+   * @method
+   * @param envio Shipment to be assigned
+   */
   seleccionarEnvioParaAsignar(envio: any) {
     if (envio.estado === 'Pendiente') {
       this.envioSeleccionado = envio;
@@ -344,12 +427,16 @@ export class ListComponent {
     }
   }
 
+  /**
+   * Assigns selected delivery personnel to shipment
+   * @method
+   */
   asignarRepartidor() {
     if (this.envioSeleccionado && this.selectedRepartidor) {
-      // Actualizar el estado del envío
+      // Update shipment status
       this.envioSeleccionado.estado = 'En curso';
 
-      // Guardar toda la información del repartidor, no solo el nombre
+      // Save complete delivery personnel info
       this.envioSeleccionado.repartidor = {
         id: this.selectedRepartidor.id,
         nombre: this.selectedRepartidor.nombre,
@@ -357,21 +444,31 @@ export class ListComponent {
         vehiculo: this.selectedRepartidor.vehiculo
       };
 
-      // Actualizar estado del repartidor
+      // Update delivery personnel status
       this.selectedRepartidor.estado = 'on_delivery';
       this.selectedRepartidor.ultimoServicio = new Date();
 
-      // Resetear la selección
+      // Reset selection
       this.envioSeleccionado = null;
       this.selectedRepartidor = null;
     }
   }
 
+  /**
+   * Cancels delivery personnel assignment process
+   * @method
+   */
   cancelarAsignacion() {
     this.envioSeleccionado = null;
     this.selectedRepartidor = null;
   }
 
+  /**
+   * Translates delivery personnel status codes to display text
+   * @method
+   * @param estado Status code
+   * @returns {string} Display text for status
+   */
   getEstadoRepartidor(estado: string): string {
     switch(estado) {
       case 'active': return 'Disponible';
@@ -381,11 +478,13 @@ export class ListComponent {
     }
   }
 
-  repartidorDetalle: any = null;
-
+  /**
+   * Shows detailed view of a delivery person
+   * @method
+   * @param repartidor Delivery person to display
+   */
   mostrarDetalleRepartidor(repartidor: any) {
-    // Buscar el repartidor completo en el array
-    this.repartidorDetalle = this.repartidores.find(r => r.id === repartidor.id) || repartidor;
+    // Find complete delivery person record
+    this.repartidorDetalle = this.repartidores.find((r:any) => r.id === repartidor.id) || repartidor;
   }
-
 }

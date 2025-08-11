@@ -1,0 +1,116 @@
+<form [formGroup]="zoneForm" (ngSubmit)="onSubmit()" class="w-full mx-auto p-3 bg-secondary rounded-md shadow-md">
+  <h2 class="text-2xl font-bold text-secondary mb-6"> {{data !== null ? 'Editar Zona':'Nueva Zona'}}  </h2>
+
+  <!-- Nombre de Zona -->
+  <div class="mb-4">
+    <label for="nameZone" class="block text-gray-700 font-medium mb-2">Nombre de la Zona*</label>
+    <input
+      id="nameZone"
+      type="text"
+      formControlName="nameZone"
+      class="w-full px-3 py-2  rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+      placeholder="Ej: Andina - Bogotá">
+    <div *ngIf="zoneForm.get('nameZone')?.invalid && (zoneForm.get('nameZone')?.dirty || zoneForm.get('nameZone')?.touched)"
+         class="text-red-500 text-sm mt-1">
+      Este campo es requerido
+    </div>
+  </div>
+
+  <!-- Ciudad -->
+  <div class="mb-4">
+    <label for="ciudad" class="block text-gray-700 font-medium mb-2">Ciudad*</label>
+    <input
+      id="city"
+      type="text"
+      formControlName="city"
+      class="w-full px-3 py-2  rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+      placeholder="Ej: Bogotá">
+    <div *ngIf="zoneForm.get('city')?.invalid && (zoneForm.get('city')?.dirty || zoneForm.get('city')?.touched)"
+         class="text-red-500 text-sm mt-1">
+      Este campo es requerido
+    </div>
+  </div>
+
+  <hr class="border-t-2 my-4 border-[#08A2CB]">
+  <app-mapa-viewer [geographicPoints]="this.ArrayPoints.value" *ngIf="data !== null"></app-mapa-viewer>
+  <hr class="border-t-2 my-4 border-[#08A2CB]">
+  <!-- Puntos Geográficos -->
+  <div class="mb-6">
+    <div class="flex justify-between items-center mb-2">
+      <h3 class="text-lg font-medium text-gray-700">Puntos Geográficos</h3>
+      <button
+        type="button"
+        (click)="agregarPunto()"
+        class="px-3 py-1 bg-primary text-white rounded-md hover:bg-sky-600 transition">
+        + Agregar Punto
+      </button>
+    </div>
+
+    <div formArrayName="geographicPoints" class="space-y-4">
+      <div *ngFor="let point of ArrayPoints.controls; let i = index" [formGroupName]="i" class="p-4  rounded-md">
+        <div class="flex justify-between mb-2">
+          <span class="font-medium text-gray-700">Punto {{ i + 1 }}</span>
+          <button
+            type="button"
+            (click)="eliminarPunto(i)"
+            *ngIf="ArrayPoints.length > 1"
+            class="text-red-500 hover:text-red-700">
+            Eliminar
+          </button>
+        </div>
+
+        <!-- Nombre del Punto -->
+        <div class="mb-3">
+          <label [for]="'name' + i" class="block text-sm text-gray-600 mb-1">Nombre*</label>
+          <input
+            [id]="'name' + i"
+            type="text"
+            formControlName="name"
+            class="w-full px-3 py-2  rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 bg-white"
+            placeholder="Ej: Cerro de Monserrate">
+        </div>
+
+        <!-- Coordenadas -->
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label [for]="'latitud' + i" class="block text-sm text-gray-600 mb-1">Latitud*</label>
+            <input
+              [id]="'latitud' + i"
+              type="number"
+              formControlName="latitud"
+              step="0.0001"
+              class="w-full px-3 py-2  rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 bg-white"
+              placeholder="4.6047">
+          </div>
+          <div>
+            <label [for]="'longitud' + i" class="block text-sm text-gray-600 mb-1">Longitud*</label>
+            <input
+              [id]="'longitud' + i"
+              type="number"
+              formControlName="longitud"
+              step="0.0001"
+              class="w-full px-3 py-2  rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 bg-white"
+              placeholder="-74.0657">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex justify-end items-center gap-3">
+
+    <!-- Botón de cancel -->
+    <button
+      type="button"
+      (click)="cancel.emit(true)"
+      class="w-fit py-1.5 px-4 bg-red-600 text-white font-medium rounded-md hover:bg-red-700 disabled:bg-gray-400 transition">
+      Cancelar
+    </button>
+    <!-- Botón de envío -->
+    <button
+      type="submit"
+      class="w-fit py-1.5 px-4 bg-green-600 text-white font-medium rounded-md hover:bg-green-700 disabled:bg-gray-400 transition">
+      Guardar
+    </button>
+  </div>
+</form>

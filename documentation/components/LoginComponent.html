@@ -1,0 +1,592 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>platform documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/default.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">platform documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  LoginComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/pages/auth/login/login.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-login</code></td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>RouterModule</code>
+                            <code>FormsModule</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./login.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./login.component.css</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#email" >email</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#login" >login</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(router: Router)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/pages/auth/login/login.component.ts:16</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                    <code>Router</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="login"></a>
+                    <span class="name">
+                        <span ><b>login</b></span>
+                        <a href="#login"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>login()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="20"
+                                    class="link-to-prism">src/app/pages/auth/login/login.component.ts:20</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="email"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>email</b></span>
+                        <a href="#email"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/pages/auth/login/login.component.ts:16</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component } from &#x27;@angular/core&#x27;;
+import { HeaderComponent } from &#x27;../../../shared/header/header.component&#x27;;
+import { Router, RouterModule } from &#x27;@angular/router&#x27;;
+import { FormsModule } from &#x27;@angular/forms&#x27;;
+
+@Component({
+  selector: &#x27;app-login&#x27;,
+  imports: [
+    RouterModule,
+    FormsModule
+  ],
+  templateUrl: &#x27;./login.component.html&#x27;,
+  styleUrl: &#x27;./login.component.css&#x27;
+})
+export class LoginComponent {
+  public email:string &#x3D; &#x27;&#x27;;
+
+  constructor(private router:Router){}
+
+  login(){
+    if (this.email &#x3D;&#x3D;&#x3D; &#x27;domi@cumon.com&#x27;) {
+      this.router.navigateByUrl(&#x27;deliveries-dashboard&#x27;)
+    } else {
+      this.router.navigateByUrl(&#x27;users-dashboard&#x27;)
+    }
+  };
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">
+&lt;div class&#x3D;&quot;flex min-h-full flex-col items-center justify-center  sm:px-6 lg:px-8&quot;&gt;
+
+  &lt;div class&#x3D;&quot; sm:mx-auto sm:w-full sm:max-w-[680px]&quot;&gt;
+    &lt;div class&#x3D;&quot;bg-white px-6 py-12 shadow-sm sm:rounded-lg sm:px-12&quot;&gt;
+      &lt;div class&#x3D;&quot;sm:mx-auto sm:w-full sm:max-w-md&quot;&gt;
+        &lt;h2 class&#x3D;&quot;text-center text-2xl/9 font-bold tracking-tight text-secondary uppercase&quot; style&#x3D;&quot;letter-spacing: 1px;&quot;&gt;RASTREO DE SERVICIO&lt;/h2&gt;
+      &lt;/div&gt;
+
+      &lt;div class&#x3D;&quot;flex items-center justify-around my-7&quot;&gt;
+          &lt;div&gt;
+              &lt;a class&#x3D;&quot;text-primary font-medium text-base&quot; [routerLink]&#x3D;&quot;[&#x27;/auth/login&#x27;]&quot; routerLinkActive&#x3D;&quot;active&quot; &gt;Iniciar Sesión&lt;/a&gt;
+          &lt;/div&gt;
+          &lt;div&gt;
+              &lt;a class&#x3D;&quot;text-primary font-medium text-base&quot; [routerLink]&#x3D;&quot;[&#x27;/auth/register&#x27;]&quot; routerLinkActive&#x3D;&quot;active&quot; &gt;Crea una cuenta&lt;/a&gt;
+          &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;div  class&#x3D;&quot;space-y-6&quot;&gt;
+        &lt;div&gt;
+          &lt;label for&#x3D;&quot;email&quot; class&#x3D;&quot;block text-sm/6 font-medium text-secondary&quot;&gt;Correo electrónico&lt;/label&gt;
+          &lt;div class&#x3D;&quot;mt-2&quot;&gt;
+            &lt;input id&#x3D;&quot;email&quot; [(ngModel)]&#x3D;&quot;email&quot; type&#x3D;&quot;email&quot; name&#x3D;&quot;email&quot; required autocomplete&#x3D;&quot;email&quot; class&#x3D;&quot;block w-full rounded-sm bg-secondary px-3 py-1.5 text-base text-secondary  placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-sky-600 sm:text-sm/6&quot; /&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div&gt;
+          &lt;label for&#x3D;&quot;password&quot; class&#x3D;&quot;block text-sm/6 font-medium text-secondary&quot;&gt;Contraseña&lt;/label&gt;
+          &lt;div class&#x3D;&quot;mt-2&quot;&gt;
+            &lt;input id&#x3D;&quot;password&quot; type&#x3D;&quot;password&quot; name&#x3D;&quot;password&quot; required autocomplete&#x3D;&quot;current-password&quot; class&#x3D;&quot;block w-full rounded-sm bg-secondary px-3 py-1.5 text-base text-gray-900  placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-sky-600 sm:text-sm/6&quot; /&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;flex items-center justify-between&quot;&gt;
+          &lt;div class&#x3D;&quot;flex gap-3&quot;&gt;
+            &lt;div class&#x3D;&quot;flex h-6 shrink-0 items-center&quot;&gt;
+              &lt;div class&#x3D;&quot;group grid size-4 grid-cols-1&quot;&gt;
+                &lt;input id&#x3D;&quot;remember-me&quot; type&#x3D;&quot;checkbox&quot; name&#x3D;&quot;remember-me&quot; class&#x3D;&quot;col-start-1 row-start-1 appearance-none rounded-sm bg-secondary checked:border-sky-600 checked:bg-sky-600 indeterminate:border-sky-600 indeterminate:bg-sky-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto&quot; /&gt;
+                &lt;svg viewBox&#x3D;&quot;0 0 14 14&quot; fill&#x3D;&quot;none&quot; class&#x3D;&quot;pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-disabled:stroke-gray-950/25&quot;&gt;
+                  &lt;path d&#x3D;&quot;M3 8L6 11L11 3.5&quot; stroke-width&#x3D;&quot;2&quot; stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; class&#x3D;&quot;opacity-0 group-has-checked:opacity-100&quot; /&gt;
+                  &lt;path d&#x3D;&quot;M3 7H11&quot; stroke-width&#x3D;&quot;2&quot; stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; class&#x3D;&quot;opacity-0 group-has-indeterminate:opacity-100&quot; /&gt;
+                &lt;/svg&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;label for&#x3D;&quot;remember-me&quot; class&#x3D;&quot;block text-sm/6 text-secondary&quot;&gt;Recordar mis datos&lt;/label&gt;
+          &lt;/div&gt;
+
+          &lt;div class&#x3D;&quot;text-sm/6&quot;&gt;
+            &lt;a routerLink&#x3D;&quot;/auth/send-recover-email&quot; class&#x3D;&quot;font-semibold text-primary cursor-pointer hover:text-gray-950 underline&quot;&gt;¿Olvidaste tu contraseña?&lt;/a&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;mx-auto lg:max-w-3/5 mt-6&quot;&gt;
+          &lt;button type&#x3D;&quot;button&quot; (click)&#x3D;&quot;login()&quot; class&#x3D;&quot;flex w-full justify-center btn-primary&quot;&gt;Iniciar Sesión&lt;/button&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;mt-3 lg:max-w-4/5 mx-auto&quot;&gt;
+          &lt;p class&#x3D;&quot;text-secondary font-semibold text-sm text-center&quot;&gt;
+              Al iniciar sesión aseguras haber leído y estar de acuerdo con los
+              &lt;a class&#x3D;&quot;text-primary font-semibold underline&quot;  href&#x3D;&quot;&quot;&gt;Términos y Condiciones&lt;/a&gt;
+              y con la &lt;a class&#x3D;&quot;text-primary font-semibold underline&quot;  href&#x3D;&quot;&quot;&gt;Política de Privacidad&lt;/a&gt;
+          &lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;mt-6 lg:max-w-4/5 mx-auto&quot;&gt;
+          &lt;p class&#x3D;&quot;text-secondary font-semibold text-sm text-center&quot;&gt;
+             ¿Aún no tienes cuenta?
+              &lt;a class&#x3D;&quot;text-primary font-semibold underline&quot;  [routerLink]&#x3D;&quot;[&#x27;/auth/register&#x27;]&quot; &gt;Regístrate aquí&lt;/a&gt;
+          &lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+
+    &lt;/div&gt;
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="flex min-h-full flex-col items-center justify-center  sm:px-6 lg:px-8">  <div class=" sm:mx-auto sm:w-full sm:max-w-[680px]">    <div class="bg-white px-6 py-12 shadow-sm sm:rounded-lg sm:px-12">      <div class="sm:mx-auto sm:w-full sm:max-w-md">        <h2 class="text-center text-2xl/9 font-bold tracking-tight text-secondary uppercase" style="letter-spacing: 1px;">RASTREO DE SERVICIO</h2>      </div>      <div class="flex items-center justify-around my-7">          <div>              <a class="text-primary font-medium text-base" [routerLink]="[\'/auth/login\']" routerLinkActive="active" >Iniciar Sesión</a>          </div>          <div>              <a class="text-primary font-medium text-base" [routerLink]="[\'/auth/register\']" routerLinkActive="active" >Crea una cuenta</a>          </div>      </div>      <div  class="space-y-6">        <div>          <label for="email" class="block text-sm/6 font-medium text-secondary">Correo electrónico</label>          <div class="mt-2">            <input id="email" [(ngModel)]="email" type="email" name="email" required autocomplete="email" class="block w-full rounded-sm bg-secondary px-3 py-1.5 text-base text-secondary  placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-sky-600 sm:text-sm/6" />          </div>        </div>        <div>          <label for="password" class="block text-sm/6 font-medium text-secondary">Contraseña</label>          <div class="mt-2">            <input id="password" type="password" name="password" required autocomplete="current-password" class="block w-full rounded-sm bg-secondary px-3 py-1.5 text-base text-gray-900  placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-sky-600 sm:text-sm/6" />          </div>        </div>        <div class="flex items-center justify-between">          <div class="flex gap-3">            <div class="flex h-6 shrink-0 items-center">              <div class="group grid size-4 grid-cols-1">                <input id="remember-me" type="checkbox" name="remember-me" class="col-start-1 row-start-1 appearance-none rounded-sm bg-secondary checked:border-sky-600 checked:bg-sky-600 indeterminate:border-sky-600 indeterminate:bg-sky-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto" />                <svg viewBox="0 0 14 14" fill="none" class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-disabled:stroke-gray-950/25">                  <path d="M3 8L6 11L11 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-0 group-has-checked:opacity-100" />                  <path d="M3 7H11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-0 group-has-indeterminate:opacity-100" />                </svg>              </div>            </div>            <label for="remember-me" class="block text-sm/6 text-secondary">Recordar mis datos</label>          </div>          <div class="text-sm/6">            <a routerLink="/auth/send-recover-email" class="font-semibold text-primary cursor-pointer hover:text-gray-950 underline">¿Olvidaste tu contraseña?</a>          </div>        </div>        <div class="mx-auto lg:max-w-3/5 mt-6">          <button type="button" (click)="login()" class="flex w-full justify-center btn-primary">Iniciar Sesión</button>        </div>        <div class="mt-3 lg:max-w-4/5 mx-auto">          <p class="text-secondary font-semibold text-sm text-center">              Al iniciar sesión aseguras haber leído y estar de acuerdo con los              <a class="text-primary font-semibold underline"  href="">Términos y Condiciones</a>              y con la <a class="text-primary font-semibold underline"  href="">Política de Privacidad</a>          </p>        </div>        <div class="mt-6 lg:max-w-4/5 mx-auto">          <p class="text-secondary font-semibold text-sm text-center">             ¿Aún no tienes cuenta?              <a class="text-primary font-semibold underline"  [routerLink]="[\'/auth/register\']" >Regístrate aquí</a>          </p>        </div>      </div>    </div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AdminDashboardComponent', 'selector': 'app-admin-dashboard'},{'name': 'AdminLoginComponent', 'selector': 'app-admin-login'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BulkUploadComponent', 'selector': 'app-bulk-upload'},{'name': 'CoordinatorDashboardComponent', 'selector': 'app-coordinator-dashboard'},{'name': 'DeliveriesDashboardComponent', 'selector': 'app-deliveries-dashboard'},{'name': 'FaqsComponent', 'selector': 'app-faqs'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'ListComponent', 'selector': 'app-list'},{'name': 'ListComponent', 'selector': 'app-list'},{'name': 'ListComponent', 'selector': 'app-list'},{'name': 'ListComponent', 'selector': 'app-list'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'ManageComponent', 'selector': 'app-manage'},{'name': 'ManagementComponent', 'selector': 'app-management'},{'name': 'MapaViewerComponent', 'selector': 'app-mapa-viewer'},{'name': 'MyServicesComponent', 'selector': 'app-my-services'},{'name': 'NewComponent', 'selector': 'app-new'},{'name': 'NewComponent', 'selector': 'app-new'},{'name': 'PaginationComponent', 'selector': 'app-pagination'},{'name': 'PanelComponent', 'selector': 'app-panel'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'SendRecoverEmailComponent', 'selector': 'app-send-recover-email'},{'name': 'SetNewPasswordComponent', 'selector': 'app-set-new-password'},{'name': 'SupportDashboardComponent', 'selector': 'app-support-dashboard'},{'name': 'UsersDashboardComponent', 'selector': 'app-users-dashboard'},{'name': 'UsersHeaderComponent', 'selector': 'app-users-header'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'LoginComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'LoginComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
