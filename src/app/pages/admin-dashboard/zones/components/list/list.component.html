@@ -1,14 +1,12 @@
 <div class="bg-secondary p-3 rounded-md w-full max-h-full">
 
   <ul class="grid lg:grid-cols-1 md:grid-cols-5 grid-cols-1 gap-3 max-h-full overflow-y-auto">
-    <li (click)="selectZone(z)" [ngClass]="{'bg-sky-900/10': selectedZone == z, 'bg-white': selectedZone !== z}" *ngFor="let z of zones" class="w-full rounded-md py-2 px-3 cursor-pointer hover:bg-gray-100" >
-        <p class="text-primary font-semibold text-base">{{z.name}} </p>
-        <p class="text-primary font-normal text-sm">{{z.city}} </p>
-        <hr class="border-t-2 my-2 border-[#08A2CB]">
-        <div class="text-xs text-secondary font-medium">Puntos </div>
-        <p *ngFor="let p of z.geographic_points" class="text-xs text-primary font-light">
-            {{p.name}} - <span class="font-medium">{{p.coordinates}}</span>
-        </p>
+    <li (click)="selectZone(z)" [ngClass]="{'bg-sky-900/10': selectedZone == z, 'bg-white': selectedZone !== z}"
+      *ngFor="let z of zones" class="w-full rounded-md py-2 px-3 cursor-pointer hover:bg-gray-100">
+      <p class="text-primary font-semibold text-base">{{z.name}} </p>
+      <p class="text-primary font-normal text-sm">{{z.city}} </p>
+      <hr class="border-t-2 my-2 border-[#08A2CB]">
+
     </li>
 
   </ul>

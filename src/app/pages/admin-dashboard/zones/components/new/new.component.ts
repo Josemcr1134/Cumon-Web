@@ -3,6 +3,8 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange
 import { FormGroup, FormBuilder, Validators, FormArray, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { MapaViewerComponent } from '../mapa-viewer/mapa-viewer.component';
+import { ZoneService } from '../../../../../core/services/zone.services';
+import { LoaderComponent } from '../../../../../shared/loader/loader.component';
 
 /**
  * Interface para representar un punto geográfico
@@ -39,7 +41,8 @@ interface GeographicPoint {
     CommonModule,
     FormsModule,
     MapaViewerComponent,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    LoaderComponent
   ],
   templateUrl: './new.component.html',
   styleUrl: './new.component.css'
@@ -58,6 +61,7 @@ export class NewComponent implements OnInit, OnChanges {
    * @type {EventEmitter<any>}
    */
   @Output() cancel = new EventEmitter<any>();
+  @Output() refresh = new EventEmitter<any>();
 
   /**
    * Datos de la zona a editar (opcional)
@@ -76,13 +80,16 @@ export class NewComponent implements OnInit, OnChanges {
    * Constructor del componente
    * @param fb Servicio FormBuilder para crear formularios reactivos
    */
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private zoneSvc: ZoneService) {
     this.zoneForm = this.fb.group({
-      nameZone: ['', Validators.required],
+      name: ['', Validators.required],
       city: ['', Validators.required],
+      description: ['', Validators.required],
       geographicPoints: this.fb.array([])
     });
   }
+
+  public isLoading: boolean = false;
 
   /**
    * Inicialización del componente
@@ -109,15 +116,18 @@ export class NewComponent implements OnInit, OnChanges {
     // Limpiar el FormArray antes de cargar nuevos datos
     this.ArrayPoints.clear();
     if (this.data) {
-      this.zoneForm.get('nameZone')?.setValue(this.data.name);
+      this.zoneForm.get('name')?.setValue(this.data.name);
       this.zoneForm.get('city')?.setValue(this.data.city);
+      this.zoneForm.get('description')?.setValue(this.data.description);
 
-      this.data.geographic_points.forEach((g: any) => {
+      this.data.geographicPoints.forEach((g: any) => {
         const pointGroup = this.createZoneGroupForm();
         pointGroup.patchValue({
           name: g.name,
-          latitud: g.coordinates[0],
-          longitud: g.coordinates[1]
+          latitude: g.latitude,
+          longitude: g.longitude,
+          id: g.id,
+          geographicalAreaId: g.geographicalAreaId
         });
         this.ArrayPoints.push(pointGroup);
       });
@@ -142,8 +152,9 @@ export class NewComponent implements OnInit, OnChanges {
   createZoneGroupForm(): FormGroup {
     return this.fb.group({
       name: ['', Validators.required],
-      latitud: ['', [Validators.required, Validators.min(-90), Validators.max(90)]],
-      longitud: ['', [Validators.required, Validators.min(-180), Validators.max(180)]]
+      latitude: ['', [Validators.required, Validators.min(-90), Validators.max(90)]],
+      longitude: ['', [Validators.required, Validators.min(-180), Validators.max(180)]],
+      geographicalAreaId: ['']
     });
   }
 
@@ -158,11 +169,25 @@ export class NewComponent implements OnInit, OnChanges {
   /**
    * Elimina un punto geográfico del formulario
    * @method
-   * @param index Índice del punto a eliminar
+   * @param id Id del punto a eliminar
    */
-  eliminarPunto(index: number) {
-    this.ArrayPoints.removeAt(index);
-  }
+  eliminarPunto(id: any) {
+    this.isLoading = !this.isLoading;
+    this.zoneSvc.deletePoint(id)
+      .subscribe({
+        error: (err: any) => {
+          console.log(err);
+          Swal.fire('Oooops', err.message, 'error');
+          this.isLoading = !this.isLoading;
+        },
+        next: (resp: any) => {
+          Swal.fire('Éxito', 'Punto eliminado', 'success');
+
+          this.refresh.emit(true);
+          this.isLoading = !this.isLoading;
+        }
+      });
+  };
 
   /**
    * Maneja el envío del formulario
@@ -179,6 +204,7 @@ export class NewComponent implements OnInit, OnChanges {
       this.ArrayPoints.clear();
       this.agregarPunto();
     } else {
+      console.log(this.zoneForm.value)
       Swal.fire('Atención', 'Debes llenar todos los campos del formulario', 'info');
     }
   }

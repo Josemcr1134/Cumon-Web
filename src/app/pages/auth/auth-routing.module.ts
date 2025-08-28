@@ -2,34 +2,30 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-   {
-    path:'',
+  {
+    path: '',
     loadComponent: () => import('./admin-login/admin-login.component').then(a => a.AdminLoginComponent)
   },
   {
-    path:'platform',
-    loadComponent: () => import('./main/main.component').then( m => m.MainComponent),
-    children:[
+    path: 'platform',
+    loadComponent: () => import('./main/main.component').then(m => m.MainComponent),
+    children: [
       {
-        path:'login',
-        loadComponent: () => import('./login/login.component').then(a => a.LoginComponent)
-      },
-      {
-        path:'register',
+        path: 'register',
         loadComponent: () => import('./register/register.component').then(a => a.RegisterComponent)
       },
       {
-        path:'send-recover-email',
+        path: 'send-recover-email',
         loadComponent: () => import('./send-recover-email/send-recover-email.component').then(a => a.SendRecoverEmailComponent)
       },
       {
-        path:'set-new-password',
+        path: 'set-new-password',
         loadComponent: () => import('./set-new-password/set-new-password.component').then(a => a.SetNewPasswordComponent)
       },
       {
-        path:'**',
-        redirectTo:'login',
-        pathMatch:'full'
+        path: '**',
+        redirectTo: 'login',
+        pathMatch: 'full'
       }
     ]
   },

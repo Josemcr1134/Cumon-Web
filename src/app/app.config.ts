@@ -1,7 +1,8 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, LOCALE_ID, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { authInterceptor } from './core/interceptors/refresh';
 
 /**
  * Configuración principal de la aplicación Angular
@@ -29,6 +30,9 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
 
     // Provee el cliente HTTP para realizar peticiones
-    provideHttpClient()
+    provideHttpClient(
+      withInterceptors([authInterceptor])
+    ),
+    { provide: LOCALE_ID, useValue: 'es' },
   ]
 };

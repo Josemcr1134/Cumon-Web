@@ -1,7 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ListComponent } from '../components/list/list.component';
 import { NewComponent } from '../components/new/new.component';
+import { AlertComponent } from '../../../../shared/alert/alert.component';
+import { ZoneService } from '../../../../core/services/zone.services';
+import Swal from 'sweetalert2';
+import { LoaderComponent } from '../../../../shared/loader/loader.component';
+import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 
 /**
  * Componente para la gestión de zonas geográficas
@@ -24,12 +29,15 @@ import { NewComponent } from '../components/new/new.component';
   imports: [
     CommonModule,
     ListComponent,
-    NewComponent
+    NewComponent,
+    AlertComponent,
+    LoaderComponent,
+    PaginationComponent
   ],
   templateUrl: './management.component.html',
   styleUrl: './management.component.css'
 })
-export class ManagementComponent {
+export class ManagementComponent implements OnInit {
   /**
    * Controla la visualización del formulario de nueva zona
    * @type {boolean}
@@ -48,86 +56,7 @@ export class ManagementComponent {
    *   }>
    * }>}
    */
-  public zones = [
-    {
-      "name": "Andina - Bogotá",
-      "city": "Bogotá",
-      "geographic_points": [
-        {
-          "name": "Cerro de Monserrate",
-          "coordinates": [4.6047, -74.0657]
-        },
-        {
-          "name": "Parque Simón Bolívar",
-          "coordinates": [4.6573, -74.0937]
-        },
-        {
-          "name": "Salto del Tequendama",
-          "coordinates": [4.4669, -74.2956]
-        }
-      ]
-    },
-    {
-      "name": "Caribe - Cartagena",
-      "city": "Cartagena",
-      "geographic_points": [
-        {
-          "name": "Castillo San Felipe",
-          "coordinates": [10.4236, -75.5363]
-        },
-        {
-          "name": "Playa Blanca (Barú)",
-          "coordinates": [10.1978, -75.7407]
-        },
-        {
-          "name": "Volcán del Totumo",
-          "coordinates": [10.7389, -75.2386]
-        }
-      ]
-    },
-    {
-      "name": "Pacífico - Buenaventura",
-      "city": "Buenaventura",
-      "geographic_points": [
-        {
-          "name": "Bahía Málaga",
-          "coordinates": [3.8833, -77.2833]
-        },
-        {
-          "name": "Playa La Barra",
-          "coordinates": [3.9206, -77.3614]
-        }
-      ]
-    },
-    {
-      "name": "Amazonía - Leticia",
-      "city": "Leticia",
-      "geographic_points": [
-        {
-          "name": "Parque Amacayacu",
-          "coordinates": [-3.8167, -70.2667]
-        },
-        {
-          "name": "Lagos de Tarapoto",
-          "coordinates": [-3.7833, -70.3833]
-        }
-      ]
-    },
-    {
-      "name": "Eje Cafetero - Armenia",
-      "city": "Armenia",
-      "geographic_points": [
-        {
-          "name": "Valle del Cocora",
-          "coordinates": [4.6372, -75.4928]
-        },
-        {
-          "name": "Parque del Café",
-          "coordinates": [4.5389, -75.7675]
-        }
-      ]
-    }
-  ];
+  public zones: any[] = [];
 
   /**
    * Zona geográfica actualmente seleccionada
@@ -144,19 +73,104 @@ export class ManagementComponent {
    * @param {string} event.city - Ciudad principal
    * @param {Array} event.geographicPoints - Puntos geográficos
    */
-  addZone(event: any) {
+  public isLoading: boolean = false;
+  public page: number = 1;
+  public pageSize: number = 10;
+  public search: string = '';
+  public totalItems: number = 0;
+  constructor(private zoneSvc: ZoneService) { }
+
+  ngOnInit(): void {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+    this.getZones();
+  }
+
+  addZone(data: any) {
+    this.isLoading = !this.isLoading;
+
+    this.zoneSvc.createZone(data)
+      .subscribe({
+        error: (err: any) => {
+          Swal.fire('Oooops', err.message, 'error');
+          this.isLoading = !this.isLoading;
+        },
+        next: (resp: any) => {
+          Swal.fire('Éxito', 'Zona generada', 'success');
+          this.isLoading = !this.isLoading;
+          this.showNewZoneForm = false;
+          this.getZones();
+        }
+      });
+  };
+  updateZone(data: any) {
+    this.isLoading = !this.isLoading;
+
+    this.zoneSvc.updateZone({ id: this.zoneSelected.id, ...data })
+      .subscribe({
+        error: (err: any) => {
+          Swal.fire('Oooops', err.message, 'error');
+          this.isLoading = !this.isLoading;
+        },
+        next: (resp: any) => {
+          Swal.fire('Éxito', 'Zona Actualizada', 'success');
+          this.isLoading = !this.isLoading;
+          this.getZones();
+        }
+      });
+  };
+
+  getZones() {
+    this.isLoading = !this.isLoading;
+    this.zoneSvc.getZones(this.page, this.pageSize, this.search)
+      .subscribe({
+        error: (err: any) => {
+          this.isLoading = !this.isLoading;
+
+        },
+        next: (resp: any) => {
+          console.log(resp)
+          this.zones = resp.data.results;
+          this.totalItems = resp.data.pageCount * this.pageSize;
+          this.isLoading = !this.isLoading;
+        }
+      });
+  };
+
+  onPage(p: number) {
+    if (p === this.page) return;
+    this.page = p;
+    this.getZones();
+  };
+
+  onPageSize(ps: number) {
+    if (ps === this.pageSize) return;
+    this.pageSize = ps;
+    this.page = 1;   // al cambiar tamaño, vuelve al inicio
+    this.getZones();
+  };
+
+  onSubmit(event: any) {
     const dataToSave = {
-      name: event.nameZone,
+      name: event.name,
       city: event.city,
-      geographic_points: event.geographicPoints.map((e: any) => {
+      description: event.description,
+      geographicPoints: event.geographicPoints.map((e: any) => {
         return {
           name: e.name,
-          coordinates: [e.latitud, e.longitud]
+          latitude: e.latitude,
+          longitude: e.longitude,
+          id: e.id
         }
       })
     };
-    this.showNewZoneForm = false;
-    this.zones.push(dataToSave);
+
+    if (this.zoneSelected !== null) {
+      this.updateZone(dataToSave);
+    } else {
+      this.addZone(dataToSave)
+    };
+
   }
 
   /**
@@ -165,9 +179,20 @@ export class ManagementComponent {
    * @param {Object} z - Zona seleccionada
    */
   selectZone(z: any) {
-    this.zoneSelected = z;
-    this.showNewZoneForm = true;
-  }
+    this.isLoading = !this.isLoading;
+    this.zoneSvc.getZoneById(z.id)
+      .subscribe({
+        error: (err: any) => {
+          console.log(err)
+          this.isLoading = !this.isLoading;
+        },
+        next: (resp: any) => {
+          this.zoneSelected = resp.data;
+          this.showNewZoneForm = true;
+          this.isLoading = !this.isLoading;
+        }
+      });
+  };
 
   /**
    * Prepara el componente para crear una nueva zona

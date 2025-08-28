@@ -1,8 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, createComponent, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import Swal from 'sweetalert2';
+import { CreateComponent } from '../create/create.component';
+import { UsersService } from '../../../../core/services/users.service';
+import { LoaderComponent } from '../../../../shared/loader/loader.component';
 
 /**
  * Component for managing users in the platform
@@ -27,7 +30,9 @@ import Swal from 'sweetalert2';
     CommonModule,
     RouterModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CreateComponent,
+    LoaderComponent
   ],
   templateUrl: './manage.component.html',
   styleUrl: './manage.component.css'
@@ -44,212 +49,38 @@ export class ManageComponent implements OnInit {
    * Sample user data (in a real app, this would come from a service)
    * @type {Array<{
    *   id: number,
-   *   nombre: string,
-   *   correo: string,
+   *   name: string,
+   *   email: string,
+   *   phone: string,
    *   document: string,
-   *   documentType: string,
-   *   role: string,
-   *   estado: string
+   *   documentTypeId: string,
+   *   roleId: string,
    * }>}
    */
-  public users =  [
-    {
-      id: 1,
-      nombre: 'Dra. María Fernanda López',
-      correo: 'maria.lopez@hospitalcentral.com',
-      document: '12345678',
-      documentType: 'CC',
-      role: 'Coordinador',
-      estado: 'activo'
-    },
-    {
-      id: 2,
-      nombre: 'Dr. Carlos Andrés Mendoza',
-      correo: 'carlos.mendoza@clinicasanitas.com',
-      document: '23456789',
-      documentType: 'CC',
-      role: 'Coordinador',
-      estado: 'activo'
-    },
-    {
-      id: 3,
-      nombre: 'Lic. Ana María Rodríguez',
-      correo: 'ana.rodriguez@farmaciascruzverde.com',
-      document: '34567890',
-      documentType: 'CC',
-      role: 'Administrador',
-      estado: 'activo'
-    },
-    {
-      id: 4,
-      nombre: 'Enf. Javier Eduardo Gómez',
-      correo: 'javier.gomez@hospitalrosario.com',
-      document: '45678901',
-      documentType: 'CC',
-      role: 'Coordinador',
-      estado: 'activo'
-    },
-    {
-      id: 5,
-      nombre: 'Dr. Luis Fernando Ramírez',
-      correo: 'luis.ramirez@laboratoriodinamico.com',
-      document: '56789012',
-      documentType: 'CC',
-      role: 'Coordinador',
-      estado: 'activo'
-    },
-    {
-      id: 6,
-      nombre: 'Dra. Sandra Milena Pérez',
-      correo: 'sandra.perez@clinicasanfernando.com',
-      document: '67890123',
-      documentType: 'CC',
-      role: 'Soporte',
-      estado: 'inactivo'
-    },
-    {
-      id: 7,
-      nombre: 'Dr. Juan Pablo Castro',
-      correo: 'juan.castro@hospitaluniversitario.com',
-      document: '78901234',
-      documentType: 'CC',
-      role: 'Coordinador',
-      estado: 'activo'
-    },
-    {
-      id: 8,
-      nombre: 'Lic. Daniela Alejandra Torres',
-      correo: 'daniela.torres@farmaciasaves.com',
-      document: '89012345',
-      documentType: 'CC',
-      role: 'Administrador',
-      estado: 'activo'
-    },
-    {
-      id: 9,
-      nombre: 'Dr. Oscar Eduardo Ruiz',
-      correo: 'oscar.ruiz@centromedicoandino.com',
-      document: '90123456',
-      documentType: 'CC',
-      role: 'mensajero',
-      estado: 'inactivo'
-    },
-    {
-      id: 10,
-      nombre: 'Enf. Laura Valentina Sánchez',
-      correo: 'laura.sanchez@clinicasanvicente.com',
-      document: '01234567',
-      documentType: 'CC',
-      role: 'Coordinador',
-      estado: 'activo'
-    },
-    {
-      id: 11,
-      nombre: 'Dr. Ricardo Antonio Morales',
-      correo: 'ricardo.morales@laboratoriolabco.com',
-      document: '11223344',
-      documentType: 'CC',
-      role: 'Coordinador',
-      estado: 'activo'
-    },
-    {
-      id: 12,
-      nombre: 'Dra. Patricia Jiménez',
-      correo: 'patricia.jimenez@hospitalitaliano.com',
-      document: '22334455',
-      documentType: 'CC',
-      role: 'Coordinador',
-      estado: 'activo'
-    },
-    {
-      id: 13,
-      nombre: 'Lic. Andrés Felipe Gutiérrez',
-      correo: 'andres.gutierrez@farmaciascafam.com',
-      document: '33445566',
-      documentType: 'CC',
-      role: 'Administrador',
-      estado: 'activo'
-    },
-    {
-      id: 14,
-      nombre: 'Enf. Miguel Ángel Rojas',
-      correo: 'miguel.rojas@clinicalasamericas.com',
-      document: '44556677',
-      documentType: 'CC',
-      role: 'Coordinador',
-      estado: 'activo'
-    },
-    {
-      id: 15,
-      nombre: 'Dr. Fernando José Herrera',
-      correo: 'fernando.herrera@centrodiagnostico.com',
-      document: '55667788',
-      documentType: 'CC',
-      role: 'Mensajero',
-      estado: 'inactivo'
-    },
-    {
-      id: 16,
-      nombre: 'Dra. Carolina Estrada',
-      correo: 'carolina.estrada@hospitalmilitar.com',
-      document: '66778899',
-      documentType: 'CC',
-      role: 'Coordinador',
-      estado: 'activo'
-    },
-    {
-      id: 17,
-      nombre: 'Lic. David Leonardo Vargas',
-      correo: 'david.vargas@farmaciassaludtotal.com',
-      document: '77889900',
-      documentType: 'CC',
-      role: 'Administrador',
-      estado: 'activo'
-    },
-    {
-      id: 18,
-      nombre: 'Dr. Eduardo Antonio Silva',
-      correo: 'eduardo.silva@clinicasanluis.com',
-      document: '88990011',
-      documentType: 'CC',
-      role: 'mensajero',
-      estado: 'inactivo'
-    },
-    {
-      id: 19,
-      nombre: 'Enf. Diana Marcela Ríos',
-      correo: 'diana.rios@hospitalinfantil.com',
-      document: '99001122',
-      documentType: 'CC',
-      role: 'Coordinador',
-      estado: 'activo'
-    },
-    {
-      id: 20,
-      nombre: 'Dr. Alfonso Rodríguez',
-      correo: 'alfonso.rodriguez@laboratorioslabgen.com',
-      document: '00112233',
-      documentType: 'CC',
-      role: 'Coordinador',
-      estado: 'activo'
-    }
-  ];
+  public users: any[] = [];
 
-  /**
-   * Filtered list of users based on current filters
-   * @type {Array}
-   */
-  filteredUsers = [...this.users];
 
   /**
    * Available user roles for filtering/creation
    * @type {string[]}
    */
   roles = [
-    'Mensajero',
-    'Administrador',
-    'Soporte',
-    'Coordinador',
+    {
+      id: 1,
+      label: 'Administrador'
+    },
+    {
+      id: 2,
+      label: 'Coordinador'
+    },
+    {
+      id: 3,
+      label: 'Soporte'
+    },
+    {
+      id: 4,
+      label: 'Mensajero'
+    }
   ];
 
   // Filter properties
@@ -262,10 +93,10 @@ export class ManageComponent implements OnInit {
 
   /**
    * Current role filter value
-   * @type {string}
-   * @default ''
+   * @type {any}
+   * @default null
    */
-  roleFilter = '';
+  roleFilter: any = null;
 
   /**
    * Current pagination page
@@ -303,27 +134,10 @@ export class ManageComponent implements OnInit {
    */
   showPassword = false;
 
-  /**
-   * Form group for user creation/editing
-   * @type {FormGroup}
-   */
-  userForm: FormGroup;
-
-  /**
-   * Component constructor
-   * @param fb FormBuilder service for reactive forms
-   */
-  constructor(private fb: FormBuilder) {
-    this.userForm = this.fb.group({
-      nombre: ['', Validators.required],
-      correo: ['', [Validators.required, Validators.email]],
-      document: ['', Validators.required],
-      documentType: ['', Validators.required],
-      role: ['', Validators.required],
-      estado: ['active', Validators.required],
-      password: ['', [Validators.minLength(8)]],
-    });
-  }
+  public isLoading: boolean = false;
+  public totalItems: number = 0;
+  public userId: any = null
+  constructor(private userSvc: UsersService) { }
 
   /**
    * Angular lifecycle hook - initializes component
@@ -338,13 +152,20 @@ export class ManageComponent implements OnInit {
    * @method
    */
   applyFilters(): void {
-    this.filteredUsers = this.users.filter((user:any) => {
-      const matchesSearch =
-        user.nombre.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-        user.correo.toLowerCase().includes(this.searchQuery.toLowerCase());
-      const matchesRole = this.roleFilter ? user.role === this.roleFilter : true;
-      return matchesSearch && matchesRole;
-    });
+    this.isLoading = !this.isLoading;
+
+    this.userSvc.getUsers(this.currentPage, this.itemsPerPage, this.roleFilter, this.searchQuery)
+      .subscribe({
+        error: (err: any) => {
+          this.isLoading = !this.isLoading;
+          console.log(err);
+        },
+        next: (resp: any) => {
+          this.isLoading = !this.isLoading;
+          this.totalItems = resp.data.pageCount * resp.data.pageSize;
+          this.users = resp.data.results;
+        }
+      })
   }
 
   /**
@@ -353,7 +174,7 @@ export class ManageComponent implements OnInit {
    */
   resetFilters(): void {
     this.searchQuery = '';
-    this.roleFilter = '';
+    this.roleFilter = null;
     this.applyFilters();
   }
 
@@ -377,28 +198,7 @@ export class ManageComponent implements OnInit {
     }
   }
 
-  /**
-   * Opens user modal for creation/editing
-   * @method
-   * @param user Optional user object to edit (null for new user)
-   */
-  openUserModal(user?: any): void {
-    this.editingUser = user || null;
 
-    if (user) {
-      this.userForm.patchValue({
-        ...user,
-      });
-      this.userForm.get('password')?.clearValidators();
-    } else {
-      this.userForm.reset({
-        estado: 'active',
-      });
-      this.userForm.get('password')?.setValidators([Validators.required, Validators.minLength(8)]);
-    }
-
-    this.showUserModal = true;
-  }
 
   /**
    * Closes user modal and resets form
@@ -406,49 +206,6 @@ export class ManageComponent implements OnInit {
    */
   closeUserModal(): void {
     this.showUserModal = false;
-    this.userForm.reset();
-    this.showPassword = false;
-  }
-
-  /**
-   * Saves user data (create or update)
-   * @method
-   */
-  saveUser(): void {
-    if (this.userForm.invalid) return;
-
-    const formValue = this.userForm.value;
-    const newUser = {
-      id: this.editingUser ? this.editingUser.id : this.generateId(),
-      nombre: formValue.nombre,
-      correo: formValue.correo,
-      role: formValue.role,
-      estado: formValue.estado,
-      document: formValue.document,
-      documentType: formValue.documentType
-    };
-
-    if (this.editingUser) {
-      const index = this.users.findIndex(u => u.id === this.editingUser.id);
-      this.users[index] = newUser;
-      Swal.fire({
-        icon: 'success',
-        title: 'Usuario actualizado',
-        text: 'La información del usuario se ha actualizado correctamente',
-        confirmButtonColor: '#08A2CB'
-      });
-    } else {
-      this.users.unshift(newUser);
-      Swal.fire({
-        icon: 'success',
-        title: 'Usuario creado',
-        text: 'El nuevo usuario ha sido registrado en el sistema',
-        confirmButtonColor: '#08A2CB'
-      });
-    }
-
-    this.applyFilters();
-    this.closeUserModal();
   }
 
 
@@ -459,7 +216,7 @@ export class ManageComponent implements OnInit {
    * @returns {string} Display text for status
    */
   getStatusText(status: string): string {
-    switch(status) {
+    switch (status) {
       case 'active': return 'Activo';
       case 'inactive': return 'Inactivo';
       case 'pending': return 'Pendiente';
@@ -473,7 +230,7 @@ export class ManageComponent implements OnInit {
    * @returns {number} New unique ID
    */
   generateId(): number {
-    return Math.max(...this.users.map((u:any) => u.id)) + 1;
+    return Math.max(...this.users.map((u: any) => u.id)) + 1;
   }
 
   /**
@@ -493,7 +250,7 @@ export class ManageComponent implements OnInit {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.users = this.users.filter((u:any) => u.id !== user.id);
+        this.users = this.users.filter((u: any) => u.id !== user.id);
         this.applyFilters();
         Swal.fire(
           'Eliminado',
@@ -504,12 +261,10 @@ export class ManageComponent implements OnInit {
     });
   }
 
-  /**
-   * Opens edit modal for specified user
-   * @method
-   * @param user User to edit
-   */
-  editUser(user: any): void {
-    this.openUserModal(user);
-  }
+  openUserModal(isEditing: boolean, userId?: any): void {
+    this.editingUser = isEditing;
+    this.userId = userId;
+    this.showUserModal = true;
+  };
+
 }
