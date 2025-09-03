@@ -19,7 +19,7 @@ const routes: Routes = [
         loadComponent: () => import('./send-recover-email/send-recover-email.component').then(a => a.SendRecoverEmailComponent)
       },
       {
-        path: 'set-new-password',
+        path: 'set-new-password/:isRecover',
         loadComponent: () => import('./set-new-password/set-new-password.component').then(a => a.SetNewPasswordComponent)
       },
       {

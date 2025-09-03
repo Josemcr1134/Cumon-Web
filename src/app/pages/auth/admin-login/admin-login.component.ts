@@ -5,6 +5,7 @@ import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
 import { LoaderComponent } from '../../../shared/loader/loader.component';
 import { UsersService } from '../../../core/services/users.service';
+import Swal from 'sweetalert2';
 
 /**
  * Componente para el login de administradores y roles relacionados
@@ -93,9 +94,13 @@ export class AdminLoginComponent {
           this.getUserByEmail(this.email)
         },
         error: (err) => {
-          console.log(err);
-          alert('Error en la autenticación. Verifique sus credenciales.');
           this.isLoading = !this.isLoading
+          if (err.error.message === "NEW_PASSWORD_REQUIRED") {
+            sessionStorage.setItem('tempMail', this.email);
+            this.router.navigateByUrl('/auth/platform/set-new-password/0');
+          } else {
+            Swal.fire('Ooops', 'Error en la autenticación. Verifique sus credenciales.', 'error');
+          }
         }
       });
 

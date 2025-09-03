@@ -110,7 +110,7 @@ export class CreateComponent implements OnInit {
       },
       error: (err) => {
         console.error(err);
-        Swal.fire('Error', err.messageType || 'Error', 'error');
+        Swal.fire('Error', err.error.messageType || 'Error', 'error');
         this.isLoading = false;
       }
     });
