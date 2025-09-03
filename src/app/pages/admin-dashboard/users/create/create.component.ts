@@ -68,10 +68,10 @@ export class CreateComponent implements OnInit {
     this.userForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      document: ['', Validators.required],
-      documentTypeId: ['', Validators.required],
-      roleId: ['', Validators.required],
-      phone: ['', Validators.required],
+      document: ['', [Validators.required, , Validators.pattern(/^[0-9]+$/)]],
+      documentTypeId: [null, Validators.required],
+      roleId: [null, Validators.required],
+      phone: ['', [Validators.required, , Validators.pattern(/^[0-9]+$/)]],
     });
   };
 
@@ -110,7 +110,7 @@ export class CreateComponent implements OnInit {
       },
       error: (err) => {
         console.error(err);
-        Swal.fire('Error', 'Hubo un problema al crear el usuario', 'error');
+        Swal.fire('Error', err.messageType || 'Error', 'error');
         this.isLoading = false;
       }
     });

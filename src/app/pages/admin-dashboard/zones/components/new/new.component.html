@@ -14,12 +14,28 @@
     </div>
   </div>
 
-  <!-- Ciudad -->
+  <!-- Regions -->
   <div class="mb-4">
+    <label for="region" class="block text-gray-700 font-medium mb-2">Departamento*</label>
+    <select (change)="getRegionsById()" id="region" type="text" formControlName="region"
+      class="w-full px-3 py-2  rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+      <option [value]="null">Selecciona un departamento</option>
+      <option *ngFor="let r of Regions" [value]="r.id">{{r.name}}</option>
+    </select>
+    <div *ngIf="zoneForm.get('region')?.invalid && (zoneForm.get('region')?.dirty || zoneForm.get('region')?.touched)"
+      class="text-red-500 text-sm mt-1">
+      Este campo es requerido
+    </div>
+  </div>
+
+  <!-- Ciudad -->
+  <div *ngIf="zoneForm.get('region')?.value !== null" class="mb-4">
     <label for="ciudad" class="block text-gray-700 font-medium mb-2">Ciudad*</label>
-    <input id="city" type="text" formControlName="city"
-      class="w-full px-3 py-2  rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
-      placeholder="Ej: Bogotá">
+    <select id="city" type="text" formControlName="city"
+      class="w-full px-3 py-2  rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+      <option [value]="null">Selecciona una ciudad</option>
+      <option *ngFor="let c of Cities" [value]="c.id">{{c.name}} </option>
+    </select>
     <div *ngIf="zoneForm.get('city')?.invalid && (zoneForm.get('city')?.dirty || zoneForm.get('city')?.touched)"
       class="text-red-500 text-sm mt-1">
       Este campo es requerido

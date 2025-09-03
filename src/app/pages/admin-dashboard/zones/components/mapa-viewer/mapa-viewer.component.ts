@@ -6,8 +6,8 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
  */
 interface GeographicPoint {
   name: string;
-  latitud: number;
-  longitud: number;
+  latitude: number;
+  longitude: number;
 }
 
 /**
@@ -45,8 +45,8 @@ interface GeographicPoint {
           <div *ngFor="let punto of geographicPoints" class="border-b pb-2">
             <h3 class="font-bold text-sm">{{ punto.name }}</h3>
             <p class="text-xs text-gray-600">
-              Lat: {{ punto.latitud | number:'1.4-4' }},
-              Lng: {{ punto.longitud | number:'1.4-4' }}
+              Lat: {{ punto.latitude }},
+              Lng: {{ punto.longitude }}
             </p>
           </div>
         </div>
@@ -88,6 +88,8 @@ export class MapaViewerComponent implements OnChanges {
     } else {
       this.mapUrl = '';
     }
+
+    console.log(this.geographicPoints)
   }
 
   /**
@@ -109,12 +111,12 @@ export class MapaViewerComponent implements OnChanges {
 
       const markers = this.geographicPoints
         .slice(0, 10) // Limitar a 10 marcadores (límite de la API)
-        .map(p => `color:red|${p.latitud},${p.longitud}`)
+        .map(p => `color:red|${p.latitude},${p.longitude}`)
         .join('&markers=');
 
       this.mapUrl = `
         https://maps.googleapis.com/maps/api/staticmap?
-        center=${centerPoint.latitud},${centerPoint.longitud}&
+        center=${centerPoint.latitude},${centerPoint.longitude}&
         zoom=10&
         size=800x400&
         markers=${markers}&

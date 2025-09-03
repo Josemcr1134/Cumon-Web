@@ -1,0 +1,36 @@
+<!-- Modal para asignar repartidor -->
+<div *ngIf="orderSelected" class="fixed inset-0 bg-black/50 bg-opacity-10 flex items-center justify-center z-50">
+  <div class="bg-white p-6 rounded-lg max-w-md w-full">
+    <h3 class="text-lg font-bold mb-4 text-secondary">Asignar repartidor a envío #{{orderSelected.orderNumber}}</h3>
+
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-700 mb-1">Seleccionar repartidor:</label>
+      <select [(ngModel)]="selectedDelivery"
+        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+        <option [ngValue]="null" disabled selected>Seleccione un repartidor</option>
+        <option *ngFor="let rep of deliveries" [ngValue]="rep">
+          {{rep.name}}
+        </option>
+      </select>
+    </div>
+
+    <div *ngIf="selectedDelivery" class="mb-4 p-3 bg-gray-50 rounded-md">
+      <h4 class="font-medium mb-2">Información del repartidor:</h4>
+      <p><span class="font-semibold text-primary">Teléfono:</span> {{selectedDelivery.phone}}</p>
+      <p><span class="font-semibold text-primary">Documento:</span> {{selectedDelivery.document}}</p>
+      <p><span class="font-semibold text-primary">Tipo de Documento:</span> {{selectedDelivery.documentType.name}}</p>
+    </div>
+
+    <div *ngIf="!isLoading" class="flex justify-end space-x-3">
+      <button (click)="cancelAssignation()" class=" px-6 py-2 bg-gray-300 rounded-md hover:bg-gray-400">
+        Cancelar
+      </button>
+      <button (click)="assignDelivery()" [disabled]="!selectedDelivery"
+        class="btn-primary mt-4 md:mt-0 rounded-md px-6 py-2 flex items-center">
+        Asignar
+      </button>
+    </div>
+
+    <app-loader *ngIf="isLoading"></app-loader>
+  </div>
+</div>

@@ -1,20 +1,18 @@
 <div class=" overflow-hidden animate__animated animate__fadeIn   ">
   <header class="mb-5">
-      <h1 class="lg:text-2xl text-lg font-bold tracking-tight text-secondary">Listado de Servicios</h1>
+    <h1 class="lg:text-2xl text-lg font-bold tracking-tight text-secondary">Listado de Servicios</h1>
   </header>
-  <div class="flex items-center justify-between mb-4 ">
 
-    <div>
-    </div>
-  </div>
-  <div class="px-1 ">
-        <!-- Filtros - Versión móvil (acordeón) -->
+  <div *ngIf="!isLoading" class="px-1 ">
+    <!-- Filtros - Versión móvil (acordeón) -->
     <div class="sm:hidden mb-4">
-      <button class="w-full flex justify-between items-center bg-secondary rounded-xl p-3 shadow-sm border border-gray-200"
-              (click)="showMobileFilters = !showMobileFilters">
+      <button
+        class="w-full flex justify-between items-center bg-secondary rounded-xl p-3 shadow-sm border border-gray-200"
+        (click)="showMobileFilters = !showMobileFilters">
         <span class="font-medium text-gray-700">Filtros</span>
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 transform transition-transform duration-200"
-             [class.rotate-180]="showMobileFilters" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5 text-gray-500 transform transition-transform duration-200"
+          [class.rotate-180]="showMobileFilters" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
         </svg>
       </button>
@@ -24,7 +22,7 @@
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-1">Buscar</label>
             <input type="text" class="block w-full rounded-xl bg-gray-50 px-3 py-2 text-sm border border-gray-300"
-                    placeholder="Nombre o correo">
+              placeholder="Nombre o correo">
           </div>
 
           <div>
@@ -46,153 +44,198 @@
       <div class="grid grid-cols-1 md:grid-cols-6 gap-4 items-end">
         <div class="md:col-span-2">
           <label class="block text-sm font-medium text-gray-700 mb-1">ID del pedido</label>
-          <input type="text" class="block w-full rounded-xl bg-gray-50 px-3 py-2 text-sm border border-gray-300"
-               placeholder="...">
+          <input [(ngModel)]="search" type="text"
+            class="block w-full rounded-xl bg-gray-50 px-3 py-2 text-sm border border-gray-300" placeholder="...">
         </div>
 
 
         <div class="md:col-span-2">
           <label class="block text-sm font-medium text-gray-700 mb-1">Estado</label>
-          <select class="block w-full rounded-xl bg-gray-50 px-3 py-2 text-sm border border-gray-300" >
-            <option value="">Todos</option>
+          <select [(ngModel)]="orderStatus"
+            class="block w-full rounded-xl bg-gray-50 px-3 py-2 text-sm border border-gray-300">
+            <option [value]=null>Todos</option>
+            <option *ngFor="let s of statusList" [value]="s.id">{{s.label}} </option>
           </select>
         </div>
         <div class="md:col-span-2">
           <label class="block text-sm font-medium text-gray-700 mb-1">Ruta/Zona</label>
-          <select class="block w-full rounded-xl bg-gray-50 px-3 py-2 text-sm border border-gray-300" >
-            <option value="">Todos</option>
+          <select [(ngModel)]="zoneId"
+            class="block w-full rounded-xl bg-gray-50 px-3 py-2 text-sm border border-gray-300">
+            <option [value]=null>Todos</option>
+            <option *ngFor="let s of zones" [value]="s.id">{{s.name}} </option>
           </select>
         </div>
         <div class="md:col-span-2">
           <label class="block text-sm font-medium text-gray-700 mb-1">Conductor</label>
-          <select class="block w-full rounded-xl bg-gray-50 px-3 py-2 text-sm border border-gray-300" >
-            <option value="">Todos</option>
+          <select [(ngModel)]="messengerId"
+            class="block w-full rounded-xl bg-gray-50 px-3 py-2 text-sm border border-gray-300">
+            <option [value]=null>Todos</option>
+            <option *ngFor="let s of deliveries" [value]="s.id">{{s.name}} </option>
           </select>
         </div>
         <div class="md:col-span-4">
           <label class="block text-sm font-medium text-gray-700 mb-1">Fecha de creación (Rango) </label>
           <div class="grid md:grid-cols-2 grid-cols-1 gap-3">
-            <input type="date" class="block w-full rounded-xl bg-gray-50 px-3 py-2 text-sm border border-gray-300">
-            <input type="date" class="block w-full rounded-xl bg-gray-50 px-3 py-2 text-sm border border-gray-300">
+            <input [(ngModel)]="startDate" type="date"
+              class="block w-full rounded-xl bg-gray-50 px-3 py-2 text-sm border border-gray-300">
+            <input [(ngModel)]="endDate" type="date"
+              class="block w-full rounded-xl bg-gray-50 px-3 py-2 text-sm border border-gray-300">
           </div>
         </div>
         <div class="flex items-center justify-center md:col-span-6 gap-3">
-          <button class="btn-primary w-auto min-w-40 rounded-xl   text-sm">
+          <button (click)="cleanFilters()"
+            class="bg-white rounded-xl min-w-40 py-[5px] px-[10px] text-gray-600 text-sm font-medium">
+            Limpiar Filtros
+          </button>
+          <button (click)="filterTable()" class="btn-primary w-auto min-w-40 rounded-xl   text-sm">
             Filtrar
           </button>
-          <button [routerLink]="['/coordinator-dashboard/orders/new']" routerLinkActive="router-link-active"  class="bg-white rounded-xl min-w-40 py-[5px] px-[10px] text-gray-600 text-sm font-medium">
+          <button [routerLink]="['/coordinator-dashboard/orders/new']" routerLinkActive="router-link-active"
+            class="bg-white rounded-xl min-w-40 py-[5px] px-[10px] text-gray-600 text-sm font-medium">
             Nuevo Servicio
           </button>
 
         </div>
       </div>
     </div>
-   <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8 mb-5">
+    <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8 mb-5">
       <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
         <table class="min-w-full">
           <thead>
             <tr>
-              <th scope="col" class="py-3.5 pl-4 pr-3 text-nowrap text-center text-sm font-semibold text-[#7E8195] sm:pl-0">ID Pedido</th>
-              <th scope="col" class="px-3 py-3.5 text-nowrap text-center text-sm font-semibold text-[#7E8195]">Orden</th>
-              <th scope="col" class="px-3 py-3.5 text-nowrap text-center text-sm font-semibold text-[#7E8195]">Fecha</th>
+              <th scope="col"
+                class="py-3.5 pl-4 pr-3 text-nowrap text-center text-sm font-semibold text-[#7E8195] sm:pl-0">ID Pedido
+              </th>
+              <th scope="col" class="px-3 py-3.5 text-nowrap text-center text-sm font-semibold text-[#7E8195]">Orden
+              </th>
+              <th scope="col" class="px-3 py-3.5 text-nowrap text-center text-sm font-semibold text-[#7E8195]">Fecha
+              </th>
               <th scope="col" class="px-3 py-3.5 text-nowrap text-center text-sm font-semibold text-[#7E8195]">Tipo</th>
-              <th scope="col" class="px-3 py-3.5 text-nowrap text-center text-sm font-semibold text-[#7E8195]">Cantidad</th>
-              <th scope="col" class="px-3 py-3.5 text-nowrap text-center text-sm font-semibold text-[#7E8195]">Valor</th>
+              <th scope="col" class="px-3 py-3.5 text-nowrap text-center text-sm font-semibold text-[#7E8195]">Cantidad
+              </th>
+              <th scope="col" class="px-3 py-3.5 text-nowrap text-center text-sm font-semibold text-[#7E8195]">Valor
+              </th>
               <th scope="col" class="px-3 py-3.5 text-nowrap text-center text-sm font-semibold text-[#7E8195]">Ruta</th>
-              <th scope="col" class="px-3 py-3.5 text-nowrap text-center text-sm font-semibold text-[#7E8195]">Dirección</th>
-              <th scope="col" class="px-3 py-3.5 text-nowrap text-center text-sm font-semibold text-[#7E8195]">Ciudad</th>
-              <th scope="col" class="px-3 py-3.5 text-nowrap text-center text-sm font-semibold text-[#7E8195]">Conductor</th>
-              <th scope="col" class="px-3 py-3.5 text-nowrap text-center text-sm font-semibold text-[#7E8195]">Estado</th>
-              <th scope="col" class="px-3 py-3.5 text-nowrap text-center text-sm font-semibold text-[#7E8195]">Acciones</th>
+              <th scope="col" class="px-3 py-3.5 text-nowrap text-center text-sm font-semibold text-[#7E8195]">Dirección
+              </th>
+              <th scope="col" class="px-3 py-3.5 text-nowrap text-center text-sm font-semibold text-[#7E8195]">Ciudad
+              </th>
+              <th scope="col" class="px-3 py-3.5 text-nowrap text-center text-sm font-semibold text-[#7E8195]">Conductor
+              </th>
+              <th scope="col" class="px-3 py-3.5 text-nowrap text-center text-sm font-semibold text-[#7E8195]">Estado
+              </th>
+              <th scope="col" class="px-3 py-3.5 text-nowrap text-center text-sm font-semibold text-[#7E8195]">Acciones
+              </th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let e of filteredEnvios">
+            <tr *ngFor="let e of data">
               <!-- ID Pedido -->
-              <td class="bg-secondary rounded-l-3xl pl-2 whitespace-nowrap border-b-8 border-white mb-2 text-center px-3 py-4 text-sm text-primary font-semibold">
-                {{e.idPedido}}
+              <td
+                class="bg-secondary rounded-l-3xl pl-2 whitespace-nowrap border-b-8 border-white mb-2 text-center px-3 py-4 text-sm text-primary font-semibold">
+                {{e.document}}
               </td>
 
               <!-- Orden -->
-              <td class="whitespace-nowrap border-b-8 border-white mb-2 bg-secondary text-center px-3 py-4 text-sm text-primary font-normal">
-                {{e.orden}}
+              <td
+                class="whitespace-nowrap border-b-8 border-white mb-2 bg-secondary text-center px-3 py-4 text-sm text-primary font-normal">
+                {{e.orderNumber}}
               </td>
 
               <!-- Fecha -->
-              <td class="whitespace-nowrap border-b-8 border-white mb-2 bg-secondary text-center px-3 py-4 text-sm text-primary font-normal">
-                {{e.fecha | date:'shortDate'}}
+              <td
+                class="whitespace-nowrap border-b-8 border-white mb-2 bg-secondary text-center px-3 py-4 text-sm text-primary font-normal">
+                {{e.entryDate | date:'shortDate'}}
               </td>
 
               <!-- Tipo -->
-              <td class="whitespace-nowrap border-b-8 border-white mb-2 bg-secondary text-center px-3 py-4 text-sm text-primary font-normal">
-                {{e.tipo}}
+              <td
+                class="whitespace-nowrap border-b-8 border-white mb-2 bg-secondary text-center px-3 py-4 text-sm text-primary font-normal">
+                <span *ngIf="e.orderType == 'Packet'">Sobre</span>
+                <span *ngIf="e.orderType == 'Box'">Caja</span>
+                <span *ngIf="e.orderType == 'Bag'">Bolsa</span>
               </td>
 
               <!-- Cantidad -->
-              <td class="whitespace-nowrap border-b-8 border-white mb-2 bg-secondary text-center px-3 py-4 text-sm text-primary font-normal">
-                {{e.cantidad}}
+              <td
+                class="whitespace-nowrap border-b-8 border-white mb-2 bg-secondary text-center px-3 py-4 text-sm text-primary font-normal">
+                {{e.quantity}}
               </td>
 
               <!-- Valor -->
-              <td class="whitespace-nowrap border-b-8 border-white mb-2 bg-secondary text-center px-3 py-4 text-sm text-primary font-normal">
-                {{e.valor | currency}}
+              <td
+                class="whitespace-nowrap border-b-8 border-white mb-2 bg-secondary text-center px-3 py-4 text-sm text-primary font-normal">
+                {{e.value | currency}}
               </td>
 
               <!-- Ruta -->
-              <td class="whitespace-nowrap border-b-8 border-white mb-2 bg-secondary text-center px-3 py-4 text-sm text-primary font-normal">
-                {{e.ruta}}
+              <td
+                class="whitespace-nowrap border-b-8 border-white mb-2 bg-secondary text-center px-3 py-4 text-sm text-primary font-normal">
+                {{e.geographicalArea.name}}
               </td>
 
               <!-- Dirección -->
-              <td class="whitespace-nowrap border-b-8 border-white mb-2 bg-secondary text-center px-3 py-4 text-sm text-primary font-normal">
-                {{e.direccion}}
+              <td
+                class="whitespace-nowrap border-b-8 border-white mb-2 bg-secondary text-center px-3 py-4 text-sm text-primary font-normal">
+                {{e.address}}
               </td>
 
               <!-- Ciudad -->
-              <td class="whitespace-nowrap border-b-8 border-white mb-2 bg-secondary text-center px-3 py-4 text-sm text-primary font-normal">
-                {{e.ciudad}}
+              <td
+                class="whitespace-nowrap border-b-8 border-white mb-2 bg-secondary text-center px-3 py-4 text-sm text-primary font-normal">
+                {{e.geographicalArea.city.name}}
               </td>
 
               <!-- Conductor -->
-              <td class="whitespace-nowrap border-b-8 border-white mb-2 bg-secondary text-center px-3 py-4 text-sm text-primary font-normal">
-                {{e.conductor?.nombre || 'Sin asignar'}}
+              <td
+                class="whitespace-nowrap border-b-8 border-white mb-2 bg-secondary text-center px-3 py-4 text-sm text-primary font-normal">
+                {{e.messenger?.name || 'Sin asignar'}}
               </td>
 
               <!-- Estado -->
-              <td class="whitespace-nowrap border-b-8 border-white mb-2 bg-secondary text-center px-3 py-4 text-sm text-primary font-normal">
-                <div *ngIf="e.estado == 'Entregada'" class="flex items-center gap-2 flex-nowrap">
+              <td
+                class="whitespace-nowrap border-b-8 border-white mb-2 bg-secondary text-center px-3 py-4 text-sm text-primary font-normal">
+                <div *ngIf="e.status == 'Delivered'" class="flex items-center gap-2 flex-nowrap">
                   <div class="h-2 w-2 rounded-full bg-green-600 p-2"></div>
                   <span class="text-green-600 font-medium">Entregada</span>
                 </div>
-                <div *ngIf="e.estado == 'Pendiente'" class="flex items-center gap-2 flex-nowrap">
+                <div *ngIf="e.status == 'PendingDriverAssignment'" class="flex items-center gap-2 flex-nowrap">
                   <div class="h-2 w-2 rounded-full bg-gray-600 p-2"></div>
-                  <span class="text-gray-600 font-medium">Registrado</span>
+                  <span class="text-gray-600 font-medium">Pendiente de Asignación</span>
                 </div>
-                <div *ngIf="e.estado == 'Cancelado'" class="flex items-center gap-2 flex-nowrap">
+                <div *ngIf="e.status == 'DriverAssigned'" class="flex items-center gap-2 flex-nowrap">
+                  <div class="h-2 w-2 rounded-full bg-purple-600 p-2"></div>
+                  <span class="text-purple-600 font-medium">Conductor Asignado</span>
+                </div>
+                <div *ngIf="e.status == 'Cancelled'" class="flex items-center gap-2 flex-nowrap">
                   <div class="h-2 w-2 rounded-full bg-red-600 p-2"></div>
                   <span class="text-red-600 font-medium">Cancelado</span>
                 </div>
-                <div *ngIf="e.estado == 'En curso'" class="flex items-center gap-2 flex-nowrap">
+                <div *ngIf="e.status == 'InTransit'" class="flex items-center gap-2 flex-nowrap">
                   <div class="h-2 w-2 rounded-full bg-blue-600 p-2"></div>
                   <span class="text-blue-600 font-medium">En curso</span>
                 </div>
               </td>
 
               <!-- Acciones -->
-              <td class="whitespace-nowrap border-b-8 rounded-r-3xl border-white mb-2 bg-secondary text-center px-3 py-4 text-sm text-primary font-normal">
-                <div *ngIf="e.estado == 'Pendiente'" class="flex items-center gap-2 flex-nowrap">
-                  <button (click)="seleccionarEnvioParaAsignar(e)" class="btn-primary ml-4 rounded-md px-6 py-2 flex items-center" >
+              <td
+                class="whitespace-nowrap border-b-8 rounded-r-3xl border-white mb-2 bg-secondary text-center px-3 py-4 text-sm text-primary font-normal">
+                <div *ngIf="e.status == 'PendingDriverAssignment'" class="flex items-center gap-2 flex-nowrap">
+                  <button (click)="seleccionarEnvioParaAsignar(e)"
+                    class="btn-primary ml-4 rounded-md px-6 py-2 flex items-center">
                     Asignar repartidor
                   </button>
                 </div>
 
-                <div *ngIf="e.estado == 'En curso'" class="flex items-center gap-2 flex-nowrap">
-                  <button *ngIf="e.repartidor" (click)="mostrarDetalleRepartidor(e.repartidor)"    class="btn-secondary ml-4 rounded-md px-6 py-2 flex items-center"  [disabled]="!e.evidencias || e.evidencias.length === 0">
+                <div *ngIf="e.status == 'DriverAssigned'" class="flex items-center gap-2 flex-nowrap">
+                  <button *ngIf="e.messenger" (click)="mostrarDetalleRepartidor(e.messenger)"
+                    class="btn-secondary ml-4 rounded-md px-6 py-2 flex items-center"
+                    [disabled]="!e.evidencias || e.evidencias.length === 0">
                     Ver repartidor
                   </button>
                 </div>
 
-                <div *ngIf="e.estado == 'Entregada'" class="flex items-center gap-2 flex-nowrap">
+                <div *ngIf="e.status == 'Delivered'" class="flex items-center gap-2 flex-nowrap">
                   <button class="btn-tertiary ml-4 rounded-md px-6 py-2 flex items-center" [disabled]="!e.pdf">
                     Ver PDF
                   </button>
@@ -203,58 +246,33 @@
         </table>
       </div>
     </div>
+    <app-pagination [page]="page" [pageSize]="pageSize" [totalItems]="totalItems" [pageSizeOptions]="[10, 30, 50, 100]"
+      (pageChange)="onPage($event)" (pageSizeChange)="onPageSize($event)"></app-pagination>
   </div>
+
+  <app-loader *ngIf="isLoading"></app-loader>
 </div>
 
 
 <!-- Modal para asignar repartidor -->
-<div *ngIf="envioSeleccionado" class="fixed inset-0 bg-black/50 bg-opacity-10 flex items-center justify-center z-50">
-  <div class="bg-white p-6 rounded-lg max-w-md w-full">
-    <h3 class="text-lg font-bold mb-4 text-secondary">Asignar repartidor a envío #{{envioSeleccionado.id}}</h3>
-
-    <div class="mb-4">
-      <label class="block text-sm font-medium text-gray-700 mb-1">Seleccionar repartidor:</label>
-      <select [(ngModel)]="selectedRepartidor" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-        <option [ngValue]="null" disabled selected>Seleccione un repartidor</option>
-        <option *ngFor="let rep of getRepartidoresDisponibles()" [ngValue]="rep">
-          {{rep.nombre}} - {{rep.vehiculo.tipo}} ({{rep.vehiculo.placa}}) - {{getEstadoRepartidor(rep.estado)}}
-        </option>
-      </select>
-    </div>
-
-    <div *ngIf="selectedRepartidor" class="mb-4 p-3 bg-gray-50 rounded-md">
-      <h4 class="font-medium mb-2">Información del repartidor:</h4>
-      <p><span class="font-semibold text-primary">Teléfono:</span> {{selectedRepartidor.telefono}}</p>
-      <p><span class="font-semibold text-primary">Vehículo:</span> {{selectedRepartidor.vehiculo.marca}} {{selectedRepartidor.vehiculo.modelo}}</p>
-      <p><span class="font-semibold text-primary">Certificaciones:</span> {{selectedRepartidor.certificaciones.join(', ')}}</p>
-    </div>
-
-    <div class="flex justify-end space-x-3">
-      <button (click)="cancelarAsignacion()" class=" px-6 py-2 bg-gray-300 rounded-md hover:bg-gray-400">
-        Cancelar
-      </button>
-      <button (click)="asignarRepartidor()" [disabled]="!selectedRepartidor"
-             class="btn-primary mt-4 md:mt-0 rounded-md px-6 py-2 flex items-center">
-        Asignar
-      </button>
-    </div>
-  </div>
-</div>
+<app-assign-delivery [orderSelected]="orderSelected" [selectedDelivery]="selectedDelivery"
+  (close)="closeAssignModal($event)" *ngIf="orderSelected"></app-assign-delivery>
 
 <!-- Modal para ver detalle del repartidor -->
-<div *ngIf="repartidorDetalle" class="fixed inset-0 bg-black/50 bg-opacity-50 flex items-center justify-center z-50">
+<div *ngIf="deliveryDetail" class="fixed inset-0 bg-black/50 bg-opacity-50 flex items-center justify-center z-50">
   <div class="bg-white p-6 rounded-lg max-w-md w-full">
     <h3 class="text-lg text-secondary font-bold mb-4">Detalle del repartidor</h3>
 
     <div class="space-y-2">
-      <p><span class="font-semibold text-primary">Nombre:</span> {{repartidorDetalle.nombre}}</p>
-      <p><span class="font-semibold text-primary">Teléfono:</span> {{repartidorDetalle.telefono}}</p>
-      <p><span class="font-semibold text-primary">Vehículo:</span> {{repartidorDetalle.vehiculo.tipo}} - {{repartidorDetalle.vehiculo.marca}} {{repartidorDetalle.vehiculo.modelo}}</p>
-      <p><span class="font-semibold text-primary">Placa:</span> {{repartidorDetalle.vehiculo.placa}}</p>
+      <p><span class="font-semibold text-primary">Nombre:</span> {{deliveryDetail.nombre}}</p>
+      <p><span class="font-semibold text-primary">Teléfono:</span> {{deliveryDetail.telefono}}</p>
+      <p><span class="font-semibold text-primary">Vehículo:</span> {{deliveryDetail.vehiculo.tipo}} -
+        {{deliveryDetail.vehiculo.marca}} {{deliveryDetail.vehiculo.modelo}}</p>
+      <p><span class="font-semibold text-primary">Placa:</span> {{deliveryDetail.vehiculo.placa}}</p>
     </div>
 
     <div class="mt-4 flex justify-end">
-      <button (click)="repartidorDetalle = null" class="btn-primary mt-4 md:mt-0 rounded-3xl px-6 py-2 flex items-center">
+      <button (click)="deliveryDetail = null" class="btn-primary mt-4 md:mt-0 rounded-3xl px-6 py-2 flex items-center">
         Cerrar
       </button>
     </div>
@@ -263,7 +281,8 @@
 
 
 <!-- Modal de evidencias -->
-<div *ngIf="evidenciasModalVisible" class="fixed inset-0 bg-black/50 bg-opacity-50 flex items-center justify-center z-50 p-4">
+<div *ngIf="evidenciasModalVisible"
+  class="fixed inset-0 bg-black/50 bg-opacity-50 flex items-center justify-center z-50 p-4">
   <div class="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
     <div class="p-6">
       <div class="flex justify-between items-center mb-4">
@@ -284,7 +303,8 @@
           </div>
 
           <div class="p-4 flex justify-center">
-            <img *ngIf="evidencia.tipo === 'foto'" [src]="evidencia.url" alt="Evidencia de entrega" class="max-h-64 object-contain">
+            <img *ngIf="evidencia.tipo === 'foto'" [src]="evidencia.url" alt="Evidencia de entrega"
+              class="max-h-64 object-contain">
 
             <div *ngIf="evidencia.tipo === 'firma'" class="bg-white p-4 border rounded">
               <img [src]="evidencia.url" alt="Firma de recibido" class="h-32 object-contain">
@@ -292,10 +312,13 @@
             </div>
 
             <div *ngIf="evidencia.tipo === 'documento'" class="text-center p-4">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto text-blue-500" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
-              <a [href]="evidencia.url" target="_blank" class="text-blue-600 hover:underline mt-2 inline-block">Ver documento</a>
+              <a [href]="evidencia.url" target="_blank" class="text-blue-600 hover:underline mt-2 inline-block">Ver
+                documento</a>
             </div>
           </div>
         </div>

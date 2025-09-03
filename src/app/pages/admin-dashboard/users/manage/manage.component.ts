@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { CreateComponent } from '../create/create.component';
 import { UsersService } from '../../../../core/services/users.service';
 import { LoaderComponent } from '../../../../shared/loader/loader.component';
+import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 
 /**
  * Component for managing users in the platform
@@ -32,7 +33,8 @@ import { LoaderComponent } from '../../../../shared/loader/loader.component';
     FormsModule,
     ReactiveFormsModule,
     CreateComponent,
-    LoaderComponent
+    LoaderComponent,
+    PaginationComponent
   ],
   templateUrl: './manage.component.html',
   styleUrl: './manage.component.css'
@@ -154,7 +156,7 @@ export class ManageComponent implements OnInit {
   applyFilters(): void {
     this.isLoading = !this.isLoading;
 
-    this.userSvc.getUsers(this.currentPage, this.itemsPerPage, this.roleFilter, this.searchQuery)
+    this.userSvc.getUsers(this.currentPage, this.itemsPerPage, this.roleFilter, this.searchQuery, '')
       .subscribe({
         error: (err: any) => {
           this.isLoading = !this.isLoading;
@@ -166,7 +168,21 @@ export class ManageComponent implements OnInit {
           this.users = resp.data.results;
         }
       })
-  }
+  };
+
+  onPage(p: number) {
+    if (p === this.currentPage) return;
+    this.currentPage = p;
+    this.applyFilters();
+  };
+
+  onPageSize(ps: number) {
+    if (ps === this.itemsPerPage) return;
+    this.itemsPerPage = ps;
+    this.currentPage = 1;   // al cambiar tamaño, vuelve al inicio
+    this.applyFilters();
+  };
+
 
   /**
    * Resets all filters to default values
@@ -217,9 +233,10 @@ export class ManageComponent implements OnInit {
    */
   getStatusText(status: string): string {
     switch (status) {
-      case 'active': return 'Activo';
+      case 'Active': return 'Activo';
       case 'inactive': return 'Inactivo';
       case 'pending': return 'Pendiente';
+      case 'Unconfirmed': return 'Sin confirmación';
       default: return status;
     }
   }

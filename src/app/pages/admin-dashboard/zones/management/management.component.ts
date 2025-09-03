@@ -98,24 +98,25 @@ export class ManagementComponent implements OnInit {
         next: (resp: any) => {
           Swal.fire('Éxito', 'Zona generada', 'success');
           this.isLoading = !this.isLoading;
+          this.zoneSelected = null;
+
           this.showNewZoneForm = false;
           this.getZones();
         }
       });
   };
+
   updateZone(data: any) {
-    this.isLoading = !this.isLoading;
 
     this.zoneSvc.updateZone({ id: this.zoneSelected.id, ...data })
       .subscribe({
         error: (err: any) => {
           Swal.fire('Oooops', err.message, 'error');
-          this.isLoading = !this.isLoading;
         },
         next: (resp: any) => {
           Swal.fire('Éxito', 'Zona Actualizada', 'success');
-          this.isLoading = !this.isLoading;
-          this.getZones();
+          this.zoneSelected = null;
+          this.showNewZoneForm = false;
         }
       });
   };
@@ -153,7 +154,7 @@ export class ManagementComponent implements OnInit {
   onSubmit(event: any) {
     const dataToSave = {
       name: event.name,
-      city: event.city,
+      cityId: event.city,
       description: event.description,
       geographicPoints: event.geographicPoints.map((e: any) => {
         return {
@@ -179,17 +180,14 @@ export class ManagementComponent implements OnInit {
    * @param {Object} z - Zona seleccionada
    */
   selectZone(z: any) {
-    this.isLoading = !this.isLoading;
     this.zoneSvc.getZoneById(z.id)
       .subscribe({
         error: (err: any) => {
           console.log(err)
-          this.isLoading = !this.isLoading;
         },
         next: (resp: any) => {
           this.zoneSelected = resp.data;
           this.showNewZoneForm = true;
-          this.isLoading = !this.isLoading;
         }
       });
   };

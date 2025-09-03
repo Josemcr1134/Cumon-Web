@@ -13,4 +13,15 @@ export class GlobalService {
     const url = `${this.authSvc.baseUrl}/document-type/read-all`;
     return this.http.get(url, this.authSvc.header);
   };
+
+  getRegions() {
+    const url = `${this.authSvc.baseUrl}/region/read-all`;
+    return this.http.get(url, this.authSvc.header);
+  };
+
+
+  getRegionById(id: string) {
+    const url = `${this.authSvc.baseUrl}/region/${id}`;
+    return this.http.get(url, this.authSvc.header);
+  };
 }

@@ -116,16 +116,21 @@
           </div>
 
           <div class="col-span-2">
-            <span class="text-sm text-gray-800 capitalize">{{ user.roleId }}</span>
+            <span class="text-sm text-gray-800 capitalize">
+              <span *ngIf="user.roleId == 1">Administrador</span>
+              <span *ngIf="user.roleId == 2">Coordinador</span>
+              <span *ngIf="user.roleId == 3">Soporte</span>
+              <span *ngIf="user.roleId == 4">Mensajero</span>
+            </span>
           </div>
 
           <div class="col-span-2">
-            <!-- <span [ngClass]="{
-              'bg-green-100 text-green-800': user.estado === 'activo',
-              'bg-red-100 text-red-800': user.estado === 'inactivo'
-            }" class="px-2 py-1 rounded-full text-xs font-medium capitalize">
-              {{ getStatusText(user.estado) }}
-            </span> -->
+            <span [ngClass]="{
+              'bg-green-100 text-green-800': user.status === 'Active',
+              'bg-red-100 text-red-800': user.status === 'Unconfirmed'
+            }" class="px-2 py-1 rounded-full text-xs font-medium capitalize text-nowrap">
+              {{ getStatusText(user.status) }}
+            </span>
           </div>
 
           <div class="col-span-1 flex justify-end space-x-2">
@@ -164,12 +169,12 @@
                 <div class="text-xs text-gray-500">{{ user.email }}</div>
               </div>
             </div>
-            <!-- <span [ngClass]="{
-              'bg-green-100 text-green-800': user.estado === 'activo',
-              'bg-red-100 text-red-800': user.estado === 'inactivo'
-            }" class="px-2 py-1 rounded-full text-xs font-medium capitalize">
-              {{ getStatusText(user.estado) }}
-            </span> -->
+            <span [ngClass]="{
+                          'bg-green-100 text-green-800': user.status === 'Active',
+                          'bg-red-100 text-red-800': user.status === 'Unconfirmed'
+                        }" class="px-2 py-1 rounded-full text-xs font-medium capitalize text-nowrap">
+              {{ getStatusText(user.status) }}
+            </span>
           </div>
 
           <div class="grid grid-cols-2 gap-2 mt-3 text-sm">
@@ -179,7 +184,12 @@
             </div>
             <div>
               <span class="text-gray-500">Rol:</span>
-              <span class="ml-1 text-gray-800 capitalize">{{ user.roleId }}</span>
+              <span class="ml-1 text-gray-800 capitalize">
+                <span *ngIf="user.roleId == 1">Administrador</span>
+                <span *ngIf="user.roleId == 2">Coordinador</span>
+                <span *ngIf="user.roleId == 3">Soporte</span>
+                <span *ngIf="user.roleId == 4">Mensajero</span>
+              </span>
             </div>
           </div>
 
@@ -217,6 +227,10 @@
           Reiniciar filtros
         </button>
       </div>
+
+      <app-pagination [page]="currentPage" [pageSize]="itemsPerPage" [totalItems]="totalItems"
+        [pageSizeOptions]="[10, 30, 50, 100]" (pageChange)="onPage($event)"
+        (pageSizeChange)="onPageSize($event)"></app-pagination>
     </div>
     <div *ngIf="isLoading">
       <app-loader></app-loader>

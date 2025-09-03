@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
 import { LoaderComponent } from '../../../shared/loader/loader.component';
+import { UsersService } from '../../../core/services/users.service';
 
 /**
  * Componente para el login de administradores y roles relacionados
@@ -56,7 +57,7 @@ export class AdminLoginComponent {
    * Constructor del componente
    * @param router Servicio de Router de Angular para navegación
    */
-  constructor(private authSvc: AuthService, private router: Router) { }
+  constructor(private authSvc: AuthService, private router: Router, private userSvc: UsersService) { }
 
   /**
    * Maneja el proceso de login basado en el email ingresado
@@ -89,7 +90,7 @@ export class AdminLoginComponent {
           sessionStorage.setItem('refreshToken', res.data.refreshToken);
           // sessionStorage.setItem('role', res.role);
           // Redirigir según el rol del usuario
-          this.router.navigateByUrl('/admin-dashboard');
+          this.getUserByEmail(this.email)
         },
         error: (err) => {
           console.log(err);
@@ -98,19 +99,38 @@ export class AdminLoginComponent {
         }
       });
 
-    // switch (this.email) {
-    //   case 'admin':
-    //     this.router.navigateByUrl('/admin-dashboard');
-    //     break;
-    //   case 'coordinator':
-    //     this.router.navigateByUrl('/coordinator-dashboard');
-    //     break;
-    //   case 'support':
-    //     this.router.navigateByUrl('/support-dashboard');
-    //     break;
-    //   default:
-    //     // No se realiza navegación para valores no reconocidos
-    //     break;
-    // }
+
+
+  }
+  getUserByEmail(email: string) {
+    this.isLoading = !this.isLoading;
+    this.userSvc.getUserById(email)
+
+      .subscribe({
+        error: (err: any) => {
+          this.isLoading = !this.isLoading;
+        },
+        next: (resp: any) => {
+          sessionStorage.setItem('email', resp.data.email);
+          sessionStorage.setItem('name', resp.data.name);
+          sessionStorage.setItem('phone', resp.data.phone);
+          switch (resp.data.roleId) {
+            case 1:
+              this.router.navigateByUrl('/admin-dashboard');
+              break;
+            case 2:
+              this.router.navigateByUrl('/coordinator-dashboard');
+              break;
+            case 3:
+              this.router.navigateByUrl('/support-dashboard');
+              break;
+            default:
+              // No se realiza navegación para valores no reconocidos
+              sessionStorage.clear()
+              break;
+          };
+          this.isLoading = !this.isLoading;
+        }
+      })
   }
 }

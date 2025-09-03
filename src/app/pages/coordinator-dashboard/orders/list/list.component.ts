@@ -1,7 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { OrdersService } from '../../../../core/services/orders.service';
+import { LoaderComponent } from '../../../../shared/loader/loader.component';
+import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
+import { UsersService } from '../../../../core/services/users.service';
+import { ZoneService } from '../../../../core/services/zone.services';
+import Swal from 'sweetalert2';
+import { AssignDeliveryComponent } from '../assign-delivery/assign-delivery.component';
 
 /**
  * Component for managing and displaying shipping orders
@@ -24,12 +31,15 @@ import { RouterModule } from '@angular/router';
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    LoaderComponent,
+    PaginationComponent,
+    AssignDeliveryComponent
   ],
   templateUrl: './list.component.html',
   styleUrl: './list.component.css'
 })
-export class ListComponent {
+export class ListComponent implements OnInit {
   /**
    * Sample shipping orders data
    * @type {Array<{
@@ -62,111 +72,10 @@ export class ListComponent {
    * }>}
    */
 
-  public data = [
-    {
-      idPedido: 'PED-2023-001',
-      orden: 'ORD-1001',
-      fecha: new Date('2023-05-15'),
-      tipo: 'Caja',
-      cantidad: 2,
-      valor: 125.50,
-      ruta: 'Ruta Norte',
-      direccion: 'Calle 123 #45-67',
-      ciudad: 'Bogotá',
-      conductor: {
-        id: 'C001',
-        nombre: 'Juan Pérez' ,
-        "vehiculo": {
-          "tipo": "Motocicleta",
-          "placa": "ABC123",
-          "marca": "Honda",
-          "modelo": "CB190"
-        }
-      },
-      estado: 'Entregada',
-      pdf: 'comprobante-ped-001.pdf',
-      observaciones: 'Fragil, manejar con cuidado'
-    },
-    {
-      idPedido: 'PED-2023-002',
-      orden: 'ORD-1002',
-      fecha: new Date('2023-05-16'),
-      tipo: 'Sobre',
-      cantidad: 1,
-      valor: 35.00,
-      ruta: 'Ruta Centro',
-      direccion: 'Avenida Principal #12-34',
-      ciudad: 'Medellín',
-      conductor: null,
-      estado: 'Pendiente',
-      pdf: null,
-      observaciones: 'Documentos importantes'
-    },
-    {
-      idPedido: 'PED-2023-003',
-      orden: 'ORD-1003',
-      fecha: new Date('2023-05-17'),
-      tipo: 'Bolsa',
-      cantidad: 5,
-      valor: 80.75,
-      ruta: 'Ruta Sur',
-      direccion: 'Carrera 56 #78-90',
-      ciudad: 'Cali',
-      conductor: {
-        id: 'C001',
-        nombre: 'Juan Pérez' ,
-        "vehiculo": {
-          "tipo": "Motocicleta",
-          "placa": "ABC123",
-          "marca": "Honda",
-          "modelo": "CB190"
-        }
-      },
-      estado: 'En curso',
-      pdf: null,
-      observaciones: 'Ropa deportiva'
-    },
-    {
-      idPedido: 'PED-2023-004',
-      orden: 'ORD-1004',
-      fecha: new Date('2023-05-18'),
-      tipo: 'Caja',
-      cantidad: 3,
-      valor: 210.00,
-      ruta: 'Ruta Este',
-      direccion: 'Diagonal 23 #45-67',
-      ciudad: 'Barranquilla',
-      conductor: null,
-      estado: 'Cancelado',
-      pdf: null,
-      observaciones: 'Cancelado por cliente'
-    },
-    {
-      idPedido: 'PED-2023-005',
-      orden: 'ORD-1005',
-      fecha: new Date('2023-05-19'),
-      tipo: 'Bolsa',
-      cantidad: 2,
-      valor: 45.50,
-      ruta: 'Ruta Oeste',
-      direccion: 'Transversal 34 #56-78',
-      ciudad: 'Cartagena',
-        conductor: {
-        id: 'C001',
-        nombre: 'Juan Pérez' ,
-        "vehiculo": {
-          "tipo": "Motocicleta",
-          "placa": "ABC123",
-          "marca": "Honda",
-          "modelo": "CB190"
-        }
-      },
-      estado: 'Entregada',
-      pdf: 'comprobante-ped-005.pdf',
-      observaciones: 'Alimentos perecederos'
-    }
+  public data: any[] = [
+
   ];
-  showMobileFilters:boolean = false;
+  showMobileFilters: boolean = false;
 
   /**
    * Current search term for filtering orders
@@ -179,7 +88,6 @@ export class ListComponent {
    * Filtered orders based on search term
    * @type {Array}
    */
-  filteredEnvios: any[] = this.data;
 
   /**
    * List of available couriers
@@ -202,62 +110,7 @@ export class ListComponent {
    *   fechaIngreso: Date
    * }>}
    */
-  repartidores  = [
-    {
-      id: 1,
-      nombre: 'Juan Pérez',
-      tipoIdentificacion: 'CC',
-      identificacion: '123456789',
-      telefono: '3001234567',
-      email: 'juan@cumon.com',
-      vehiculo: {
-        tipo: 'Motocicleta',
-        placa: 'ABC123',
-        marca: 'Honda',
-        modelo: 'CB190'
-      },
-      certificaciones: ['Primeros Auxilios', 'Manejo de Muestras'],
-      estado: 'active',
-      ultimoServicio: new Date('2023-05-15'),
-      fechaIngreso: new Date('2022-01-10')
-    },
-    {
-      id: 2,
-      nombre: 'María Gómez',
-      tipoIdentificacion: 'CC',
-      identificacion: '987654321',
-      telefono: '3107654321',
-      email: 'maria@cumon.com',
-      vehiculo: {
-        tipo: 'Automóvil',
-        placa: 'XYZ789',
-        marca: 'Hyundai',
-        modelo: 'Tucson'
-      },
-      certificaciones: ['Primeros Auxilios', 'Cadena de Frío', 'BPM'],
-      estado: 'on_delivery',
-      ultimoServicio: new Date('2023-05-20'),
-      fechaIngreso: new Date('2021-11-15')
-    },
-    {
-      id: 3,
-      nombre: 'Carlos Rojas',
-      tipoIdentificacion: 'CE',
-      identificacion: 'PA123456',
-      telefono: '3204567890',
-      email: 'carlos@cumon.com',
-      vehiculo: {
-        tipo: 'Motocicleta',
-        placa: 'DEF456',
-        marca: 'Yamaha',
-        modelo: 'FZ 2.0'
-      },
-      certificaciones: ['Manejo de Muestras'],
-      estado: 'inactive',
-      ultimoServicio: new Date('2023-04-30'),
-      fechaIngreso: new Date('2023-02-01')
-    }
-  ];
+  deliveries: any = [];
 
 
   /**
@@ -265,14 +118,14 @@ export class ListComponent {
    * @type {any}
    * @default null
    */
-  selectedRepartidor: any = null;
+  selectedDelivery: any = null;
 
   /**
    * Currently selected order for courier assignment
    * @type {any}
    * @default null
    */
-  envioSeleccionado: any = null;
+  orderSelected: any = null;
 
   /**
    * Controls visibility of evidence modal
@@ -293,8 +146,9 @@ export class ListComponent {
    * @type {any}
    * @default null
    */
-  repartidorDetalle: any = null;
+  deliveryDetail: any = null;
 
+  constructor(private orderSvc: OrdersService, private usersSvc: UsersService, private zonesSvc: ZoneService) { }
   /**
    * Filters orders based on search term
    * @method
@@ -303,18 +157,124 @@ export class ListComponent {
    * - Date, origin, destination, recipient
    * - Package type, city, status, sender
    */
-  filterTable() {
-    if (!this.searchTerm) {
-      this.filteredEnvios = this.data;
-      return;
-    }
 
-    const searchTermLower = this.searchTerm.toLowerCase();
-    this.filteredEnvios = this.data.filter(envio =>
-      envio.ciudad.toLowerCase().includes(searchTermLower) ||
-      envio.estado.toLowerCase().includes(searchTermLower)
-    );
-  }
+  public totalItems: number = 0;
+  public page: number = 1;
+  public pageSize: number = 10;
+  public zoneId: any = null;
+  public messengerId: any = null;
+  public startDate: string = "";
+  public endDate: string = "";
+  public search: string = "";
+  public orderStatus: any = null;
+  public isLoading: boolean = false;
+  public zones: any[] = [];
+  public statusList: any[] = [
+    {
+      id: 1,
+      label: 'Pendiente de asignación'
+    },
+    {
+      id: 2,
+      label: 'Conductor Asignado'
+    },
+    {
+      id: 3,
+      label: 'En Curso'
+    },
+    {
+      id: 4,
+      label: 'Entregado'
+    },
+    {
+      id: 5,
+      label: 'Cancelado'
+    },
+    {
+      id: 6,
+      label: 'Entrega Fallída'
+    },
+  ];
+
+  ngOnInit(): void {
+    this.getZones();
+    this.getDeliveries();
+    this.filterTable();
+  };
+
+  filterTable() {
+    this.isLoading = !this.isLoading;
+
+    const data = {
+      page: this.page,
+      pageSize: this.pageSize,
+      areaId: this.zoneId,
+      messengerId: this.messengerId,
+      startDate: this.startDate,
+      endDate: this.endDate,
+      search: this.search,
+      orderStatus: this.orderStatus
+    };
+
+    this.orderSvc.getOrders(data)
+      .subscribe({
+        error: (err: any) => {
+          this.isLoading = !this.isLoading;
+        },
+        next: (resp: any) => {
+          this.isLoading = !this.isLoading;
+          this.data = resp.data.results;
+          this.totalItems = resp.data.pageCount * this.pageSize;
+        }
+      });
+  };
+
+  cleanFilters() {
+    this.zoneId = null;
+    this.messengerId = null;
+    this.startDate = '';
+    this.endDate = '';
+    this.search = '';
+    this.orderStatus = null;
+    this.filterTable();
+  };
+
+  onPage(p: number) {
+    if (p === this.page) return;
+    this.page = p;
+    this.filterTable();
+  };
+
+  onPageSize(ps: number) {
+    if (ps === this.pageSize) return;
+    this.pageSize = ps;
+    this.page = 1;   // al cambiar tamaño, vuelve al inicio
+    this.filterTable();
+  };
+
+  getZones() {
+    this.zonesSvc.getZones(1, 100, '')
+      .subscribe({
+        error: (err: any) => {
+          console.log(err);
+        },
+        next: (resp: any) => {
+          this.zones = resp.data.results;
+        }
+      });
+  };
+
+  getDeliveries() {
+    this.usersSvc.getUsers(1, 100, 4, '', '')
+      .subscribe({
+        error: (err: any) => {
+          console.log(err);
+        },
+        next: (resp: any) => {
+          this.deliveries = resp.data.results;
+        }
+      });
+  };
 
   /**
    * Opens modal with delivery evidence
@@ -345,9 +305,9 @@ export class ListComponent {
    * Prioritizes couriers with fewer recent deliveries
    */
   getRepartidoresDisponibles() {
-    return this.repartidores.filter(rep =>
+    return this.deliveries.filter((rep: any) =>
       rep.estado === 'active' || rep.estado === 'on_delivery'
-    ).sort((a, b) => {
+    ).sort((a: any, b: any) => {
       return a.ultimoServicio.getTime() - b.ultimoServicio.getTime();
     });
   }
@@ -358,64 +318,12 @@ export class ListComponent {
    * @param envio Order to assign courier to
    */
   seleccionarEnvioParaAsignar(envio: any) {
-    if (envio.estado === 'Pendiente') {
-      this.envioSeleccionado = envio;
-      this.selectedRepartidor = null;
+    if (envio.status === 'PendingDriverAssignment') {
+      this.orderSelected = envio;
+      this.selectedDelivery = null;
     }
   }
 
-  /**
-   * Assigns selected courier to order
-   * @method
-   * @description
-   * Updates order status and courier information
-   */
-  asignarRepartidor() {
-    if (this.envioSeleccionado && this.selectedRepartidor) {
-      // Update order status
-      this.envioSeleccionado.estado = 'En curso';
-
-      // Save complete courier info
-      this.envioSeleccionado.repartidor = {
-        id: this.selectedRepartidor.id,
-        nombre: this.selectedRepartidor.nombre,
-        telefono: this.selectedRepartidor.telefono,
-        vehiculo: this.selectedRepartidor.vehiculo
-      };
-
-      // Update courier status
-      this.selectedRepartidor.estado = 'on_delivery';
-      this.selectedRepartidor.ultimoServicio = new Date();
-
-      // Reset selection
-      this.envioSeleccionado = null;
-      this.selectedRepartidor = null;
-    }
-  }
-
-  /**
-   * Cancels courier assignment process
-   * @method
-   */
-  cancelarAsignacion() {
-    this.envioSeleccionado = null;
-    this.selectedRepartidor = null;
-  }
-
-  /**
-   * Translates courier status for display
-   * @method
-   * @param estado Status code
-   * @returns {string} Formatted status text
-   */
-  getEstadoRepartidor(estado: string): string {
-    switch(estado) {
-      case 'active': return 'Disponible';
-      case 'on_delivery': return 'En entrega';
-      case 'inactive': return 'Inactivo';
-      default: return estado;
-    }
-  }
 
   /**
    * Shows detailed view of a courier
@@ -423,6 +331,13 @@ export class ListComponent {
    * @param repartidor Courier to display
    */
   mostrarDetalleRepartidor(repartidor: any) {
-    this.repartidorDetalle = this.repartidores.find(r => r.id === repartidor.id) || repartidor;
+    this.deliveryDetail = this.deliveries.find((r: any) => r.id === repartidor.id) || repartidor;
   }
+
+  closeAssignModal(event: boolean) {
+    this.orderSelected = null;
+    this.selectedDelivery = null;
+    this.filterTable();
+  };
+
 }

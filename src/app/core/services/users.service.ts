@@ -10,7 +10,7 @@ export class UsersService {
   constructor(private http: HttpClient, private authSvc: AuthService) { }
 
   // USERS CRUD OPERATIONS
-  getUsers(page: number, pageSize: number, role: number, search: string) {
+  getUsers(page: number, pageSize: number, role: number, search: string, status: string) {
     let params = new HttpParams();
     if (page) {
       params = params.set('page', page);
@@ -23,6 +23,9 @@ export class UsersService {
     }
     if (search) {
       params = params.set('search', search);
+    }
+    if (status) {
+      params = params.set('status', status);
     }
 
     const url = `${this.authSvc.baseUrl}/user/read`;

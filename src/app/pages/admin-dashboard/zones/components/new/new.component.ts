@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import { MapaViewerComponent } from '../mapa-viewer/mapa-viewer.component';
 import { ZoneService } from '../../../../../core/services/zone.services';
 import { LoaderComponent } from '../../../../../shared/loader/loader.component';
+import { GlobalService } from '../../../../../core/services/global.service';
 
 /**
  * Interface para representar un punto geográfico
@@ -80,9 +81,14 @@ export class NewComponent implements OnInit, OnChanges {
    * Constructor del componente
    * @param fb Servicio FormBuilder para crear formularios reactivos
    */
-  constructor(private fb: FormBuilder, private zoneSvc: ZoneService) {
+
+  public Regions: any[] = [];
+  public Cities: any[] = [];
+
+  constructor(private fb: FormBuilder, private zoneSvc: ZoneService, private globalSvc: GlobalService) {
     this.zoneForm = this.fb.group({
       name: ['', Validators.required],
+      region: ['', Validators.required],
       city: ['', Validators.required],
       description: ['', Validators.required],
       geographicPoints: this.fb.array([])
@@ -97,6 +103,7 @@ export class NewComponent implements OnInit, OnChanges {
    */
   ngOnInit(): void {
     this.loadData();
+    this.getRegions();
   }
 
   /**
@@ -117,9 +124,11 @@ export class NewComponent implements OnInit, OnChanges {
     this.ArrayPoints.clear();
     if (this.data) {
       this.zoneForm.get('name')?.setValue(this.data.name);
-      this.zoneForm.get('city')?.setValue(this.data.city);
+      this.zoneForm.get('city')?.setValue(this.data.city.id);
+      this.zoneForm.get('region')?.setValue(this.data.city.region.id);
       this.zoneForm.get('description')?.setValue(this.data.description);
-
+      this.getRegions()
+      this.getRegionsById();
       this.data.geographicPoints.forEach((g: any) => {
         const pointGroup = this.createZoneGroupForm();
         pointGroup.patchValue({
@@ -207,5 +216,33 @@ export class NewComponent implements OnInit, OnChanges {
       console.log(this.zoneForm.value)
       Swal.fire('Atención', 'Debes llenar todos los campos del formulario', 'info');
     }
+  };
+
+  getRegions() {
+    if (!this.Regions.length) {
+      this.globalSvc.getRegions()
+        .subscribe({
+          error: (err: any) => {
+            console.log(err);
+          },
+          next: (resp: any) => {
+            this.Regions = resp.data;
+          }
+        });
+    }
+  };
+
+  getRegionsById() {
+
+    this.globalSvc.getRegionById(this.zoneForm.get('region')?.value)
+      .subscribe({
+        error: (err: any) => {
+          console.log(err)
+        },
+        next: (resp: any) => {
+          console.log(resp)
+          this.Cities = resp.data.cities;
+        }
+      })
   }
 }

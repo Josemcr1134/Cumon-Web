@@ -1,8 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { GlobalService } from '../../../../core/services/global.service';
+import { UsersService } from '../../../../core/services/users.service';
+import { OrdersService } from '../../../../core/services/orders.service';
+import { ZoneService } from '../../../../core/services/zone.services';
 
 @Component({
   selector: 'app-new',
@@ -14,42 +18,38 @@ import Swal from 'sweetalert2';
   templateUrl: './new.component.html',
   styleUrl: './new.component.css'
 })
-export class NewComponent {
+export class NewComponent implements OnInit {
   currentStep = 1;
   registrationType: 'manual' | 'bulk' | undefined;
 
   // Data models for manual registration
   manualServiceData = {
-    document: '',
-    order: '',
-    date: '',
-    type: '' as 'Sobre' | 'Caja' | 'Bolsa' | '',
+    orderType: '' as 'Sobre' | 'Caja' | 'Bolsa' | '',
     quantity: null as number | null,
-    value: null as number | null,
-    observations: '',
-    route: '',
+    value: 0 as number | null,
+    document: '',
+    orderNumber: '',
+    observation: '',
     address: '',
-    city: '',
-    driver: '',
-    pdf: null as File | null
+    entryDate: '',
+    geographicalAreaId: '',
+    messengerId: '',
   };
 
+  public Regions: any[] = [];
+  public Municipalities: any[] = [];
+  public regionSelected: any = null;
+  public citySelected: any = null;
   // Static data
   packageTypes = [
-    { value: 'Sobre', label: 'Sobre' },
-    { value: 'Caja', label: 'Caja' },
-    { value: 'Bolsa', label: 'Bolsa' }
+    { value: 'Packet', label: 'Sobre' },
+    { value: 'Box', label: 'Caja' },
+    { value: 'Bag', label: 'Bolsa' }
   ];
 
-  availableRoutes = [
-    'Ruta Norte', 'Ruta Sur', 'Ruta Este', 'Ruta Oeste', 'Ruta Centro'
-  ];
+  availableRoutes: any[] = [];
 
-  availableDrivers = [
-    { id: '1', name: 'Juan Pérez' },
-    { id: '2', name: 'María García' },
-    { id: '3', name: 'Carlos López' }
-  ];
+  availableDrivers: any[] = [];
 
   // Steps configuration
   steps = [
@@ -59,8 +59,12 @@ export class NewComponent {
     { label: 'Confirmación', disabled: this.currentStep < 4 }
   ];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private globalSvc: GlobalService, private usersSvc: UsersService, private ordersSvc: OrdersService, private zoneSvc: ZoneService) { }
 
+  ngOnInit(): void {
+    this.getRegions();
+    this.getDrivers();
+  }
   // Navigation methods
   selectRegistrationType(type: 'manual' | 'bulk'): void {
     this.registrationType = type;
@@ -111,29 +115,27 @@ export class NewComponent {
         });
         return;
       }
-      this.manualServiceData.pdf = file;
+      // this.manualServiceData.pdf = file;
     }
   }
 
   // Validation methods
   validateStep1(): boolean {
     return !!this.manualServiceData.document &&
-           !!this.manualServiceData.order &&
-           !!this.manualServiceData.date;
+      !!this.manualServiceData.orderNumber &&
+      !!this.manualServiceData.entryDate;
   }
 
   validateStep2(): boolean {
-    return !!this.manualServiceData.type &&
-           !!this.manualServiceData.quantity &&
-           this.manualServiceData.quantity > 0;
+    return !!this.manualServiceData.orderType &&
+      !!this.manualServiceData.quantity &&
+      this.manualServiceData.quantity > 0;
   }
 
   validateStep3(): boolean {
-    return !!this.manualServiceData.route &&
-           !!this.manualServiceData.address &&
-           !!this.manualServiceData.city &&
-           !!this.manualServiceData.driver;
-  }
+    return !!this.manualServiceData.geographicalAreaId &&
+      !!this.manualServiceData.address
+  };
 
   // Form submission
   submitManualService(): void {
@@ -144,16 +146,24 @@ export class NewComponent {
       didOpen: () => {
         Swal.showLoading();
 
-        setTimeout(() => {
-          Swal.fire({
-            icon: 'success',
-            title: '¡Envío registrado!',
-            text: 'El envío manual ha sido registrado correctamente',
-            confirmButtonColor: '#08A2CB'
-          }).then(() => {
-            this.resetForm();
-          });
-        }, 1500);
+        this.ordersSvc.createOrder(this.manualServiceData)
+          .subscribe({
+            error: (err: any) => {
+              Swal.fire('Oooops', err.message, 'error');
+            },
+            next: (resp: any) => {
+              setTimeout(() => {
+                Swal.fire({
+                  icon: 'success',
+                  title: '¡Envío registrado!',
+                  text: 'El envío manual ha sido registrado correctamente',
+                  confirmButtonColor: '#08A2CB'
+                }).then(() => {
+                  this.resetForm();
+                });
+              }, 1500);
+            }
+          })
       }
     });
   }
@@ -162,19 +172,19 @@ export class NewComponent {
   resetForm(): void {
     this.currentStep = 1;
     this.registrationType = undefined;
+    this.regionSelected = null;
+    this.citySelected = null;
     this.manualServiceData = {
       document: '',
-      order: '',
-      date: '',
-      type: '',
+      orderNumber: '',
+      entryDate: '',
+      orderType: '',
       quantity: null,
-      value: null,
-      observations: '',
-      route: '',
+      value: 0,
+      observation: '',
+      geographicalAreaId: '',
       address: '',
-      city: '',
-      driver: '',
-      pdf: null
+      messengerId: '',
     };
   }
 
@@ -187,4 +197,55 @@ export class NewComponent {
   get todayDate(): string {
     return new Date().toISOString().split('T')[0];
   }
+
+
+  getRegions() {
+    this.globalSvc.getRegions()
+      .subscribe({
+        error: (err: any) => {
+
+        },
+        next: (resp: any) => {
+          this.Regions = resp.data;
+        }
+      })
+  };
+
+  getRegionById() {
+    this.globalSvc.getRegionById(this.regionSelected)
+      .subscribe({
+        error: (err: any) => {
+          console.log(err);
+        },
+        next: (resp: any) => {
+          this.Municipalities = resp.data.cities;
+        }
+      });
+  };
+
+  getZonesByCity() {
+    this.zoneSvc.getZonesByCity(this.citySelected)
+      .subscribe({
+        error: (err: any) => {
+          console.log(err);
+        },
+        next: (resp: any) => {
+          this.availableRoutes = resp.data;
+        }
+      });
+  };
+
+  getDrivers() {
+    this.usersSvc.getUsers(1, 100, 4, '', 'active')
+      .subscribe({
+        error: (err: any) => {
+          console.log(err)
+        },
+        next: (resp: any) => {
+          this.availableDrivers = resp.data.results;
+        }
+      });
+  };
+
+
 }

@@ -30,6 +30,10 @@ export class ZoneService {
     const url = `${this.authSvc.baseUrl}/geographical-area/read`;
     return this.http.get(url, { headers: this.authSvc.header.headers, params });
   };
+  getZonesByCity(city: any) {
+    const url = `${this.authSvc.baseUrl}/geographical-area/city/${city}`;
+    return this.http.get(url, this.authSvc.header);
+  };
 
   getZoneById(zoneId: string): Observable<Zone[]> {
     const url = `${this.authSvc.baseUrl}/geographical-area/${zoneId}`

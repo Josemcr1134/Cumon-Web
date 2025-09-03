@@ -10,26 +10,24 @@
           <!-- Progress bar -->
           <div class="absolute top-1/2 left-0 right-0 h-1 bg-gray-200 -translate-y-1/2"></div>
           <div class="absolute top-1/2 left-0 h-1 bg-primary -translate-y-1/2 transition-all duration-300"
-               [style.width]="(currentStep - 1) * (100 / 3) + '%'"></div>
+            [style.width]="(currentStep - 1) * (100 / 3) + '%'"></div>
 
           <!-- Steps -->
-          <div *ngFor="let step of steps; let i = index"
-               class="relative z-10 flex flex-col items-center">
-            <button class="w-8 h-8 rounded-full flex items-center justify-center transition-all"
-                    [ngClass]="{
+          <div *ngFor="let step of steps; let i = index" class="relative z-10 flex flex-col items-center">
+            <button class="w-8 h-8 rounded-full flex items-center justify-center transition-all" [ngClass]="{
                       'bg-primary text-white': currentStep > i + 1,
                       'bg-white border-2 border-gray-300 text-gray-400': currentStep <= i + 1 && step.disabled,
                       'bg-white border-2 border-primary text-primary': currentStep === i + 1 && !step.disabled
-                    }"
-                    (click)="goToStep(i + 1)"
-                    [disabled]="step.disabled && currentStep <= i + 1">
+                    }" (click)="goToStep(i + 1)" [disabled]="step.disabled && currentStep <= i + 1">
               <span *ngIf="currentStep <= i + 1">{{ i + 1 }}</span>
-              <svg *ngIf="currentStep > i + 1" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+              <svg *ngIf="currentStep > i + 1" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
+                fill="currentColor">
+                <path fill-rule="evenodd"
+                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                  clip-rule="evenodd" />
               </svg>
             </button>
-            <span class="text-xs mt-2 text-center"
-                  [ngClass]="{
+            <span class="text-xs mt-2 text-center" [ngClass]="{
                     'text-primary font-medium': currentStep === i + 1,
                     'text-gray-500': currentStep !== i + 1
                   }">{{ step.label }}</span>
@@ -45,11 +43,13 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
             <!-- Opción Manual -->
             <div class="border rounded-lg p-6 cursor-pointer transition-all hover:shadow-md"
-                [ngClass]="{'border-primary shadow-md': registrationType === 'manual'}"
-                (click)="selectRegistrationType('manual')">
+              [ngClass]="{'border-primary shadow-md': registrationType === 'manual'}"
+              (click)="selectRegistrationType('manual')">
               <div class="bg-primary bg-opacity-10 p-4 rounded-full inline-block mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-primary" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                 </svg>
               </div>
               <h3 class="text-xl font-semibold mb-2">Registro Manual</h3>
@@ -58,11 +58,13 @@
 
             <!-- Opción Masivo -->
             <div class="border rounded-lg p-6 cursor-pointer transition-all hover:shadow-md"
-                [ngClass]="{'border-primary shadow-md': registrationType === 'bulk'}"
-                (click)="selectRegistrationType('bulk')">
+              [ngClass]="{'border-primary shadow-md': registrationType === 'bulk'}"
+              (click)="selectRegistrationType('bulk')">
               <div class="bg-primary bg-opacity-10 p-4 rounded-full inline-block mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-primary" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
               </div>
               <h3 class="text-xl font-semibold mb-2">Registro Masivo</h3>
@@ -78,37 +80,46 @@
           <div class="space-y-4">
             <div>
               <label class="block text-gray-700 mb-1">Documento <span class="text-red-500">*</span></label>
-              <input type="text" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                    [(ngModel)]="manualServiceData.document" placeholder="Ingrese el número de documento" required>
+              <input type="text"
+                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                [(ngModel)]="manualServiceData.document" placeholder="Ingrese el número de documento" required>
             </div>
 
             <div>
               <label class="block text-gray-700 mb-1">Orden <span class="text-red-500">*</span></label>
-              <input type="text" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                    [(ngModel)]="manualServiceData.order" placeholder="Ingrese el número de orden" required>
+              <input type="text"
+                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                [(ngModel)]="manualServiceData.orderNumber" placeholder="Ingrese el número de orden" required>
             </div>
 
             <div>
               <label class="block text-gray-700 mb-1">Fecha <span class="text-red-500">*</span></label>
-              <input type="date" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                    [(ngModel)]="manualServiceData.date" [max]="todayDate" required>
+              <input type="date"
+                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                [(ngModel)]="manualServiceData.entryDate" [max]="todayDate" required>
             </div>
           </div>
 
           <div class="flex justify-between mt-8">
-            <button class="text-primary font-medium px-4 py-2 rounded-lg hover:bg-primary hover:bg-opacity-10 transition-all"
-                    (click)="prevStep()">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline mr-1" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+            <button
+              class="text-primary font-medium px-4 py-2 rounded-lg hover:bg-primary hover:bg-opacity-10 transition-all"
+              (click)="prevStep()">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline mr-1" viewBox="0 0 20 20"
+                fill="currentColor">
+                <path fill-rule="evenodd"
+                  d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
+                  clip-rule="evenodd" />
               </svg>
               Anterior
             </button>
-            <button class="btn-primary rounded-lg px-6 py-2 disabled:opacity-50"
-                    [disabled]="!validateStep1()"
-                    (click)="nextStep()">
+            <button class="btn-primary rounded-lg px-6 py-2 disabled:opacity-50" [disabled]="!validateStep1()"
+              (click)="nextStep()">
               Siguiente
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline ml-1" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline ml-1" viewBox="0 0 20 20"
+                fill="currentColor">
+                <path fill-rule="evenodd"
+                  d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
+                  clip-rule="evenodd" />
               </svg>
             </button>
           </div>
@@ -121,8 +132,9 @@
           <div class="space-y-4">
             <div>
               <label class="block text-gray-700 mb-1">Tipo <span class="text-red-500">*</span></label>
-              <select class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                      [(ngModel)]="manualServiceData.type" required>
+              <select
+                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                [(ngModel)]="manualServiceData.orderType" required>
                 <option value="">Seleccione un tipo</option>
                 <option *ngFor="let type of packageTypes" [value]="type.value">{{ type.label }}</option>
               </select>
@@ -130,59 +142,76 @@
 
             <div>
               <label class="block text-gray-700 mb-1">Cantidad <span class="text-red-500">*</span></label>
-              <input type="number" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                    [(ngModel)]="manualServiceData.quantity" min="1" required>
+              <input type="number"
+                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                [(ngModel)]="manualServiceData.quantity" min="1" required>
             </div>
 
             <div>
               <label class="block text-gray-700 mb-1">Valor (opcional)</label>
-              <input type="number" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                    [(ngModel)]="manualServiceData.value" step="0.01" min="0">
+              <input type="number"
+                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                [(ngModel)]="manualServiceData.value" step="0.01" min="0">
             </div>
 
             <div>
               <label class="block text-gray-700 mb-1">Observaciones (opcional)</label>
-              <textarea class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                        rows="2" [(ngModel)]="manualServiceData.observations" maxlength="255"></textarea>
+              <textarea
+                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                rows="2" [(ngModel)]="manualServiceData.observation" maxlength="255"></textarea>
               <p class="text-xs text-gray-500">Máximo 255 caracteres</p>
             </div>
-
             <div>
-              <label class="block text-gray-700 mb-1">Ruta <span class="text-red-500">*</span></label>
-              <select class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                      [(ngModel)]="manualServiceData.route" required>
-                <option value="">Seleccione una ruta</option>
-                <option *ngFor="let route of availableRoutes" [value]="route">{{ route }}</option>
+              <label class="block text-gray-700 mb-1">Departamento <span class="text-red-500">*</span></label>
+              <select (change)="getRegionById()"
+                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                [(ngModel)]="regionSelected" required>
+                <option *ngFor="let r of Regions" [value]="r.id">{{r.name}} </option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-gray-700 mb-1">Ciudad <span class="text-red-500">*</span></label>
+              <select (change)="getZonesByCity()"
+                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                [(ngModel)]="citySelected" required>
+                <option *ngFor="let r of Municipalities" [value]="r.id">{{r.name}} </option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-gray-700 mb-1">Zona <span class="text-red-500">*</span></label>
+              <select
+                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                [(ngModel)]="manualServiceData.geographicalAreaId" required>
+                <option value="">Seleccione una zona</option>
+                <option *ngFor="let route of availableRoutes" [value]="route.id">{{ route.name }} </option>
               </select>
             </div>
 
             <div>
               <label class="block text-gray-700 mb-1">Dirección <span class="text-red-500">*</span></label>
-              <input type="text" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                    [(ngModel)]="manualServiceData.address" maxlength="150" required>
+              <input type="text"
+                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                [(ngModel)]="manualServiceData.address" maxlength="150" required>
               <p class="text-xs text-gray-500">Máximo 150 caracteres</p>
             </div>
 
-            <div>
-              <label class="block text-gray-700 mb-1">Ciudad <span class="text-red-500">*</span></label>
-              <input type="text" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                    [(ngModel)]="manualServiceData.city" required>
-            </div>
 
             <div>
               <label class="block text-gray-700 mb-1">Conductor <span class="text-red-500">*</span></label>
-              <select class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                      [(ngModel)]="manualServiceData.driver" required>
+              <select
+                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                [(ngModel)]="manualServiceData.messengerId" required>
                 <option value="">Seleccione un conductor</option>
                 <option *ngFor="let driver of availableDrivers" [value]="driver.id">{{ driver.name }}</option>
               </select>
             </div>
 
-            <div>
+            <!-- <div>
               <label class="block text-gray-700 mb-1">PDF (opcional)</label>
               <div class="flex items-center">
                 <input type="file" class="hidden" id="pdfUpload" accept=".pdf" (change)="onFileSelected($event)">
-                <label for="pdfUpload" class="cursor-pointer bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-lg border border-gray-300 transition-all">
+                <label for="pdfUpload"
+                  class="cursor-pointer bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-lg border border-gray-300 transition-all">
                   Seleccionar archivo
                 </label>
                 <span class="ml-3 text-sm text-gray-600" *ngIf="manualServiceData.pdf">
@@ -193,23 +222,29 @@
                 </span>
               </div>
               <p class="text-xs text-gray-500">Formato PDF, máximo 2MB</p>
-            </div>
+            </div> -->
           </div>
 
           <div class="flex justify-between mt-8">
-            <button class="text-primary font-medium px-4 py-2 rounded-lg hover:bg-primary hover:bg-opacity-10 transition-all"
-                    (click)="prevStep()">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline mr-1" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+            <button
+              class="text-primary font-medium px-4 py-2 rounded-lg hover:bg-primary hover:bg-opacity-10 transition-all"
+              (click)="prevStep()">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline mr-1" viewBox="0 0 20 20"
+                fill="currentColor">
+                <path fill-rule="evenodd"
+                  d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
+                  clip-rule="evenodd" />
               </svg>
               Anterior
             </button>
-            <button class="btn-primary rounded-lg px-6 py-2 disabled:opacity-50"
-                    [disabled]="!validateStep3()"
-                    (click)="nextStep()">
+            <button class="btn-primary rounded-lg px-6 py-2 disabled:opacity-50" [disabled]="!validateStep3()"
+              (click)="nextStep()">
               Siguiente
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline ml-1" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline ml-1" viewBox="0 0 20 20"
+                fill="currentColor">
+                <path fill-rule="evenodd"
+                  d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
+                  clip-rule="evenodd" />
               </svg>
             </button>
           </div>
@@ -229,15 +264,15 @@
                 </div>
                 <div class="flex justify-between">
                   <span class="text-gray-600">Orden:</span>
-                  <span class="font-medium">{{ manualServiceData.order }}</span>
+                  <span class="font-medium">{{ manualServiceData.orderNumber }}</span>
                 </div>
                 <div class="flex justify-between">
                   <span class="text-gray-600">Fecha:</span>
-                  <span class="font-medium">{{ manualServiceData.date | date }}</span>
+                  <span class="font-medium">{{ manualServiceData.entryDate | date }}</span>
                 </div>
                 <div class="flex justify-between">
                   <span class="text-gray-600">Tipo:</span>
-                  <span class="font-medium">{{ manualServiceData.type }}</span>
+                  <span class="font-medium">{{ manualServiceData.orderType }}</span>
                 </div>
                 <div class="flex justify-between">
                   <span class="text-gray-600">Cantidad:</span>
@@ -247,48 +282,45 @@
                   <span class="text-gray-600">Valor:</span>
                   <span class="font-medium">{{ manualServiceData.value | currency }}</span>
                 </div>
-                <div class="flex justify-between" *ngIf="manualServiceData.observations">
+                <div class="flex justify-between" *ngIf="manualServiceData.observation">
                   <span class="text-gray-600">Observaciones:</span>
-                  <span class="font-medium">{{ manualServiceData.observations }}</span>
+                  <span class="font-medium">{{ manualServiceData.observation }}</span>
                 </div>
                 <div class="flex justify-between">
-                  <span class="text-gray-600">Ruta:</span>
-                  <span class="font-medium">{{ manualServiceData.route }}</span>
+                  <span class="text-gray-600">Zona:</span>
+                  <span class="font-medium">{{ manualServiceData.geographicalAreaId }}</span>
                 </div>
                 <div class="flex justify-between">
                   <span class="text-gray-600">Dirección:</span>
                   <span class="font-medium">{{ manualServiceData.address }}</span>
                 </div>
-                <div class="flex justify-between">
-                  <span class="text-gray-600">Ciudad:</span>
-                  <span class="font-medium">{{ manualServiceData.city }}</span>
-                </div>
-                <div class="flex justify-between">
-                  <span class="text-gray-600">Conductor:</span>
-                  <span class="font-medium">
-                    Pedro Perez
-                  </span>
-                </div>
-                <div class="flex justify-between" *ngIf="manualServiceData.pdf">
+
+                <!-- <div class="flex justify-between" *ngIf="manualServiceData.pdf">
                   <span class="text-gray-600">Archivo PDF:</span>
                   <span class="font-medium">{{ manualServiceData.pdf?.name }}</span>
-                </div>
+                </div> -->
               </div>
             </div>
 
             <div class="flex justify-between">
-              <button class="text-primary font-medium px-4 py-2 rounded-lg hover:bg-primary hover:bg-opacity-10 transition-all"
-                      (click)="prevStep()">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline mr-1" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+              <button
+                class="text-primary font-medium px-4 py-2 rounded-lg hover:bg-primary hover:bg-opacity-10 transition-all"
+                (click)="prevStep()">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline mr-1" viewBox="0 0 20 20"
+                  fill="currentColor">
+                  <path fill-rule="evenodd"
+                    d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
+                    clip-rule="evenodd" />
                 </svg>
                 Anterior
               </button>
-              <button class="btn-primary rounded-lg px-6 py-2"
-                      (click)="submitManualService()">
+              <button class="btn-primary rounded-lg px-6 py-2" (click)="submitManualService()">
                 Confirmar envío
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline ml-1" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline ml-1" viewBox="0 0 20 20"
+                  fill="currentColor">
+                  <path fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd" />
                 </svg>
               </button>
             </div>
