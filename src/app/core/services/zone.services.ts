@@ -9,7 +9,6 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class ZoneService {
-  private apiUrl = 'api/zones'; // Ajusta según tu API
   public data: Zone[] = []
 
   constructor(private http: HttpClient, private authSvc: AuthService) { }

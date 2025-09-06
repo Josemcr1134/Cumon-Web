@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import Swal from 'sweetalert2';
+import { OrdersService } from '../../../../core/services/orders.service';
+import { LoaderComponent } from '../../../../shared/loader/loader.component';
 
 /**
  * Component for bulk upload of shipping services
@@ -25,7 +27,8 @@ import Swal from 'sweetalert2';
   imports: [
     FormsModule,
     RouterModule,
-    CommonModule
+    CommonModule,
+    LoaderComponent
   ],
   templateUrl: './bulk-upload.component.html',
   styleUrl: './bulk-upload.component.css'
@@ -80,7 +83,11 @@ export class BulkUploadComponent {
    * Component constructor
    * @param router Angular Router service
    */
-  constructor(private router: Router) {}
+
+  public isLoading: boolean = false;
+  public processId: any = null;
+  public bulkFile: any = null;
+  constructor(private router: Router, private orderSvc: OrdersService) { }
 
   /**
    * Handles file upload event
@@ -90,143 +97,11 @@ export class BulkUploadComponent {
   handleFileUpload(event: any): void {
     const file = event.target.files[0];
     if (file) {
-      this.parseExcelFile(file);
-    }
-  }
+      this.bulkFile = file;
+    };
+  };
 
-  /**
-   * Simulates parsing of Excel file (mock implementation)
-   * @method
-   * @param file Uploaded Excel file
-   * @description
-   * In a real implementation, would use a library like xlsx
-   */
-  parseExcelFile(file: File): void {
-    Swal.fire({
-      title: 'Procesando archivo...',
-      allowOutsideClick: false,
-      didOpen: () => {
-        Swal.showLoading();
 
-        setTimeout(() => {
-          this.bulkServices = [
-              {
-                idPedido: 'PED-2023-001',
-                orden: 'ORD-1001',
-                fecha: new Date('2023-05-15'),
-                tipo: 'Caja',
-                cantidad: 2,
-                valor: 125.50,
-                ruta: 'Ruta Norte',
-                direccion: 'Calle 123 #45-67',
-                ciudad: 'Bogotá',
-                conductor: {
-                  id: 'C001',
-                  nombre: 'Juan Pérez' ,
-                  "vehiculo": {
-                    "tipo": "Motocicleta",
-                    "placa": "ABC123",
-                    "marca": "Honda",
-                    "modelo": "CB190"
-                  }
-                },
-                estado: 'Registrado',
-                pdf: 'comprobante-ped-001.pdf',
-                observaciones: 'Fragil, manejar con cuidado'
-              },
-              {
-                idPedido: 'PED-2023-002',
-                orden: 'ORD-1002',
-                fecha: new Date('2023-05-16'),
-                tipo: 'Sobre',
-                cantidad: 1,
-                valor: 35.00,
-                ruta: 'Ruta Centro',
-                direccion: 'Avenida Principal #12-34',
-                ciudad: 'Medellín',
-                conductor: {
-                  id: 'C001',
-                  nombre: 'Juan Pérez' ,
-                  "vehiculo": {
-                    "tipo": "Motocicleta",
-                    "placa": "ABC123",
-                    "marca": "Honda",
-                    "modelo": "CB190"
-                  }
-                },
-                estado: 'Registrado',
-                pdf: null,
-                observaciones: 'Documentos importantes'
-              },
-              {
-                idPedido: 'PED-2023-003',
-                orden: 'ORD-1003',
-                fecha: new Date('2023-05-17'),
-                tipo: 'Bolsa',
-                cantidad: 5,
-                valor: 80.75,
-                ruta: 'Ruta Sur',
-                direccion: 'Carrera 56 #78-90',
-                ciudad: 'Cali',
-                conductor: {
-                  id: 'C001',
-                  nombre: 'Juan Pérez' ,
-                  "vehiculo": {
-                    "tipo": "Motocicleta",
-                    "placa": "ABC123",
-                    "marca": "Honda",
-                    "modelo": "CB190"
-                  }
-                },
-                estado: 'Registrado',
-                pdf: null,
-                observaciones: 'Ropa deportiva'
-              },
-              {
-                idPedido: 'PED-2023-004',
-                orden: 'ORD-1004',
-                fecha: new Date('2023-05-18'),
-                tipo: 'Caja',
-                cantidad: 3,
-                valor: 210.00,
-                ruta: 'Ruta Este',
-                direccion: 'Diagonal 23 #45-67',
-                ciudad: 'Barranquilla',
-                conductor: null,
-                estado: 'Registrado',
-                pdf: null,
-                observaciones: null
-              },
-              {
-                idPedido: 'PED-2023-005',
-                orden: 'ORD-1005',
-                fecha: new Date('2023-05-19'),
-                tipo: 'Bolsa',
-                cantidad: 2,
-                valor: 45.50,
-                ruta: 'Ruta Oeste',
-                direccion: 'Transversal 34 #56-78',
-                ciudad: 'Cartagena',
-                  conductor: {
-                  id: 'C001',
-                  nombre: 'Juan Pérez' ,
-                  "vehiculo": {
-                    "tipo": "Motocicleta",
-                    "placa": "ABC123",
-                    "marca": "Honda",
-                    "modelo": "CB190"
-                  }
-                },
-                estado: 'Registrado',
-                pdf:null,
-                observaciones: null
-              }
-          ];
-          Swal.close();
-        }, 1500);
-      }
-    });
-  }
 
   /**
    * Downloads Excel template for bulk upload
@@ -245,8 +120,6 @@ export class BulkUploadComponent {
       confirmButtonColor: '#08A2CB'
     });
   }
-
-
 
   /**
    * Advances to next step in bulk process
@@ -267,9 +140,6 @@ export class BulkUploadComponent {
       this.bulkCurrentStep--;
     }
   }
-
-
-
 
   /**
    * Completes bulk process and navigates to services list
@@ -305,5 +175,44 @@ export class BulkUploadComponent {
         this.router.navigateByUrl('/coordinator-dashboard/orders/list')
       }
     });
-  }
+  };
+
+
+  startBulkProcess() {
+    this.isLoading = !this.isLoading;
+    if (this.bulkFile !== null) {
+      this.orderSvc.createBulkOrder()
+        .subscribe({
+          error: (err: any) => {
+            console.log(err);
+            this.isLoading = !this.isLoading;
+          },
+          next: (resp: any) => {
+            this.isLoading = !this.isLoading;
+            this.processId = resp.data.id;
+            this.sendBulkFile(resp.data.presignedUrl)
+          }
+        });
+    } else {
+      Swal.fire('Atención', 'Debes cargar un archivo con servicios a realizar', 'info')
+    };
+  };
+
+  sendBulkFile(url: string) {
+    this.isLoading = !this.isLoading;
+    let fd = new FormData();
+    fd.append('file', this.bulkFile)
+
+    this.orderSvc.sendBulkFile(url, fd)
+      .subscribe({
+        error: (err: any) => {
+          Swal.fire('Oooops', err.message, 'error');
+          this.isLoading = !this.isLoading;
+        },
+        next: (resp: any) => {
+          this.isLoading = !this.isLoading;
+          this.nextBulkStep();
+        }
+      });
+  };
 }

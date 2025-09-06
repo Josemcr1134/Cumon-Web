@@ -1,0 +1,131 @@
+<div class=" overflow-hidden animate__animated animate__fadeIn   ">
+  <header class="mb-5">
+    <h1 class="lg:text-2xl text-lg font-bold tracking-tight text-secondary">Listado de Cargues Masivos</h1>
+  </header>
+
+  <div *ngIf="!isLoading" class="px-1 ">
+
+
+    <!-- Filtros - Versión desktop -->
+    <div class="block bg-secondary rounded-lg shadow-sm  p-4 mb-6">
+      <div class="grid grid-cols-1 md:grid-cols-6 gap-4 items-end">
+
+
+
+        <div class="md:col-span-2">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Estado</label>
+          <select [(ngModel)]="status"
+            class="block w-full rounded-xl bg-gray-50 px-3 py-2 text-sm border border-gray-300">
+            <option [value]="null">Todos</option>
+            <option *ngFor="let s of statusList" [value]="s.id">{{s.label}} </option>
+          </select>
+        </div>
+
+        <div class="md:col-span-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Fecha de creación (Rango) </label>
+          <div class="grid md:grid-cols-2 grid-cols-1 gap-3">
+            <input [(ngModel)]="startDate" type="date"
+              class="block w-full rounded-xl bg-gray-50 px-3 py-2 text-sm border border-gray-300">
+            <input [(ngModel)]="endDate" type="date"
+              class="block w-full rounded-xl bg-gray-50 px-3 py-2 text-sm border border-gray-300">
+          </div>
+        </div>
+        <div class="flex items-center justify-center flex-wrap md:col-span-6 gap-3">
+          <button (click)="cleanFilters()"
+            class="bg-white rounded-xl min-w-40 py-[5px] px-[10px] text-gray-600 text-sm font-medium">
+            Limpiar Filtros
+          </button>
+          <button (click)="getBulksProcess()" class="btn-primary w-auto min-w-40 rounded-xl   text-sm">
+            Filtrar
+          </button>
+          <button [routerLink]="['/coordinator-dashboard/orders/new']" routerLinkActive="router-link-active"
+            class="bg-white rounded-xl min-w-40 py-[5px] px-[10px] text-gray-600 text-sm font-medium">
+            Nuevo Servicio
+          </button>
+          <button [routerLink]="['/coordinator-dashboard/orders/list']"
+            class="btn-primary w-auto min-w-40 rounded-xl   text-sm">
+            Ver Ordenes
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8 mb-5">
+      <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+        <table class="min-w-full">
+          <thead>
+            <tr>
+              <th scope="col" class="px-3 py-3.5 text-nowrap text-center text-sm font-semibold text-[#7E8195]">Estado
+              </th>
+              <th scope="col"
+                class="py-3.5 pl-4 pr-3 text-nowrap text-center text-sm font-semibold text-[#7E8195] sm:pl-0">Total
+                Procesado
+              </th>
+              <th scope="col"
+                class="py-3.5 pl-4 pr-3 text-nowrap text-center text-sm font-semibold text-[#7E8195] sm:pl-0"> Procesado
+                Exitosamente
+              </th>
+              <th scope="col"
+                class="py-3.5 pl-4 pr-3 text-nowrap text-center text-sm font-semibold text-[#7E8195] sm:pl-0"> Procesado
+                con Errores
+              </th>
+              <th scope="col"
+                class="py-3.5 pl-4 pr-3 text-nowrap text-center text-sm font-semibold text-[#7E8195] sm:pl-0">ID Proceso
+              </th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="text-center" *ngFor="let e of Data">
+              <!-- ID Pedido -->
+              <!-- Estado -->
+              <td
+                class="whitespace-nowrap border-b-8  rounded-l-3xl border-white mb-2 bg-secondary text-center px-3 py-4 text-sm text-primary font-normal">
+                <div *ngIf="e.status == 'Completed'"
+                  class="flex items-center justify-center text-center w-full gap-2 flex-nowrap">
+                  <div class="h-2 w-2 rounded-full bg-green-600 p-2"></div>
+                  <span class="text-green-600 font-medium w-full text-center">Completado</span>
+                </div>
+                <div *ngIf="e.status == 'PendingUpload'" class="flex items-center text-center w-full gap-2 flex-nowrap">
+                  <div class="h-2 w-2 rounded-full bg-gray-600 p-2"></div>
+                  <span class="text-gray-600 font-medium w-full text-center">Pendiente por Procesar</span>
+                </div>
+                <div *ngIf="e.status == 'Processing'" class="flex items-center text-center w-full gap-2 flex-nowrap">
+                  <div class="h-2 w-2 rounded-full bg-purple-600 p-2"></div>
+                  <span class="text-purple-600 font-medium w-full text-center">Procesando</span>
+                </div>
+                <div *ngIf="e.status == 'CompletedWithErrors'"
+                  class="flex items-center text-center w-full gap-2 flex-nowrap">
+                  <div class="h-2 w-2 rounded-full bg-red-600 p-2"></div>
+                  <span class="text-red-600 font-medium w-full text-center">Completado con Errores</span>
+                </div>
+
+              </td>
+              <td
+                class="bg-secondary  pl-2 whitespace-nowrap border-b-8 border-white mb-2 text-center px-3 py-4 text-sm text-primary font-semibold">
+                {{e?.totalRows || ''}}
+              </td>
+              <td
+                class="bg-secondary  pl-2 whitespace-nowrap border-b-8 border-white mb-2 text-center px-3 py-4 text-sm text-primary font-semibold">
+                {{e?.successRows || ''}}
+              </td>
+              <td
+                class="bg-secondary  pl-2 whitespace-nowrap border-b-8 border-white mb-2 text-center px-3 py-4 text-sm text-primary font-semibold">
+                {{e?.failRows || ''}}
+              </td>
+              <td
+                class="bg-secondary rounded-r-3xl pl-2 whitespace-nowrap border-b-8 border-white mb-2 text-center px-3 py-4 text-sm text-primary font-semibold">
+                {{e.id}}
+              </td>
+
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <app-pagination [page]="page" [pageSize]="pageSize" [totalItems]="totalItems" [pageSizeOptions]="[10, 30, 50, 100]"
+      (pageChange)="onPage($event)"></app-pagination>
+  </div>
+
+  <app-loader *ngIf="isLoading"></app-loader>
+</div>

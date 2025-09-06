@@ -5,22 +5,23 @@
       <div class="flex justify-between relative">
         <div class="absolute top-1/2 left-0 right-0 h-1 bg-gray-200 -translate-y-1/2"></div>
         <div class="absolute top-1/2 left-0 h-1 bg-primary -translate-y-1/2 transition-all duration-300"
-             [style.width]="(bulkCurrentStep - 1) * 50 + '%'"></div>
+          [style.width]="(bulkCurrentStep - 1) * 50 + '%'"></div>
 
-        <div *ngFor="let step of bulkSteps; let i = index"
-             class="relative z-10 flex flex-col items-center">
-          <div class="w-8 h-8 rounded-full flex items-center justify-center transition-all"
-               [ngClass]="{
+        <div *ngFor="let step of bulkSteps; let i = index" class="relative z-10 flex flex-col items-center">
+          <div class="w-8 h-8 rounded-full flex items-center justify-center transition-all" [ngClass]="{
                  'bg-primary text-white': bulkCurrentStep > i + 1,
                  'bg-white border-2 border-gray-300 text-gray-400': bulkCurrentStep <= i + 1,
                  'bg-white border-2 border-primary text-primary': bulkCurrentStep === i + 1
                }">
             <span *ngIf="bulkCurrentStep <= i + 1">{{ i + 1 }}</span>
-            <svg *ngIf="bulkCurrentStep > i + 1" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+            <svg *ngIf="bulkCurrentStep > i + 1" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
+              fill="currentColor">
+              <path fill-rule="evenodd"
+                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                clip-rule="evenodd" />
             </svg>
           </div>
-          <span   [ngClass]="{
+          <span [ngClass]="{
                  'text-secondary': bulkCurrentStep > i + 1,
                  'text-primary': bulkCurrentStep <= i + 1,
                }" class="text-xs mt-2 text-center">{{ step }}</span>
@@ -29,26 +30,32 @@
     </div>
 
     <!-- Contenido del stepper -->
-    <div class="bg-white rounded-lg shadow-md p-6">
+    <div *ngIf="!isLoading" class="bg-white rounded-lg shadow-md p-6">
       <!-- Paso 1: Subir archivo -->
       <div *ngIf="bulkCurrentStep === 1" class="animate__animated animate__fadeIn">
         <h2 class="text-2xl font-bold text-primary mb-6">Carga Masiva de Servicios</h2>
 
         <div class="border-2 border-dashed border-primary rounded-lg p-8 text-center bg-primary bg-opacity-5 mb-6">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto text-primary mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto text-primary mb-4" fill="none"
+            viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
           </svg>
           <p class="text-gray-600 mb-4">Sube tu archivo Excel con los servicios a programar</p>
 
-          <input type="file" id="excelUpload" accept=".xlsx, .xls, .csv" class="hidden" (change)="handleFileUpload($event)">
+          <input type="file" id="excelUpload" accept=".xlsx, .xls, .csv" class="hidden"
+            (change)="handleFileUpload($event)">
           <label for="excelUpload" class="btn-primary rounded-lg px-6 py-2 inline-flex items-center cursor-pointer">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
             Seleccionar archivo
           </label>
 
           <p class="text-xs text-gray-500 mt-3">Formatos aceptados: .xlsx, .xls, .csv</p>
+          <p *ngIf="bulkFile !== null" class="text-sm text-gray-500 mt-3">Archivo seleccionado: {{bulkFile.name}}</p>
         </div>
 
         <!-- Vista previa de datos -->
@@ -73,7 +80,7 @@
               </thead>
               <tbody class="bg-white divide-y divide-gray-200">
                 <tr *ngFor="let e of bulkServices.slice(0, 5)">
-                           <!-- ID Pedido -->
+                  <!-- ID Pedido -->
                   <td class="px-4 py-2 text-sm text-gray-600">
                     {{e.idPedido}}
                   </td>
@@ -145,30 +152,35 @@
         <!-- Plantilla de ejemplo -->
         <div class="bg-secondary rounded-lg p-4">
           <h3 class="font-semibold text-primary mb-2">¿Necesitas la plantilla?</h3>
-          <p class="text-sm text-gray-600 mb-3">Descarga nuestro formato estándar para asegurar que tu archivo sea procesado correctamente.</p>
-          <button class="text-primary font-medium flex items-center text-sm"
-                  (click)="downloadTemplate()">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+          <p class="text-sm text-gray-600 mb-3">Descarga nuestro formato estándar para asegurar que tu archivo sea
+            procesado correctamente.</p>
+          <button class="text-primary font-medium flex items-center text-sm" (click)="downloadTemplate()">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
             </svg>
             Descargar plantilla Excel
           </button>
         </div>
 
         <div class="flex justify-between mt-8">
-          <button class="text-primary font-medium px-4 py-2 rounded-lg hover:bg-primary hover:bg-opacity-10 transition-all"
-                  (click)="cancelBulkProcess()">
+          <button
+            class="text-primary font-medium px-4 py-2 rounded-lg hover:bg-primary hover:bg-opacity-10 transition-all"
+            (click)="cancelBulkProcess()">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline mr-1" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+              <path fill-rule="evenodd"
+                d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
+                clip-rule="evenodd" />
             </svg>
             Cancelar
           </button>
-          <button class="btn-primary rounded-lg px-6 py-2 disabled:opacity-50"
-                  [disabled]="bulkServices.length === 0"
-                  (click)="nextBulkStep()">
+          <button class="btn-primary rounded-lg px-6 py-2 disabled:opacity-50" (click)="startBulkProcess()">
             Confirmar
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline ml-1" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+              <path fill-rule="evenodd"
+                d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
+                clip-rule="evenodd" />
             </svg>
           </button>
         </div>
@@ -178,7 +190,8 @@
       <!-- Paso 3: Confirmación -->
       <div *ngIf="bulkCurrentStep === 2" class="animate__animated animate__fadeIn text-center">
         <div class="bg-green-100 rounded-full p-4 inline-block mb-4">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-green-600" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
           </svg>
         </div>
@@ -207,11 +220,11 @@
           </ul>
         </div>
 
-        <button class="btn-primary rounded-lg px-6 py-3"
-                (click)="finishBulkProcess()">
+        <button class="btn-primary rounded-lg px-6 py-3" (click)="finishBulkProcess()">
           Finalizar
         </button>
       </div>
     </div>
+    <app-loader *ngIf="isLoading"></app-loader>
   </div>
 </div>

@@ -3,21 +3,25 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path:'list',
-    loadComponent: () => import('../../coordinator-dashboard/orders/list/list.component').then( l => l.ListComponent)
+    path: 'list',
+    loadComponent: () => import('../../coordinator-dashboard/orders/list/list.component').then(l => l.ListComponent)
   },
   {
-    path:'new',
-    loadComponent: () => import('../../coordinator-dashboard/orders/new/new.component').then( l => l.NewComponent)
+    path: 'list-bulks',
+    loadComponent: () => import('../../coordinator-dashboard/orders/list-bulks-process/list-bulks-process.component').then(l => l.ListBulksProcessComponent)
   },
   {
-    path:'bulk',
-    loadComponent: () => import('../../coordinator-dashboard/orders/bulk-upload/bulk-upload.component').then( l => l.BulkUploadComponent)
+    path: 'new',
+    loadComponent: () => import('../../coordinator-dashboard/orders/new/new.component').then(l => l.NewComponent)
   },
   {
-    path:'**',
-    redirectTo:'list',
-    pathMatch:'full'
+    path: 'bulk',
+    loadComponent: () => import('../../coordinator-dashboard/orders/bulk-upload/bulk-upload.component').then(l => l.BulkUploadComponent)
+  },
+  {
+    path: '**',
+    redirectTo: 'list',
+    pathMatch: 'full'
   }
 ];
 @NgModule({

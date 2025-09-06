@@ -82,7 +82,7 @@
               class="block w-full rounded-xl bg-gray-50 px-3 py-2 text-sm border border-gray-300">
           </div>
         </div>
-        <div class="flex items-center justify-center md:col-span-6 gap-3">
+        <div class="flex items-center justify-center flex-wrap md:col-span-6 gap-3">
           <button (click)="cleanFilters()"
             class="bg-white rounded-xl min-w-40 py-[5px] px-[10px] text-gray-600 text-sm font-medium">
             Limpiar Filtros
@@ -94,7 +94,10 @@
             class="bg-white rounded-xl min-w-40 py-[5px] px-[10px] text-gray-600 text-sm font-medium">
             Nuevo Servicio
           </button>
-
+          <button [routerLink]="['/coordinator-dashboard/orders/list-bulks']"
+            class="btn-primary w-auto min-w-40 rounded-xl   text-sm">
+            Ver Cargues Masivos
+          </button>
         </div>
       </div>
     </div>
