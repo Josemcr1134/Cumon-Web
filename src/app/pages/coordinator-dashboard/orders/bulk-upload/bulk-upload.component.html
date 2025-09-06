@@ -197,15 +197,12 @@
         </div>
 
         <h2 class="text-2xl font-bold text-primary mb-2">¡Carga masiva completada!</h2>
-        <p class="text-gray-600 mb-6">Hemos recibido tus {{ bulkServices.length }} servicios correctamente.</p>
+        <p class="text-gray-600 mb-6">Hemos recibido tus servicios correctamente.</p>
 
         <div class="bg-white rounded-lg shadow-sm border p-6 mb-6 text-left">
           <h3 class="font-semibold text-primary mb-3">Resumen de transacción</h3>
           <div class="space-y-2">
-            <div class="flex justify-between">
-              <span class="text-gray-600">Referencia:</span>
-              <span class="font-mono font-medium">CM-{{ bulkReference }}</span>
-            </div>
+
             <div class="flex justify-between">
               <span class="text-gray-600">Fecha y hora:</span>
               <span class="font-medium">{{ transactionDate | date:'medium' }}</span>

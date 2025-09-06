@@ -203,7 +203,7 @@ export class BulkUploadComponent {
     let fd = new FormData();
     fd.append('file', this.bulkFile)
 
-    this.orderSvc.sendBulkFile(url, fd)
+    this.orderSvc.sendBulkFile(url, this.bulkFile)
       .subscribe({
         error: (err: any) => {
           Swal.fire('Oooops', err.message, 'error');
@@ -212,6 +212,22 @@ export class BulkUploadComponent {
         next: (resp: any) => {
           this.isLoading = !this.isLoading;
           this.nextBulkStep();
+          setTimeout(() => {
+            this.router.navigateByUrl('/coordinator-dashboard/orders/list-bulks')
+          }, 3000);
+          this.getBulksResults();
+        }
+      });
+  };
+
+  getBulksResults() {
+    this.orderSvc.getBulksResults(this.processId)
+      .subscribe({
+        error: (err: any) => {
+          console.log(err);
+        },
+        next: (resp: any) => {
+          console.log(resp)
         }
       });
   };

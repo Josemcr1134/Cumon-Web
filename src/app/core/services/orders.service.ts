@@ -1,12 +1,19 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpHeaders, HttpParams, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrdersService {
-
+  public get bulkHeaders() {
+    return {
+      headers: {
+        'Content-type': 'text/csv'
+      }
+    }
+  };
   constructor(private http: HttpClient, private authSvc: AuthService) { }
 
   getOrders(data: {}) {
@@ -38,12 +45,23 @@ export class OrdersService {
   };
 
 
-  sendBulkFile(url: string, data: FormData) {
-    return this.http.put(url, data, this.authSvc.header);
-  };
+
+  sendBulkFile(presignedUrl: string, file: File): Observable<HttpEvent<any>> {
+    // Importante: el Content-Type debe coincidir con el que se usó al firmar (text/csv)
+    const headers = new HttpHeaders({ 'Content-Type': 'text/csv' });
+
+    // Usamos HttpRequest para poder trackear progreso
+    const req = new HttpRequest('PUT', presignedUrl, file, {
+      headers,
+      reportProgress: true,
+      responseType: 'text'  // S3 suele responder sin JSON
+    });
+
+    return this.http.request(req);
+  }
 
   getBulksResults(id: any) {
-    const url = `${this.authSvc.baseUrl}/bulk_orders/request_order_id=${id}`;
+    const url = `${this.authSvc.baseUrl}/bulk_order?request_order_id=${id}`;
     return this.http.get(url, this.authSvc.header);
   };
 
