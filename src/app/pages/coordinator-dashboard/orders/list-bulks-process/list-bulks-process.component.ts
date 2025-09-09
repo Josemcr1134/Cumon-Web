@@ -62,7 +62,6 @@ export class ListBulksProcessComponent implements OnInit {
           this.isLoading = !this.isLoading;
         },
         next: (resp: any) => {
-          console.log(resp)
           this.totalItems = resp.data.rowCount;
           this.Data = resp.data.results;
           this.isLoading = !this.isLoading;
@@ -70,6 +69,24 @@ export class ListBulksProcessComponent implements OnInit {
       });
   };
 
+  getBulkDetail(id: string, isSuccess: boolean) {
+    this.isLoading = !this.isLoading;
+    this.orderSvc.getBulkProcessDetail(id)
+      .subscribe({
+        error: (err: any) => {
+          console.log(err);
+          this.isLoading = !this.isLoading;
+        },
+        next: (resp: any) => {
+          this.isLoading = !this.isLoading;
+          if (isSuccess) {
+            window.open(resp.data.successUrl, '_blank');
+          } else {
+            window.open(resp.data.errorsUrl, '_blank');
+          }
+        }
+      });
+  };
 
 
   cleanFilters() {

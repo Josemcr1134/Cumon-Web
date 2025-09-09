@@ -212,23 +212,9 @@ export class BulkUploadComponent {
         next: (resp: any) => {
           this.isLoading = !this.isLoading;
           this.nextBulkStep();
-          setTimeout(() => {
-            this.router.navigateByUrl('/coordinator-dashboard/orders/list-bulks')
-          }, 3000);
-          this.getBulksResults();
         }
       });
   };
 
-  getBulksResults() {
-    this.orderSvc.getBulksResults(this.processId)
-      .subscribe({
-        error: (err: any) => {
-          console.log(err);
-        },
-        next: (resp: any) => {
-          console.log(resp)
-        }
-      });
-  };
+
 }

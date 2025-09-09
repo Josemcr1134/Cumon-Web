@@ -58,10 +58,15 @@ export class OrdersService {
     });
 
     return this.http.request(req);
-  }
+  };
 
   getBulksResults(id: any) {
     const url = `${this.authSvc.baseUrl}/bulk_order?request_order_id=${id}`;
+    return this.http.get(url, this.authSvc.header);
+  };
+
+  getBulkProcessDetail(id: string) {
+    const url = `${this.authSvc.baseUrl}/bulk-uploads/report/${id}`;
     return this.http.get(url, this.authSvc.header);
   };
 

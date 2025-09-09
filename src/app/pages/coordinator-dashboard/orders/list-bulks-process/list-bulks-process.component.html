@@ -98,6 +98,10 @@
                   <div class="h-2 w-2 rounded-full bg-red-600 p-2"></div>
                   <span class="text-red-600 font-medium w-full text-center">Completado con Errores</span>
                 </div>
+                <div *ngIf="e.status == 'Failed'" class="flex items-center text-center w-full gap-2 flex-nowrap">
+                  <div class="h-2 w-2 rounded-full bg-red-600 p-2"></div>
+                  <span class="text-red-600 font-medium w-full text-center">Fallido</span>
+                </div>
 
               </td>
               <td
@@ -106,16 +110,23 @@
               </td>
               <td
                 class="bg-secondary  pl-2 whitespace-nowrap border-b-8 border-white mb-2 text-center px-3 py-4 text-sm text-primary font-semibold">
-                {{e?.successRows || ''}}
+                <button *ngIf="e?.successRows" class="hover:text-blue-700 cursor-pointer" type="button"
+                  (click)="getBulkDetail(e.id, true)">
+                  {{e?.successRows || ''}}
+                </button>
               </td>
               <td
                 class="bg-secondary  pl-2 whitespace-nowrap border-b-8 border-white mb-2 text-center px-3 py-4 text-sm text-primary font-semibold">
-                {{e?.failRows || ''}}
+                <button *ngIf="e?.failRows" class="hover:text-blue-700 cursor-pointer"
+                  (click)="getBulkDetail(e.id, false)">
+                  {{e?.failRows || ''}}
+                </button>
               </td>
               <td
-                class="bg-secondary rounded-r-3xl pl-2 whitespace-nowrap border-b-8 border-white mb-2 text-center px-3 py-4 text-sm text-primary font-semibold">
+                class="bg-secondary rounded-r-3xl  pl-2 whitespace-nowrap border-b-8 border-white mb-2 text-center px-3 py-4 text-sm text-primary font-semibold">
                 {{e.id}}
               </td>
+
 
 
             </tr>

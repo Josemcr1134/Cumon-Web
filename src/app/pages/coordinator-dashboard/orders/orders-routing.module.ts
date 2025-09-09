@@ -18,6 +18,7 @@ const routes: Routes = [
     path: 'bulk',
     loadComponent: () => import('../../coordinator-dashboard/orders/bulk-upload/bulk-upload.component').then(l => l.BulkUploadComponent)
   },
+
   {
     path: '**',
     redirectTo: 'list',
