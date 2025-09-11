@@ -2,14 +2,18 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { OrdersService } from '../../../../core/services/orders.service';
+import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
+import { LoaderComponent } from '../../../../shared/loader/loader.component';
+import { UsersService } from '../../../../core/services/users.service';
 
 /**
  * Interface representing a user for activity logs
  */
 interface UsuarioLog {
   id: number;
-  nombre: string;
-  role: 'administrador' | 'coordinador' | 'mensajero' | 'soporte';
+  name: string;
+  roleId: 1 | 2 | 3 | 4;
 }
 
 /**
@@ -25,17 +29,12 @@ interface PedidoVinculado {
  */
 interface LogActividad {
   id: number;
-  usuario: UsuarioLog;
-  accion: 'creación' | 'modificación' | 'eliminación' | 'cambio_estado' | 'login' | 'logout';
-  entidadAfectada: 'pedido' | 'usuario' | 'repartidor' | 'vehículo' | 'configuración';
-  idEntidadAfectada?: number;
-  estadoAnterior?: string;
-  estadoNuevo?: string;
-  fechaHora: Date;
-  observaciones?: string;
-  pedidoVinculado?: PedidoVinculado;
-  ipOrigen: string;
-  dispositivo: string;
+  user: UsuarioLog;
+  orderId?: number;
+  fromStatus?: string;
+  toStatus?: string;
+  createDate: Date;
+  observation?: string;
 }
 
 /**
@@ -64,7 +63,9 @@ interface LogActividad {
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    PaginationComponent,
+    LoaderComponent
   ]
 })
 export class ListComponent {
@@ -84,100 +85,13 @@ export class ListComponent {
    * Sample user data for log entries
    * @type {UsuarioLog[]}
    */
-  users: UsuarioLog[] = [
-    { id: 1, nombre: 'Dra. María Fernanda López', role: 'administrador' },
-    { id: 2, nombre: 'Dr. Carlos Andrés Mendoza', role: 'coordinador' },
-    { id: 3, nombre: 'Lic. Ana María Rodríguez', role: 'administrador' },
-    { id: 4, nombre: 'Enf. Javier Eduardo Gómez', role: 'coordinador' },
-    { id: 5, nombre: 'Dr. Luis Fernando Ramírez', role: 'coordinador' }
-  ];
+  users: UsuarioLog[] = [];
 
   /**
    * Sample activity log data
    * @type {LogActividad[]}
    */
-  logs: LogActividad[] = [
-   {
-      id: 1,
-      usuario: this.users[0],
-      accion: 'cambio_estado',
-      entidadAfectada: 'pedido',
-      idEntidadAfectada: 1258,
-      estadoAnterior: 'pendiente',
-      estadoNuevo: 'asignado',
-      fechaHora: new Date('2023-06-15T09:30:45'),
-      observaciones: 'Reasignación por falla técnica del repartidor original',
-      pedidoVinculado: { id: 1258, codigo: 'PED-2023-1258' },
-      ipOrigen: '192.168.1.45',
-      dispositivo: 'Windows 10 - Chrome'
-    },
-    {
-      id: 2,
-      usuario: this.users[2],
-      accion: 'modificación',
-      entidadAfectada: 'repartidor',
-      idEntidadAfectada: 42,
-      fechaHora: new Date('2023-06-15T10:15:22'),
-      observaciones: 'Actualización de datos vehiculares',
-      ipOrigen: '10.0.0.123',
-      dispositivo: 'macOS - Safari'
-    },
-    {
-      id: 3,
-      usuario: this.users[1],
-      accion: 'creación',
-      entidadAfectada: 'pedido',
-      idEntidadAfectada: 1259,
-      fechaHora: new Date('2023-06-15T11:05:18'),
-      pedidoVinculado: { id: 1259, codigo: 'PED-2023-1259' },
-      ipOrigen: '172.16.32.10',
-      dispositivo: 'Android - App móvil'
-    },
-    {
-      id: 4,
-      usuario: this.users[0],
-      accion: 'cambio_estado',
-      entidadAfectada: 'usuario',
-      idEntidadAfectada: 9,
-      estadoAnterior: 'pendiente',
-      estadoNuevo: 'activo',
-      fechaHora: new Date('2023-06-15T14:30:00'),
-      observaciones: 'Aprobación de nuevo usuario después de verificación',
-      ipOrigen: '192.168.1.100',
-      dispositivo: 'Windows 11 - Edge'
-    },
-    {
-      id: 5,
-      usuario: this.users[0],
-      accion: 'login',
-      entidadAfectada: 'usuario',
-      idEntidadAfectada: 1,
-      fechaHora: new Date('2023-06-15T08:05:12'),
-      ipOrigen: '192.168.1.45',
-      dispositivo: 'Windows 10 - Chrome'
-    },
-    {
-      id: 6,
-      usuario: this.users[3],
-      accion: 'eliminación',
-      entidadAfectada: 'vehículo',
-      idEntidadAfectada: 15,
-      fechaHora: new Date('2023-06-14T16:20:33'),
-      observaciones: 'Vehículo dado de baja por siniestro',
-      ipOrigen: '10.0.1.22',
-      dispositivo: 'Windows 10 - Firefox'
-    },
-    {
-      id: 7,
-      usuario: this.users[4],
-      accion: 'modificación',
-      entidadAfectada: 'configuración',
-      fechaHora: new Date('2023-06-14T17:45:10'),
-      observaciones: 'Actualización de parámetros del sistema',
-      ipOrigen: '192.168.1.75',
-      dispositivo: 'Linux - Chrome'
-    }
-  ];
+  logs: LogActividad[] = [];
 
   // Filter properties
   /**
@@ -187,12 +101,20 @@ export class ListComponent {
    */
   userFilter: number | null = null;
 
+  searchUser: string = '';
+
   /**
    * Currently selected action type filter
    * @type {string | null}
    * @default null
    */
   actionFilter: string | null = null;
+  /**
+   * Currently selected order number type filter
+   * @type {string | null}
+   * @default null
+   */
+  orderFilter: string | null = null;
 
   /**
    * Start date for date range filter
@@ -222,6 +144,12 @@ export class ListComponent {
    * @default 10
    */
   itemsPerPage = 10;
+  /**
+   * Number of items
+   * @type {number}
+   * @default 10
+   */
+  totalItems = 0;
 
   /**
    * Filtered log entries based on current filters
@@ -236,13 +164,15 @@ export class ListComponent {
    */
   selectedLog: LogActividad | null = null;
 
+  public isLoading: boolean = false;
   /**
    * Component constructor
    * @description
    * Initializes component and applies default filters
    */
-  constructor() {
+  constructor(private orderSvc: OrdersService, private usersSvc: UsersService) {
     this.applyFilters();
+    this.getUsers()
   }
 
   /**
@@ -256,38 +186,24 @@ export class ListComponent {
    * Resets pagination to first page after filtering
    */
   applyFilters(): void {
-    this.filteredLogs = this.logs.filter(log => {
-      // Filter by user
-      if (this.userFilter && log.usuario.id !== this.userFilter) {
-        return false;
-      }
-
-      // Filter by action type
-      if (this.actionFilter && log.accion !== this.actionFilter) {
-        return false;
-      }
-
-      // Filter by start date
-      if (this.dateFrom) {
-        const fromDate = new Date(this.dateFrom);
-        if (log.fechaHora < fromDate) {
-          return false;
+    this.isLoading = true;
+    this.orderSvc.getOrderHistory(this.currentPage, this.itemsPerPage, this.dateFrom, this.dateTo, this.userFilter, this.orderFilter,)
+      .subscribe({
+        error: (err: any) => {
+          this.isLoading = false;
+          console.error('Error fetching order history', err);
+        },
+        next: (res: any) => {
+          this.isLoading = false;
+          console.log('Order history fetched', res);
+          this.logs = res.data.results;
+          this.totalItems = res.data.rowCount;
+        },
+        complete: () => {
+          this.isLoading = false;
+          console.log('Order history fetch complete');
         }
-      }
-
-      // Filter by end date
-      if (this.dateTo) {
-        const toDate = new Date(this.dateTo);
-        toDate.setDate(toDate.getDate() + 1); // Include entire selected day
-        if (log.fechaHora >= toDate) {
-          return false;
-        }
-      }
-
-      return true;
-    });
-
-    this.currentPage = 1;
+      })
   }
 
   /**
@@ -322,43 +238,25 @@ export class ListComponent {
     this.selectedLog = log;
   }
 
-  /**
-   * Gets paginated log entries for current page
-   * @readonly
-   * @returns {LogActividad[]} Log entries for current page
-   */
-  get paginatedLogs(): LogActividad[] {
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    return this.filteredLogs.slice(startIndex, startIndex + this.itemsPerPage);
-  }
 
-  /**
-   * Navigates to next page of log entries
-   * @method
-   */
-  nextPage(): void {
-    if (this.currentPage * this.itemsPerPage < this.filteredLogs.length) {
-      this.currentPage++;
-    }
-  }
+  onPage(p: number) {
+    if (p === this.currentPage) return;
+    this.currentPage = p;
+    this.applyFilters();
+  };
 
-  /**
-   * Navigates to previous page of log entries
-   * @method
-   */
-  previousPage(): void {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-    }
-  }
+  getUsers() {
+    this.isLoading = true;
+    this.usersSvc.getUsers(1, 30, null, this.searchUser, '').subscribe({
+      next: (res: any) => {
+        this.isLoading = false;
+        this.users = res.data.results;
+      },
+      error: (err: any) => {
+        this.isLoading = false;
+        console.error('Error fetching users', err);
+      },
 
-  /**
-   * Formats action text for display
-   * @method
-   * @param action Action type to format
-   * @returns {string} Formatted action text
-   */
-  getActionText(action: string): string {
-    return action.replace('_', ' ');
+    })
   }
 }

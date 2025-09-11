@@ -109,8 +109,8 @@ export class BulkUploadComponent {
    */
   downloadTemplate(): void {
     const link = document.createElement('a');
-    link.href = '/assets/templates/cumon-plantilla-servicios.xlsx';
-    link.download = 'cumon-plantilla-servicios.xlsx';
+    link.href = '/assets/templates/bulk_template.csv';
+    link.download = 'cumon-plantilla-servicios.csv';
     link.click();
 
     Swal.fire({

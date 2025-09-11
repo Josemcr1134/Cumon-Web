@@ -92,4 +92,31 @@ export class OrdersService {
     const url = `${this.authSvc.baseUrl}/bulk-uploads/read`;
     return this.http.get(url, { headers: this.authSvc.header.headers, params });
   };
+  getOrderHistory(page: number, pageSize: number, startDate: string | null, endDate: string | null, userId: number | null, search: string | null) {
+    let params = new HttpParams();
+    if (page) {
+      params = params.set('page', page);
+    }
+    if (pageSize) {
+      params = params.set('pageSize', pageSize);
+    }
+
+    if (startDate) {
+      params = params.set('startDate', startDate);
+    }
+    if (endDate) {
+      params = params.set('endDate', endDate);
+    }
+    if (userId !== null) {
+      params = params.set('userId', userId);
+    }
+    if (search !== null) {
+      params = params.set('search', search);
+    }
+
+    const url = `${this.authSvc.baseUrl}/order-history/read`;
+    return this.http.get(url, { headers: this.authSvc.header.headers, params });
+  };
+
+
 }

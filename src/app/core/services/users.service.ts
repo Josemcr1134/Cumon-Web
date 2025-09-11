@@ -10,7 +10,7 @@ export class UsersService {
   constructor(private http: HttpClient, private authSvc: AuthService) { }
 
   // USERS CRUD OPERATIONS
-  getUsers(page: number, pageSize: number, role: number, search: string, status: string) {
+  getUsers(page: number, pageSize: number, role: number | null, search: string, status: string) {
     let params = new HttpParams();
     if (page) {
       params = params.set('page', page);
