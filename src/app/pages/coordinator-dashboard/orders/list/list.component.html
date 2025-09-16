@@ -239,8 +239,8 @@
                 </div>
 
                 <div *ngIf="e.status == 'Delivered'" class="flex items-center gap-2 flex-nowrap">
-                  <button class="btn-tertiary ml-4 rounded-md px-6 py-2 flex items-center" [disabled]="!e.pdf">
-                    Ver PDF
+                  <button (click)="showEvidences(e)" class="btn-tertiary ml-4 rounded-md px-6 py-2 flex items-center">
+                    Ver Evidencias
                   </button>
                 </div>
               </td>
@@ -284,54 +284,5 @@
 
 
 <!-- Modal de evidencias -->
-<div *ngIf="evidenciasModalVisible"
-  class="fixed inset-0 bg-black/50 bg-opacity-50 flex items-center justify-center z-50 p-4">
-  <div class="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-    <div class="p-6">
-      <div class="flex justify-between items-center mb-4">
-        <h3 class="text-xl font-bold">Evidencias de entrega</h3>
-        <button (click)="cerrarEvidencias()" class="text-gray-500 hover:text-gray-700">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div *ngFor="let evidencia of evidenciasSeleccionadas" class="border rounded-lg overflow-hidden">
-          <div class="p-3 bg-gray-50 border-b">
-            <h4 class="font-medium capitalize">{{evidencia.tipo}}</h4>
-            <p class="text-sm text-gray-500">{{evidencia.fechaHora | date:'medium'}}</p>
-            <p *ngIf="evidencia.descripcion" class="text-sm mt-1">{{evidencia.descripcion}}</p>
-          </div>
-
-          <div class="p-4 flex justify-center">
-            <img *ngIf="evidencia.tipo === 'foto'" [src]="evidencia.url" alt="Evidencia de entrega"
-              class="max-h-64 object-contain">
-
-            <div *ngIf="evidencia.tipo === 'firma'" class="bg-white p-4 border rounded">
-              <img [src]="evidencia.url" alt="Firma de recibido" class="h-32 object-contain">
-              <p class="text-center mt-2 text-sm">Firma del destinatario</p>
-            </div>
-
-            <div *ngIf="evidencia.tipo === 'documento'" class="text-center p-4">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto text-blue-500" fill="none"
-                viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
-              <a [href]="evidencia.url" target="_blank" class="text-blue-600 hover:underline mt-2 inline-block">Ver
-                documento</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="mt-4 flex justify-end">
-        <button (click)="cerrarEvidencias()" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
-          Cerrar
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
+<app-evidences-modal (close)="closeEvidencesModal($event)" *ngIf="showEvidencesModal"
+  [orderId]="orderSelected"></app-evidences-modal>

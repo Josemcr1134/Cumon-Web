@@ -7,8 +7,8 @@ import { LoaderComponent } from '../../../../shared/loader/loader.component';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { UsersService } from '../../../../core/services/users.service';
 import { ZoneService } from '../../../../core/services/zone.services';
-import Swal from 'sweetalert2';
 import { AssignDeliveryComponent } from '../assign-delivery/assign-delivery.component';
+import { EvidencesModalComponent } from '../evidences-modal/evidences-modal.component';
 
 /**
  * Component for managing and displaying shipping orders
@@ -34,7 +34,8 @@ import { AssignDeliveryComponent } from '../assign-delivery/assign-delivery.comp
     RouterModule,
     LoaderComponent,
     PaginationComponent,
-    AssignDeliveryComponent
+    AssignDeliveryComponent,
+    EvidencesModalComponent
   ],
   templateUrl: './list.component.html',
   styleUrl: './list.component.css'
@@ -132,14 +133,14 @@ export class ListComponent implements OnInit {
    * @type {boolean}
    * @default false
    */
-  evidenciasModalVisible = false;
+  showEvidencesModal = false;
 
   /**
    * Evidence items to display in modal
    * @type {Array}
    * @default []
    */
-  evidenciasSeleccionadas: any[] = [];
+  selectedOrder: any[] = [];
 
   /**
    * Detailed view of a courier
@@ -171,27 +172,27 @@ export class ListComponent implements OnInit {
   public zones: any[] = [];
   public statusList: any[] = [
     {
-      id: 1,
+      id: 'PendingDriverAssignment',
       label: 'Pendiente de asignación'
     },
     {
-      id: 2,
+      id: 'DriverAssigned',
       label: 'Conductor Asignado'
     },
     {
-      id: 3,
+      id: 'InTransit',
       label: 'En Curso'
     },
     {
-      id: 4,
+      id: 'Delivered',
       label: 'Entregado'
     },
     {
-      id: 5,
+      id: 'Cancelled',
       label: 'Cancelado'
     },
     {
-      id: 6,
+      id: 'FailedDelivery',
       label: 'Entrega Fallída'
     },
   ];
@@ -281,20 +282,15 @@ export class ListComponent implements OnInit {
    * @method
    * @param envio Order containing evidence to display
    */
-  mostrarEvidencias(envio: any) {
-    if (envio.estado === 'Entregada' && envio.evidencias) {
-      this.evidenciasSeleccionadas = envio.evidencias;
-      this.evidenciasModalVisible = true;
-    }
+  showEvidences(order: any) {
+    console.log(order)
+    this.orderSelected = order.id;
+    this.showEvidencesModal = true;
   }
 
-  /**
-   * Closes evidence modal
-   * @method
-   */
-  cerrarEvidencias() {
-    this.evidenciasModalVisible = false;
-    this.evidenciasSeleccionadas = [];
+  closeEvidencesModal(event: boolean) {
+    this.orderSelected = null;
+    this.showEvidencesModal = false;
   }
 
   /**

@@ -92,6 +92,7 @@ export class OrdersService {
     const url = `${this.authSvc.baseUrl}/bulk-uploads/read`;
     return this.http.get(url, { headers: this.authSvc.header.headers, params });
   };
+
   getOrderHistory(page: number, pageSize: number, startDate: string | null, endDate: string | null, userId: number | null, search: string | null) {
     let params = new HttpParams();
     if (page) {
@@ -118,5 +119,10 @@ export class OrdersService {
     return this.http.get(url, { headers: this.authSvc.header.headers, params });
   };
 
+
+  getOrderEvidences(orderId: number) {
+    const url = `${this.authSvc.baseUrl}/order/time-line/${orderId} `;
+    return this.http.get(url, this.authSvc.header);
+  };
 
 }
